@@ -2,11 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const categoryRoutes = require('./routes/category');
+
 const app = express();
 
 app.use(cors());
 
 app.use(express.json());
+
+//routes
+app.use('/api/category', categoryRoutes);
 
 const moongoUri = 'mongodb://localhost:27017/Pawsitive-Home';
 
