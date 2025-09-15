@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 const categoryRoutes = require('./routes/category');
 const petRoutes = require('./routes/pet');
 const adoptionRoutes = require('./routes/adoption');
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -19,6 +23,8 @@ app.use(morgan('tiny'));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 //routes
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/pets', petRoutes);
 app.use('/api/adoption', adoptionRoutes);
