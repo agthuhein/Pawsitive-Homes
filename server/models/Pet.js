@@ -4,23 +4,23 @@ const PetSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     age: {
       type: String,
-      require: true,
+      required: true,
     },
     color: {
       type: String,
-      require: true,
+      required: true,
     },
     description: {
       type: String,
-      require: true,
+      required: true,
     },
     breed: {
       type: String,
-      require: true,
+      required: true,
     },
     image: {
       type: String,

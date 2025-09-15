@@ -6,6 +6,7 @@ const morgan = require('morgan');
 
 const categoryRoutes = require('./routes/category');
 const petRoutes = require('./routes/pet');
+const adoptionRoutes = require('./routes/adoption');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 //routes
 app.use('/api/category', categoryRoutes);
 app.use('/api/pets', petRoutes);
+app.use('/api/adoption', adoptionRoutes);
 
 const moongoUri = 'mongodb://localhost:27017/Pawsitive-Home';
 
