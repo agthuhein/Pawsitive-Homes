@@ -11,6 +11,7 @@ const petRoutes = require('./routes/pet');
 const adoptionRoutes = require('./routes/adoption');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/pets', petRoutes);
 app.use('/api/adoption', adoptionRoutes);
+
+app.use('/api/admin', adminRoutes);
 
 const moongoUri = 'mongodb://localhost:27017/Pawsitive-Home';
 

@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,9 +19,22 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      //setAlert('Password do not match', 'danger');
+      alert('Password do not match');
     } else {
-      //register({ name, email, password });
+      try {
+        //register({ name, email, password });
+        const res = await axios.post('api/auth/register', {
+          name,
+          email,
+          password,
+        });
+        console.log('Register response:', res.data);
+        localStorage.setItem('token', res.data.token);
+        navigate('/');
+      } catch (err) {
+        console.error('Register error:', err.response?.data || err.message);
+        alert(err.response?.data?.msg || 'Registration failed');
+      }
     }
   };
 
