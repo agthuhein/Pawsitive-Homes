@@ -7,16 +7,20 @@ import { useSelector, useDispatch } from 'react-redux';
 const Navbar = () => {
   return (
     <header>
-      <h1>Pawsitive Home</h1>
+      <h1>
+        <Link to='/' style={{ all: 'unset', cursor: 'pointer' }}>
+          Pawsitive Home
+        </Link>
+      </h1>
       <nav id='nav-menu'>
-        <a href='login.html' class='login'>
+        <Link to='/login' className='login'>
           Log in
-        </a>
-        <a href='register.html' class='signup'>
+        </Link>
+        <Link to='/register' className='signup'>
           Sign up
-        </a>
+        </Link>
       </nav>
-      <button class='hamburger' id='hamburger'>
+      <button className='hamburger' id='hamburger'>
         ☰
       </button>
     </header>
