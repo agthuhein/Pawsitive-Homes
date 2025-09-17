@@ -22,6 +22,10 @@ const PetSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    gender: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
     },
@@ -33,9 +37,20 @@ const PetSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    traits: [
+      {
+        key: { type: String },
+        value: { type: Boolean },
+      },
+    ],
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
+    },
+    status: {
+      type: String,
+      enum: ['available', 'adopted', 'pending'],
+      default: 'available',
     },
   },
   {

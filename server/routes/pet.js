@@ -3,11 +3,13 @@ const petController = require('../controllers/petController');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 //uuid
 
 const router = express.Router();
 
+/*
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (!fs.existsSync('public')) {
@@ -22,7 +24,6 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
 });
-
 const upload = multer({
   storage: storage,
   fileFilter: function (req, file, cb) {
@@ -34,12 +35,47 @@ const upload = multer({
     cb(null, true);
   },
 });
+*/
+// Ensure directories exist at startup
+const uploadDir = path.join(__dirname, '../public/images');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
+// Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+});
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (!['.png', '.jpg', '.jpeg'].includes(ext)) {
+      return cb(new Error('Only images are allowed!'));
+    }
+    cb(null, true);
+  },
+});
+
+//
+//
+// Public routes
+// Get all pets
+router.get('/', petController.getAll);
+
+// Get pets by id
+router.get('/:id', petController.getById);
+
+//
+//
+// Admin-only routes
 //image - single file
 //additionalImages - multiple - 5 limit
-
 router.post(
-  '/create',
+  '/',
+  authMiddleware,
+  adminMiddleware,
   upload.fields([
     {
       name: 'image',
@@ -53,15 +89,11 @@ router.post(
   petController.create
 );
 
-// Get all pets
-router.get('/all', petController.getAll);
-
-// Get pets by id
-router.get('/get/:id', petController.getById);
-
 //update pets
 router.put(
-  '/update/:id',
+  '/:id',
+  authMiddleware,
+  adminMiddleware,
   upload.fields([
     {
       name: 'image',
@@ -76,6 +108,11 @@ router.put(
 );
 
 // Delete pet by id
-router.delete('/delete/:id', petController.delete);
+router.delete(
+  '/delete/:id',
+  authMiddleware,
+  adminMiddleware,
+  petController.delete
+);
 
 module.exports = router;

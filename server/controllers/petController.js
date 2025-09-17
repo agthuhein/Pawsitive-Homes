@@ -1,18 +1,43 @@
 const Pet = require('../models/Pet');
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
+// Helper: delete a file safely
+const deleteFile = async (filePath) => {
+  if (!filePath) return; // nothing to delete
+
+  try {
+    const absolutePath = path.join(__dirname, '../', filePath);
+    await fs.unlink(absolutePath);
+    console.log('Deleted file:', absolutePath);
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      console.log('File not found, skipping delete:', filePath);
+    } else {
+      console.error('Error deleting file:', err);
+    }
+  }
+};
+
+// CREATE PET (Admin only)
 exports.create = async (req, res) => {
   try {
-    console.log(req.files);
-
-    const { name, age, breed, color, description, imageLabel, category } =
-      req.body;
+    const {
+      name,
+      age,
+      breed,
+      color,
+      description,
+      imageLabel,
+      category,
+      status,
+      traits,
+      gender,
+    } = req.body;
 
     const { image, additionalImages } = req.files;
 
     let imagePath = '';
-
     let additionalImagesPath = [];
 
     if (image && image.length > 0) {
@@ -30,6 +55,9 @@ exports.create = async (req, res) => {
       description,
       imageLabel,
       category,
+      status,
+      gender,
+      traits: traits ? JSON.parse(traits) : [], // frontend can send traits as JSON string
       image: imagePath,
       additionalImages: additionalImagesPath,
     });
@@ -37,44 +65,55 @@ exports.create = async (req, res) => {
     res.json({ msg: 'Pet created successfully', createdPet });
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: error.message });
   }
 };
 
+// GET ALL PETS (Public)
 exports.getAll = async (req, res) => {
   try {
-    const allPets = await Pet.find();
-
-    res.json(allPets);
+    const pets = await Pet.find().populate('category');
+    res.json(pets);
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
+// GET PET BY ID (Public)
 exports.getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const pet = await Pet.findById(id);
+    const pet = await Pet.findById(id).populate('category');
+
+    if (!pet) return res.status(404).json({ msg: 'Pet not found' });
 
     res.json(pet);
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
-//////// Pet update
+// UPDATE PET (Admin only)
 exports.update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, age, breed, color, description, imageLabel, category } =
-      req.body;
+    const {
+      name,
+      age,
+      breed,
+      color,
+      description,
+      imageLabel,
+      category,
+      status,
+      traits,
+    } = req.body;
 
     const { image, additionalImages } = req.files;
 
     let imagePath = '';
-
     let additionalImagesPath = [];
 
     if (image && image.length > 0) {
@@ -85,38 +124,26 @@ exports.update = async (req, res) => {
     }
 
     const existingPet = await Pet.findById(id);
-    if (additionalImagesPath.length === 0) {
-      additionalImagesPath = existingPet.additionalImages;
-    } else {
-      Promise.all(
-        existingPet.additionalImages.map(
-          async (img) =>
-            await fs.unlink(path.join(__dirname, '../', img), (err, res) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log('Files deleted successfully');
-              }
-            })
-        )
-      )
-        .then(console.log)
-        .catch(console.log);
+    if (!existingPet) {
+      return res.status(404).json({ msg: 'Pet not found' });
     }
-    if (imagePath.length === 0) {
+
+    // Handle image replacement
+    if (imagePath && existingPet.image) {
+      await deleteFile(existingPet.image);
+    } else {
       imagePath = existingPet.image;
-    } else {
-      await fs.unlink(
-        path.join(__dirname, '../', existingPet.image),
-        (err, res) => {
-          if (err) {
-            console.log(err);
-          } else {
-            return;
-          }
-        }
-      );
     }
+
+    // Handle additional images replacement
+    if (additionalImagesPath.length > 0) {
+      for (const oldImg of existingPet.additionalImages) {
+        await deleteFile(oldImg);
+      }
+    } else {
+      additionalImagesPath = existingPet.additionalImages;
+    }
+
     const updatedPet = await Pet.findByIdAndUpdate(
       id,
       {
@@ -127,30 +154,35 @@ exports.update = async (req, res) => {
         description,
         imageLabel,
         category,
+        status,
+        traits: traits ? JSON.parse(traits) : existingPet.traits,
         image: imagePath,
         additionalImages: additionalImagesPath,
       },
-      {
-        new: true,
-      }
+      { new: true }
     );
 
     res.json({ msg: 'Pet updated successfully', updatedPet });
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: error.message });
   }
 };
 
-/// Delete pet
+// DELETE PET (Admin only)
 exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
 
     const existingPet = await Pet.findById(id);
-
     if (!existingPet) {
       return res.status(404).json({ msg: 'Pet does not exist' });
+    }
+
+    // Delete files
+    if (existingPet.image) await deleteFile(existingPet.image);
+    for (const img of existingPet.additionalImages) {
+      await deleteFile(img);
     }
 
     const deletedPet = await Pet.findByIdAndDelete(id);
@@ -158,6 +190,6 @@ exports.delete = async (req, res) => {
     res.json({ msg: 'Pet removed successfully', deletedPet });
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(500).json({ error: 'Server error' });
   }
 };
