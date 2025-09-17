@@ -73,7 +73,7 @@ exports.create = async (req, res) => {
 // GET ALL PETS (Public)
 exports.getAll = async (req, res) => {
   try {
-    const pets = await Pet.find().populate('category');
+    const pets = await Pet.find().populate('category', 'name');
     res.json(pets);
   } catch (error) {
     console.log(error);

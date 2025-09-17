@@ -40,10 +40,10 @@ const AdminPetManagement = () => {
   if (loading) return <p>Loading pets...</p>;
 
   return (
-    <main class='main-content'>
+    <main className='main-content'>
       <h2>Manage Pets</h2>
-      <button class='add-btn'>+ Add New Pet</button>
-      <table class='admin-table'>
+      <button className='add-btn'>+ Add New Pet</button>
+      <table className='admin-table'>
         <thead>
           <tr>
             <th>ID</th>
@@ -86,7 +86,12 @@ const AdminPetManagement = () => {
         <tbody>
           {pets.map((pet) => (
             <tr key={pet._id}>
-              <td data-label='ID'>{pet._id.slice(-6).toUpperCase()}</td>
+              <td data-label='ID'>
+                {' '}
+                {(pet.category?.name.toUpperCase() || 'PET') +
+                  '_' +
+                  pet._id.slice(-6).toUpperCase()}
+              </td>
               <td data-label='Photo'>
                 <img
                   src={`http://localhost:4000${pet.image}`}

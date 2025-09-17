@@ -33,26 +33,26 @@ const AdminDashboard = () => {
   if (!stats) return <p>Failed to load dashboard data.</p>;
 
   return (
-    <main class='main-content'>
-      <section class='dashboard-welcome'>
+    <main className='main-content'>
+      <section className='dashboard-welcome'>
         <h2>Welcome back, Admin 👋</h2>
         <p>Here’s a quick overview of the system stats.</p>
       </section>
 
-      <section class='stats'>
-        <div class='stat-card'>
+      <section className='stats'>
+        <div className='stat-card'>
           <h3>Total Pets</h3>
           <p>{stats.totalPets}</p>
         </div>
-        <div class='stat-card'>
+        <div className='stat-card'>
           <h3>Total Users</h3>
           <p>{stats.totalUsers}</p>
         </div>
-        <div class='stat-card'>
+        <div className='stat-card'>
           <h3>Total Adoptions</h3>
           <p>95</p>
         </div>
-        <div class='stat-card'>
+        <div className='stat-card'>
           <h3>Pending Requests</h3>
           <p>12</p>
         </div>
