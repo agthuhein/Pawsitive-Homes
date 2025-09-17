@@ -33,7 +33,7 @@ const Navbar = () => {
         ) : role === 'admin' ? (
           <>
             <Link to='/admin/dashboard'>Admin Dashboard</Link>
-            <Link to='/admin/users'>Manage Pets</Link>
+            <Link to='/admin/pets'>Manage Pets</Link>
             <Link to='/admin/users'>Manage Adoptions</Link>
             <Link to='/admin/users'>Manage Users</Link>
             <Link to='/' onClick={handleLogout} className='logout'>

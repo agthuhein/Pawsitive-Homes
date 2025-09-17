@@ -575,3 +575,67 @@ nav a.logout:hover {
 .demote-btn:hover {
   background: #7b1fa2;
 }
+
+/*Detail button*/
+.details-btn {
+  background: #007bff; /* Bootstrap blue */
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease-in-out;
+}
+
+.details-btn:hover {
+  background: #0056b3; /* darker blue */
+}
+
+/*Responsive admin table*/
+/* Mobile Card Style for Tables */
+@media (max-width: 768px) {
+  .admin-table,
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table th,
+  .admin-table td,
+  .admin-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-table thead {
+    display: none; /* hide table headers */
+  }
+
+  .admin-table tr {
+    margin-bottom: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+  }
+
+  .admin-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border: none;
+    font-size: 14px;
+  }
+
+  .admin-table td::before {
+    content: attr(data-label); /* use header name as label */
+    font-weight: bold;
+    flex: 1;
+    max-width: 120px;
+  }
+
+  .admin-table td img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+}
