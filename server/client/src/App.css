@@ -415,3 +415,163 @@ form button {
 .footer p {
   margin: 0;
 }
+
+/* admin */
+/* Admin navbar buttons */
+nav a.logout {
+  background: #d33;
+  color: #fff;
+  border-radius: 20px;
+}
+
+nav a.logout:hover {
+  background: #b22;
+}
+
+/* Admin Dashboard Content */
+.main-content {
+  max-width: 1100px;
+  margin: 100px auto 40px; /* space below fixed header */
+  padding: 0 20px;
+}
+
+.dashboard-welcome {
+  margin-bottom: 20px;
+}
+
+.dashboard-welcome h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1a083d;
+}
+
+/* new*/
+/* Admin Tables */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.admin-table th {
+  background: #f6f6f6;
+  font-weight: bold;
+}
+
+.table-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Action Buttons */
+.add-btn {
+  margin: 10px 0;
+  padding: 10px 16px;
+  background: #1a083d;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-btn:hover {
+  background: #f6b800;
+  color: #1a083d;
+}
+
+.edit-btn,
+.delete-btn,
+.approve-btn,
+.reject-btn,
+.promote-btn,
+.demote-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 4px;
+  font-size: 13px;
+}
+
+.edit-btn {
+  background: #4caf50;
+  color: #fff;
+}
+.delete-btn {
+  background: #d33;
+  color: #fff;
+}
+.approve-btn {
+  background: #2196f3;
+  color: #fff;
+}
+.reject-btn {
+  background: #ff9800;
+  color: #fff;
+}
+.promote-btn {
+  background: #673ab7;
+  color: #fff;
+}
+.demote-btn {
+  background: #9c27b0;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background: #45a049;
+}
+.delete-btn:hover {
+  background: #b22;
+}
+.approve-btn:hover {
+  background: #1976d2;
+}
+.reject-btn:hover {
+  background: #e68900;
+}
+.promote-btn:hover {
+  background: #5e35b1;
+}
+.demote-btn:hover {
+  background: #7b1fa2;
+}

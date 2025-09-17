@@ -33,38 +33,31 @@ const AdminDashboard = () => {
   if (!stats) return <p>Failed to load dashboard data.</p>;
 
   return (
-    <div className='dashboard'>
-      <h2>Admin Dashboard</h2>
+    <main class='main-content'>
+      <section class='dashboard-welcome'>
+        <h2>Welcome back, Admin 👋</h2>
+        <p>Here’s a quick overview of the system stats.</p>
+      </section>
 
-      <h3>Summary</h3>
-      <p>Total Pets: {stats.totalPets}</p>
-      <p>Total Users: {stats.totalUsers}</p>
-      <p>Total Adoptions: {stats.totalAdoptions}</p>
-
-      <h3>All Users</h3>
-      {users.length === 0 ? (
-        <p>No users found.</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((u) => (
-              <tr key={u._id}>
-                <td>{u.name}</td>
-                <td>{u.email}</td>
-                <td>{u.role}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+      <section class='stats'>
+        <div class='stat-card'>
+          <h3>Total Pets</h3>
+          <p>{stats.totalPets}</p>
+        </div>
+        <div class='stat-card'>
+          <h3>Total Users</h3>
+          <p>{stats.totalUsers}</p>
+        </div>
+        <div class='stat-card'>
+          <h3>Total Adoptions</h3>
+          <p>95</p>
+        </div>
+        <div class='stat-card'>
+          <h3>Pending Requests</h3>
+          <p>12</p>
+        </div>
+      </section>
+    </main>
   );
 };
 

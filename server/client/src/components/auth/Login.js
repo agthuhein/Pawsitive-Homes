@@ -21,6 +21,7 @@ const Login = () => {
 
       console.log('Login response:', res.data);
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('role', res.data.user.role);
 
       //Check role to route to dashboard
       if (res.data.user.role === 'admin') {
