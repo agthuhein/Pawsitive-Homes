@@ -419,13 +419,9 @@ form button {
 /* admin */
 /* Admin navbar buttons */
 nav a.logout {
-  background: #d33;
+  background: #f6b800;
   color: #fff;
   border-radius: 20px;
-}
-
-nav a.logout:hover {
-  background: #b22;
 }
 
 /* Admin Dashboard Content */
@@ -637,5 +633,505 @@ nav a.logout:hover {
     height: 60px;
     border-radius: 6px;
     object-fit: cover;
+  }
+}
+
+/**/
+
+/* Action Buttons */
+.add-btn {
+  margin: 10px 0;
+  padding: 10px 16px;
+  background: #1a083d;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.cancel-btn {
+  margin: 10px 0;
+  padding: 10px 16px;
+  background: red;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-btn:hover {
+  background: #f6b800;
+  color: #1a083d;
+}
+
+.edit-btn,
+.delete-btn,
+.approve-btn,
+.reject-btn,
+.promote-btn,
+.demote-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 4px;
+  font-size: 13px;
+}
+
+.edit-btn {
+  background: #4caf50;
+  color: #fff;
+}
+.delete-btn {
+  background: #d33;
+  color: #fff;
+}
+.approve-btn {
+  background: #2196f3;
+  color: #fff;
+}
+.reject-btn {
+  background: #ff9800;
+  color: #fff;
+}
+.promote-btn {
+  background: #673ab7;
+  color: #fff;
+}
+.demote-btn {
+  background: #9c27b0;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background: #45a049;
+}
+.delete-btn:hover {
+  background: #b22;
+}
+.approve-btn:hover {
+  background: #1976d2;
+}
+.reject-btn:hover {
+  background: #e68900;
+}
+.promote-btn:hover {
+  background: #5e35b1;
+}
+.demote-btn:hover {
+  background: #7b1fa2;
+}
+/* ========== Add Pet Form ========== */
+
+/**/
+/* ===== Side-by-Side Form Styling ===== */
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet-form {
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+  display: flex;
+  flex-direction: column; /* stack label on top of input */
+  margin-bottom: 15px; /* consistent spacing between fields */
+}
+
+.pet-form label {
+  font-weight: bold;
+  margin-bottom: 4px; /* tighter space between label & input */
+  color: #333;
+  font-size: 14px;
+}
+
+.pet-form input,
+.pet-form select,
+.pet-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Responsive: stack labels above inputs on small screens */
+@media (max-width: 600px) {
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    margin-bottom: 6px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .form-actions button,
+  .form-actions a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* =======================
+   Admin Pet Detail Page
+   ======================= */
+
+.pet-detail__titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pet-detail__name {
+  font-size: 28px;
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.pet-detail__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.pet-detail__icon-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #eee;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Layout grid */
+.pet-detail__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Gallery */
+.pet-detail__gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.pet-detail__gallery-main img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.pet-detail__thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pet-detail__thumbs img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Info card */
+.pet-detail__card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  padding: 18px;
+}
+
+.pet-detail__card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pet-detail__card-head h2 {
+  font-size: 22px;
+}
+
+.pet-detail__share {
+  display: flex;
+  gap: 10px;
+}
+
+.pet-detail__share a {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  border: 1px solid #eee;
+  border-radius: 50%;
+  color: #333;
+  font-weight: 700;
+  background: #fff;
+}
+
+/* Quick facts */
+.pet-detail__facts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  padding: 10px 0 14px;
+  color: #666;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Description */
+.pet-detail__desc {
+  margin-top: 14px;
+  color: #444;
+  line-height: 1.65;
+}
+
+.pet-detail__desc--clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pet-detail__more {
+  margin-top: 8px;
+}
+.pet-detail__more summary {
+  cursor: pointer;
+  color: #1a083d;
+  font-weight: 600;
+}
+.pet-detail__more[open] summary {
+  margin-bottom: 6px;
+}
+
+/* Traits */
+.pet-detail__traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 6px;
+}
+.pet-detail__chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f6f6f6;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Admin action buttons */
+.pet-detail__admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Sidebar */
+.pet-detail__right {
+  position: relative;
+}
+
+.pet-detail__sidecard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  margin-bottom: 16px;
+  position: sticky;
+  top: 100px;
+}
+
+.pet-detail__sidecard-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+.pet-detail__star {
+  color: #f6b800;
+  font-size: 18px;
+}
+
+.pet-detail__sidecard--cta h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.pet-detail__sidecard--cta p {
+  color: #666;
+  margin-bottom: 12px;
+}
+.pet-detail__helper {
+  margin-top: 8px;
+  font-size: 13px;
+}
+.pet-detail__helper a {
+  color: #1a083d;
+}
+
+/* =======================
+   Responsive
+   ======================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .pet-detail__grid {
+    grid-template-columns: 1fr;
+  }
+  .pet-detail__sidecard {
+    position: static;
+  }
+  .pet-detail__gallery-main img {
+    height: 360px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .pet-detail__name {
+    font-size: 24px;
+  }
+  .pet-detail__gallery {
+    grid-template-columns: 1fr;
+  }
+  .pet-detail__thumbs {
+    flex-direction: row;
+  }
+  .pet-detail__thumbs img {
+    height: 120px;
+    flex: 1;
+  }
+  .pet-detail__facts {
+    gap: 12px 16px;
+    font-size: 13px;
+  }
+}
+
+/* Extra small */
+@media (max-width: 400px) {
+  .pet-detail__gallery-main img {
+    height: 240px;
+  }
+  .pet-detail__card {
+    padding: 14px;
+  }
+  .pet-detail__name {
+    font-size: 20px;
+  }
+}
+
+/* =======================
+   Responsive Admin Tables
+   ======================= */
+
+/* Tablet: tighten spacing */
+@media (max-width: 992px) {
+  .admin-table th,
+  .admin-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .approve-btn,
+  .reject-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+/* Mobile: transform into stacked cards */
+@media (max-width: 600px) {
+  .admin-table,
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table th,
+  .admin-table td,
+  .admin-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  /* hide table headers */
+  .admin-table thead {
+    display: none;
+  }
+
+  /* each row becomes a card */
+  .admin-table tr {
+    margin-bottom: 16px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    background: #fff;
+  }
+
+  /* each cell stacks with a label */
+  .admin-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border: none;
+    font-size: 14px;
+  }
+
+  /* add labels using data-label attr */
+  .admin-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* action buttons full width */
+  .admin-table td:last-child {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .approve-btn,
+  .reject-btn {
+    flex: 1;
+    min-width: 100px;
   }
 }

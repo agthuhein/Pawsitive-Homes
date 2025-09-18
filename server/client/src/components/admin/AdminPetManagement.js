@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPetManagement = () => {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -42,7 +44,9 @@ const AdminPetManagement = () => {
   return (
     <main className='main-content'>
       <h2>Manage Pets</h2>
-      <button className='add-btn'>+ Add New Pet</button>
+      <button className='add-btn' onClick={() => navigate('/admin/pets/add')}>
+        + Add New Pet
+      </button>
       <table className='admin-table'>
         <thead>
           <tr>
@@ -109,7 +113,12 @@ const AdminPetManagement = () => {
               <td data-label='Type'>{pet.breed}</td>
               <td data-label='Status'>{pet.status}</td>
               <td data-label='Actions'>
-                <button className='details-btn'>Details</button>
+                <button
+                  className='details-btn'
+                  onClick={() => navigate('/admin/pets/details')}
+                >
+                  Details
+                </button>
                 <button className='edit-btn'>Edit</button>
                 <button className='delete-btn'>Delete</button>
               </td>

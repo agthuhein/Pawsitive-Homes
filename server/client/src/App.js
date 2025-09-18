@@ -7,6 +7,10 @@ import Login from './components/auth/Login';
 import UserDashboard from './components/dashboard/UserDashboard';
 import AdminDashboard from './components/dashboard/AdminDashboard';
 import AdminPetManagement from './components/admin/AdminPetManagement';
+import PetAdd from './components/admin/PetAdd';
+import PetDetails from './components/admin/PetDetails';
+import AdminAdoptMgmt from './components/admin/AdminAdoptionManagement';
+import AdminUserMgmt from './components/admin/AdminUserManagement';
 
 import './App.css';
 
@@ -22,6 +26,10 @@ function App() {
           <Route path='/dashboard' element={<UserDashboard />} />
           <Route path='/admin/dashboard' element={<AdminDashboard />} />
           <Route path='/admin/pets' element={<AdminPetManagement />} />
+          <Route path='/admin/pets/add' element={<PetAdd />} />
+          <Route path='/admin/pets/details' element={<PetDetails />} />
+          <Route path='/admin/adoptions' element={<AdminAdoptMgmt />} />
+          <Route path='/admin/users' element={<AdminUserMgmt />} />
         </Routes>
       </Fragment>
     </Router>

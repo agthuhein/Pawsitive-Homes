@@ -34,7 +34,7 @@ const Navbar = () => {
           <>
             <Link to='/admin/dashboard'>Admin Dashboard</Link>
             <Link to='/admin/pets'>Manage Pets</Link>
-            <Link to='/admin/users'>Manage Adoptions</Link>
+            <Link to='/admin/adoptions'>Manage Adoptions</Link>
             <Link to='/admin/users'>Manage Users</Link>
             <Link to='/' onClick={handleLogout} className='logout'>
               Logout
