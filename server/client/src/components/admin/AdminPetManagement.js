@@ -115,12 +115,17 @@ const AdminPetManagement = () => {
               <td data-label='Actions'>
                 <button
                   className='details-btn'
-                  onClick={() => navigate('/admin/pets/details')}
+                  onClick={() => navigate(`/admin/pets/${pet._id}`)}
                 >
                   Details
                 </button>
                 <button className='edit-btn'>Edit</button>
-                <button className='delete-btn'>Delete</button>
+                <button
+                  className='delete-btn'
+                  onClick={() => handleDelete(pet._id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

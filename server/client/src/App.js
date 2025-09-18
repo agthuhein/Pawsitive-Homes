@@ -27,7 +27,7 @@ function App() {
           <Route path='/admin/dashboard' element={<AdminDashboard />} />
           <Route path='/admin/pets' element={<AdminPetManagement />} />
           <Route path='/admin/pets/add' element={<PetAdd />} />
-          <Route path='/admin/pets/details' element={<PetDetails />} />
+          <Route path='/admin/pets/:id' element={<PetDetails />} />
           <Route path='/admin/adoptions' element={<AdminAdoptMgmt />} />
           <Route path='/admin/users' element={<AdminUserMgmt />} />
         </Routes>

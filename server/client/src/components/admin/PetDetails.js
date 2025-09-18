@@ -1,28 +1,46 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const PetDetails = () => {
-  const navigate = useNavigate();
+  const { id } = useParams();
+  const [pet, setPet] = useState(null);
+
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const res = await axios.get(`/api/pets/${id}`);
+        setPet(res.data);
+      } catch (err) {
+        console.error('Error fetching pet details:', err);
+      }
+    };
+    fetchPet();
+  }, [id]);
+
+  if (!pet) return <p>Loading...</p>;
+
+  //const navigate = useNavigate();
   return (
     <main class='main-content'>
       <div class='pet-detail__grid'>
         <section class='pet-detail__left'>
           <div class='pet-detail__gallery'>
             <figure class='pet-detail__gallery-main'>
-              <img
-                src='https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1200&auto=format&fit=crop'
-                alt='Balu sleeping on a cushion'
-              />
+              <img src={`http://localhost:4000${pet.image}`} alt={pet.name} />
             </figure>
-            <div class='pet-detail__thumbs'>
-              <img
-                src='https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=1000&auto=format&fit=crop'
-                alt='Balu portrait'
-              />
-              <img
-                src='https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=1000&auto=format&fit=crop'
-                alt='Balu outside'
-              />
-            </div>
+            {pet.additionalImages && pet.additionalImages.length > 0 && (
+              <div class='pet-detail__thumbs'>
+                {pet.additionalImages.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={`http://localhost:4000${img}`}
+                    alt={`${pet.name} extra ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           <ul class='pet-detail__facts'>
@@ -32,14 +50,7 @@ const PetDetails = () => {
           </ul>
 
           <p class='pet-detail__desc pet-detail__desc--clamp'>
-            Zazu has been waiting for his forever home in a foster home in
-            Germany for a year. He has learned a lot during this time and is
-            doing very well in our world. He gets along well with other dogs and
-            has no problems with cats and children. He has been habituated to
-            everything and desensitized. Above all, he is a true people lover.
-            Zazu is friendly to everyone, even with strangers. He is extremely
-            willing to learn and enjoys it. He is confident walking on a leash
-            around people, in city traffic, and on the street.
+            {pet.description}
           </p>
 
           <div class='pet-detail__traits'>
@@ -51,7 +62,7 @@ const PetDetails = () => {
         </section>
         <aside class='pet-detail__right'>
           <div class='pet-detail__sidecard pet-detail__sidecard--cta'>
-            <h3>Manage Zuzu</h3>
+            <h3>Manage {pet.name}</h3>
 
             <div class='pet-detail__admin-actions'>
               <button class='edit-btn'>Edit</button>

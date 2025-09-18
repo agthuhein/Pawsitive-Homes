@@ -39,8 +39,7 @@ const PetSchema = new mongoose.Schema(
     ],
     traits: [
       {
-        key: { type: String },
-        value: { type: Boolean },
+        type: String,
       },
     ],
     category: {

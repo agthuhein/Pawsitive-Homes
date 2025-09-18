@@ -44,8 +44,13 @@ exports.create = async (req, res) => {
       //imagePath = image[0].path;
       imagePath = `/public/images/${image[0].filename}`;
     }
-    if (additionalImages && additionalImages.length > 0) {
+    /*if (additionalImages && additionalImages.length > 0) {
       additionalImagesPath = additionalImages.map((file) => file.path);
+    }*/
+    if (additionalImages && additionalImages.length > 0) {
+      additionalImagesPath = additionalImages.map(
+        (file) => `/public/images/${file.filename}` // ✅ public path
+      );
     }
 
     const createdPet = await Pet.create({
@@ -58,7 +63,7 @@ exports.create = async (req, res) => {
       category,
       status,
       gender,
-      traits: traits ? JSON.parse(traits) : [], // frontend can send traits as JSON string
+      traits: traits ? traits.split(',').map((t) => t.trim()) : [],
       image: imagePath,
       additionalImages: additionalImagesPath,
     });

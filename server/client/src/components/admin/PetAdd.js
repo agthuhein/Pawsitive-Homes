@@ -4,24 +4,72 @@ import { useNavigate } from 'react-router-dom';
 
 const PetAdd = () => {
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [loadingCats, setLoadingCats] = useState(true);
+
+  // ✅ Fetch categories from backend
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get('http://localhost:4000/api/category/all');
+        setCategories(res.data);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      } finally {
+        setLoadingCats(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // ✅ Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    try {
+      const token = localStorage.getItem('token'); // must be Admin token
+      const res = await axios.post(
+        'http://localhost:4000/api/pets/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log('Pet created:', res.data);
+      alert('Pet created successfully!');
+      navigate('/admin/pets'); // go back to pet list
+    } catch (err) {
+      console.error('Error creating pet:', err.response?.data || err.message);
+      alert(err.response?.data?.error || 'Failed to create pet');
+    }
+  };
+
   return (
     <main className='main-content'>
       <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Add New Pet</h2>
 
       <div className='form-wrapper'>
         <form
-          action='/api/pets/create'
-          method='POST'
-          enctype='multipart/form-data'
+          onSubmit={handleSubmit}
+          encType='multipart/form-data'
           className='pet-form'
         >
+          {/* Pet Name */}
           <div className='form-group'>
-            <label for='name'>Pet Name</label>
+            <label htmlFor='name'>Pet Name</label>
             <input type='text' id='name' name='name' required />
           </div>
 
+          {/* Age */}
           <div className='form-group'>
-            <label for='age'>Age</label>
+            <label htmlFor='age'>Age</label>
             <input
               type='text'
               id='age'
@@ -31,8 +79,9 @@ const PetAdd = () => {
             />
           </div>
 
+          {/* Breed */}
           <div className='form-group'>
-            <label for='breed'>Breed</label>
+            <label htmlFor='breed'>Breed</label>
             <input
               type='text'
               id='breed'
@@ -42,8 +91,9 @@ const PetAdd = () => {
             />
           </div>
 
+          {/* Gender */}
           <div className='form-group'>
-            <label for='gender'>Gender</label>
+            <label htmlFor='gender'>Gender</label>
             <select id='gender' name='gender' required>
               <option value=''>-- Select Gender --</option>
               <option value='male'>Male ♂</option>
@@ -51,8 +101,9 @@ const PetAdd = () => {
             </select>
           </div>
 
+          {/* Color */}
           <div className='form-group'>
-            <label for='color'>Color</label>
+            <label htmlFor='color'>Color</label>
             <input
               type='text'
               id='color'
@@ -62,8 +113,9 @@ const PetAdd = () => {
             />
           </div>
 
+          {/* Description */}
           <div className='form-group'>
-            <label for='description'>Description</label>
+            <label htmlFor='description'>Description</label>
             <textarea
               id='description'
               name='description'
@@ -73,18 +125,26 @@ const PetAdd = () => {
             ></textarea>
           </div>
 
+          {/* Category */}
           <div className='form-group'>
-            <label for='category'>Category</label>
+            <label htmlFor='category'>Category</label>
             <select id='category' name='category' required>
               <option value=''>-- Select Category --</option>
-              <option value='dog'>Dog</option>
-              <option value='cat'>Cat</option>
-              <option value='other'>Other</option>
+              {loadingCats ? (
+                <option disabled>Loading...</option>
+              ) : (
+                categories.map((cat) => (
+                  <option key={cat._id} value={cat._id}>
+                    {cat.name}
+                  </option>
+                ))
+              )}
             </select>
           </div>
 
+          {/* Status */}
           <div className='form-group'>
-            <label for='status'>Status</label>
+            <label htmlFor='status'>Status</label>
             <select id='status' name='status'>
               <option value='available'>Available</option>
               <option value='adopted'>Adopted</option>
@@ -92,18 +152,20 @@ const PetAdd = () => {
             </select>
           </div>
 
+          {/* Traits */}
           <div className='form-group'>
-            <label for='traits'>Traits</label>
+            <label htmlFor='traits'>Traits</label>
             <input
               type='text'
               id='traits'
               name='traits'
-              placeholder='[{"key":"friendly","value":true}]'
+              placeholder='e.g. Friendly, Best with kids, Playful'
             />
           </div>
 
+          {/* Main Image */}
           <div className='form-group'>
-            <label for='image'>Main Image</label>
+            <label htmlFor='image'>Main Image</label>
             <input
               type='file'
               id='image'
@@ -113,8 +175,9 @@ const PetAdd = () => {
             />
           </div>
 
+          {/* Additional Images */}
           <div className='form-group'>
-            <label for='additionalImages'>Additional Images</label>
+            <label htmlFor='additionalImages'>Additional Images</label>
             <input
               type='file'
               id='additionalImages'
@@ -124,6 +187,7 @@ const PetAdd = () => {
             />
           </div>
 
+          {/* Actions */}
           <div className='form-actions'>
             <button type='submit' className='add-btn'>
               Save Pet
