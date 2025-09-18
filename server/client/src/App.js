@@ -1,39 +1,58 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import React, { Fragment } from 'react';
+import React from 'react';
+
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import UserDashboard from './components/dashboard/UserDashboard';
-import AdminDashboard from './components/dashboard/AdminDashboard';
-import AdminPetManagement from './components/admin/AdminPetManagement';
-import PetAdd from './components/admin/PetAdd';
-import PetDetails from './components/admin/PetDetails';
-import AdminAdoptMgmt from './components/admin/AdminAdoptionManagement';
-import AdminUserMgmt from './components/admin/AdminUserManagement';
-import PetEdit from './components/admin/PetEdit';
+
+import AdminRoutes from './components/admin/routes/AdminRoutes';
+import UserRoutes from './components/user/routes/UserRoutes';
+
+import AdminRoute from './components/routing/AdminRoute';
+import UserRoute from './components/routing/UserRoute';
 
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <Fragment>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Landing />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/dashboard' element={<UserDashboard />} />
-          <Route path='/admin/dashboard' element={<AdminDashboard />} />
-          <Route path='/admin/pets' element={<AdminPetManagement />} />
-          <Route path='/admin/pets/add' element={<PetAdd />} />
-          <Route path='/admin/pets/:id' element={<PetDetails />} />
-          <Route path='/admin/adoptions' element={<AdminAdoptMgmt />} />
-          <Route path='/admin/users' element={<AdminUserMgmt />} />
-          <Route path='/admin/pets/edit/:id' element={<PetEdit />} />
-        </Routes>
-      </Fragment>
+      <Navbar />
+
+      <Routes>
+        {/* Public Routes */}
+        <Route path='/' element={<Landing />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+
+        {/* User Routes (protected) */}
+        <Route
+          path='/user/*'
+          element={
+            <UserRoute>
+              <UserRoutes />
+            </UserRoute>
+          }
+        />
+
+        {/* Admin Routes (protected) */}
+        <Route
+          path='/admin/*'
+          element={
+            <AdminRoute>
+              <AdminRoutes />
+            </AdminRoute>
+          }
+        />
+
+        {/* Fallback / 404 Page */}
+        <Route
+          path='*'
+          element={
+            <h2 style={{ textAlign: 'center' }}>404 - Page Not Found</h2>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

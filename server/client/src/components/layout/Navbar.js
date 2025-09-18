@@ -42,7 +42,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to='/dashboard'>My Dashboard</Link>
+            <Link to='/user/dashboard'>My Dashboard</Link>
             <button
               onClick={handleLogout}
               style={{ background: 'red', color: 'white', borderRadius: '6px' }}
