@@ -83,7 +83,7 @@ router.post(
     },
     {
       name: 'additionalImages',
-      maxCount: 5,
+      maxCount: 2,
     },
   ]),
   petController.create
@@ -101,7 +101,7 @@ router.put(
     },
     {
       name: 'additionalImages',
-      maxCount: 5,
+      maxCount: 2,
     },
   ]),
   petController.update

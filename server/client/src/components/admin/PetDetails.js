@@ -23,15 +23,15 @@ const PetDetails = () => {
 
   //const navigate = useNavigate();
   return (
-    <main class='main-content'>
-      <div class='pet-detail__grid'>
-        <section class='pet-detail__left'>
-          <div class='pet-detail__gallery'>
-            <figure class='pet-detail__gallery-main'>
+    <main className='main-content'>
+      <div className='pet-detail__grid'>
+        <section className='pet-detail__left'>
+          <div className='pet-detail__gallery'>
+            <figure className='pet-detail__gallery-main'>
               <img src={`http://localhost:4000${pet.image}`} alt={pet.name} />
             </figure>
             {pet.additionalImages && pet.additionalImages.length > 0 && (
-              <div class='pet-detail__thumbs'>
+              <div className='pet-detail__thumbs'>
                 {pet.additionalImages.map((img, idx) => (
                   <img
                     key={idx}
@@ -43,37 +43,44 @@ const PetDetails = () => {
             )}
           </div>
 
-          <ul class='pet-detail__facts'>
-            <li title='Gender'>♂ Male</li>
-            <li title='Age'>📅 3 years</li>
-            <li title='Status'>✅ Available</li>
+          <ul className='pet-detail__facts'>
+            <li title='Gender'>
+              {pet.gender === 'male' ? '♂ Male' : '♀ Female'}
+            </li>
+            <li title='Age'>📅 {pet.age}</li>
+            <li title='Status'>✅ {pet.status}</li>
           </ul>
 
-          <p class='pet-detail__desc pet-detail__desc--clamp'>
+          <p className='pet-detail__desc pet-detail__desc--clamp'>
             {pet.description}
           </p>
 
-          <div class='pet-detail__traits'>
-            <span class='pet-detail__chip'>Cat-friendly</span>
-            <span class='pet-detail__chip'>Kid-safe</span>
-            <span class='pet-detail__chip'>House-trained</span>
-            <span class='pet-detail__chip'>Leash-trained</span>
+          <div className='pet-detail__traits'>
+            {pet.traits && pet.traits.length > 0 ? (
+              pet.traits.map((trait, index) => (
+                <span key={index} className='pet-detail__chip'>
+                  {trait}
+                </span>
+              ))
+            ) : (
+              <span classNameName='pet-detail__chip'>No traits added</span>
+            )}
           </div>
         </section>
-        <aside class='pet-detail__right'>
-          <div class='pet-detail__sidecard pet-detail__sidecard--cta'>
+        <aside className='pet-detail__right'>
+          <div className='pet-detail__sidecard pet-detail__sidecard--cta'>
             <h3>Manage {pet.name}</h3>
 
-            <div class='pet-detail__admin-actions'>
-              <button class='edit-btn'>Edit</button>
-              <button class='delete-btn'>Delete</button>
+            <div className='pet-detail__admin-actions'>
+              <button className='edit-btn'>Edit</button>
+              <button className='delete-btn'>Delete</button>
             </div>
 
-            <p class='pet-detail__helper'>
+            <p className='pet-detail__helper'>
               <a href='admin-adoptions.html'>View adoption requests</a>
             </p>
-            <p class='pet-detail__helper'>
-              <Link to='/admin/pets' class='back-btn'>
+            <p className='pet-detail__helper'>
+              <Link to='/admin/pets' className='back-btn'>
                 ← Back to Pets
               </Link>
             </p>

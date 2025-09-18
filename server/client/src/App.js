@@ -11,6 +11,7 @@ import PetAdd from './components/admin/PetAdd';
 import PetDetails from './components/admin/PetDetails';
 import AdminAdoptMgmt from './components/admin/AdminAdoptionManagement';
 import AdminUserMgmt from './components/admin/AdminUserManagement';
+import PetEdit from './components/admin/PetEdit';
 
 import './App.css';
 
@@ -30,6 +31,7 @@ function App() {
           <Route path='/admin/pets/:id' element={<PetDetails />} />
           <Route path='/admin/adoptions' element={<AdminAdoptMgmt />} />
           <Route path='/admin/users' element={<AdminUserMgmt />} />
+          <Route path='/admin/pets/edit/:id' element={<PetEdit />} />
         </Routes>
       </Fragment>
     </Router>

@@ -1135,3 +1135,9 @@ nav a.logout {
     min-width: 100px;
   }
 }
+
+/* Small style on edit pet*/
+.small-style {
+  color: #777;
+  font-size: 12px;
+}

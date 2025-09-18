@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const AdminPetManagement = () => {
   const [pets, setPets] = useState([]);
@@ -26,16 +27,27 @@ const AdminPetManagement = () => {
     fetchPets();
   }, [token]);
 
+  //Pet delete function
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this pet?')) return;
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    });
 
-    try {
-      await axios.delete(`/api/pets/delete/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setPets(pets.filter((pet) => pet._id !== id)); // remove from state
-    } catch (err) {
-      console.error('Error deleting pet:', err);
+    if (result.isConfirmed) {
+      try {
+        await axios.delete(`/api/pets/delete/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPets(pets.filter((pet) => pet._id !== id));
+      } catch (err) {
+        console.error('Error deleting pet:', err);
+      }
     }
   };
 
@@ -119,7 +131,12 @@ const AdminPetManagement = () => {
                 >
                   Details
                 </button>
-                <button className='edit-btn'>Edit</button>
+                <button
+                  className='edit-btn'
+                  onClick={() => navigate(`/admin/pets/edit/${pet._id}`)}
+                >
+                  Edit
+                </button>
                 <button
                   className='delete-btn'
                   onClick={() => handleDelete(pet._id)}

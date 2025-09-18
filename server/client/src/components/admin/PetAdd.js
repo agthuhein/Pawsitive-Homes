@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const PetAdd = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [loadingCats, setLoadingCats] = useState(true);
-
-  // ✅ Fetch categories from backend
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -23,7 +22,7 @@ const PetAdd = () => {
     fetchCategories();
   }, []);
 
-  // ✅ Handle form submit
+  // form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,12 +41,21 @@ const PetAdd = () => {
         }
       );
 
-      console.log('Pet created:', res.data);
-      alert('Pet created successfully!');
-      navigate('/admin/pets'); // go back to pet list
+      Swal.fire({
+        title: 'Success!',
+        text: 'Pet created successfully 🎉',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        navigate('/admin/pets');
+      });
     } catch (err) {
-      console.error('Error creating pet:', err.response?.data || err.message);
-      alert(err.response?.data?.error || 'Failed to create pet');
+      Swal.fire({
+        title: 'Error!',
+        text: err.response?.data?.error || 'Something went wrong!',
+        icon: 'error',
+        confirmButtonText: 'Close',
+      });
     }
   };
 

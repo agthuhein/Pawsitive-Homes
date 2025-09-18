@@ -123,10 +123,14 @@ exports.update = async (req, res) => {
     let additionalImagesPath = [];
 
     if (image && image.length > 0) {
-      imagePath = image[0].path;
+      //imagePath = image[0].path;
+      imagePath = `/public/images/${image[0].filename}`;
     }
     if (additionalImages && additionalImages.length > 0) {
-      additionalImagesPath = additionalImages.map((file) => file.path);
+      //additionalImagesPath = additionalImages.map((file) => file.path);
+      additionalImagesPath = additionalImages.map(
+        (file) => `/public/images/${file.filename}`
+      );
     }
 
     const existingPet = await Pet.findById(id);
