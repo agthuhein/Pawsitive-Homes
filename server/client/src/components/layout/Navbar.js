@@ -12,12 +12,22 @@ const Navbar = () => {
     navigate('/login');
   };
 
+  const handleLogoClick = () => {
+    if (!token) {
+      navigate('/'); // landing page
+    } else if (role === 'admin') {
+      navigate('/admin/dashboard');
+    } else if (role === 'user') {
+      navigate('/user/dashboard');
+    } else {
+      navigate('/'); // fallback
+    }
+  };
+
   return (
     <header>
-      <h1>
-        <Link to='/' style={{ all: 'unset', cursor: 'pointer' }}>
-          Pawsitive Home
-        </Link>
+      <h1 onClick={handleLogoClick} style={{ all: 'unset', cursor: 'pointer' }}>
+        Pawsitive Home
       </h1>
 
       <nav id='nav-menu'>

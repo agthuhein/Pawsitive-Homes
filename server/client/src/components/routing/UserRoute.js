@@ -10,6 +10,11 @@ const UserRoute = ({ children }) => {
   }
 
   if (role !== 'user') {
+    // ✅ redirect admin to their dashboard
+    if (role === 'admin') {
+      return <Navigate to='/admin/dashboard' replace />;
+    }
+    // fallback for unknown role
     return <Navigate to='/' replace />;
   }
 

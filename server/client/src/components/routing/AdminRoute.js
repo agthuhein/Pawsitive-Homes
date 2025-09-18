@@ -10,6 +10,10 @@ const AdminRoute = ({ children }) => {
   }
 
   if (role !== 'admin') {
+    // ✅ redirect user to their dashboard
+    if (role === 'user') {
+      return <Navigate to='/user/dashboard' replace />;
+    }
     return <Navigate to='/' replace />;
   }
 
