@@ -2,16 +2,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-/* const generateToken = (user) => {
-  return jwt.sign({ id: user._id, role: user.role }, 'your_jwt_secret_key', {
-    expiresIn: '1d',
-  });
-};*/
-
+// Generate JWT
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user._id, role: user.role }, // ✅ include role in token
-    'your_jwt_secret_key',
+    { id: user._id, role: user.role }, // include role in token
+    'your_jwt_secret_key', // ⚠️ move this to process.env.JWT_SECRET in production
     { expiresIn: '1d' }
   );
 };
@@ -19,7 +14,7 @@ const generateToken = (user) => {
 // Register
 exports.register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { firstName, lastName, email, password, role } = req.body;
 
     let existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -30,7 +25,8 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await User.create({
-      name,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
       role: role || 'user',
@@ -43,7 +39,8 @@ exports.register = async (req, res) => {
       token,
       user: {
         id: user._id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         role: user.role,
       },
@@ -72,7 +69,8 @@ exports.login = async (req, res) => {
       token,
       user: {
         id: user._id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         role: user.role,
       },

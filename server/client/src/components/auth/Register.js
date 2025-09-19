@@ -1,39 +1,69 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     password2: '',
   });
-  const { name, email, password, password2 } = formData;
+
+  const { firstName, lastName, email, password, password2 } = formData;
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== password2) {
-      alert('Password do not match');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Passwords do not match!',
+      });
+    } else if (password.length < 8) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Weak Password',
+        text: 'Password must be at least 8 characters long.',
+      });
     } else {
       try {
-        //register({ name, email, password });
-        const res = await axios.post('api/auth/register', {
-          name,
+        const res = await axios.post('/api/auth/register', {
+          firstName,
+          lastName,
           email,
           password,
         });
+
         console.log('Register response:', res.data);
+
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('role', res.data.user.role);
+
+        await Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Your account has been created successfully.',
+        });
+
         navigate('/');
       } catch (err) {
         console.error('Register error:', err.response?.data || err.message);
-        alert(err.response?.data?.msg || 'Registration failed');
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Failed',
+          text:
+            err.response?.data?.msg ||
+            'Something went wrong. Please try again.',
+        });
       }
     }
   };
@@ -41,37 +71,52 @@ const Register = () => {
   return (
     <Fragment>
       <div className='form-container'>
-        <form onSubmit={(e) => onSubmit(e)}>
+        <form onSubmit={onSubmit}>
           <h2>Create your account</h2>
+
           <input
             type='text'
-            placeholder='Full Name'
-            value={name}
-            onChange={(e) => onChange(e)}
-            name='name'
+            placeholder='First Name'
+            name='firstName'
+            value={firstName}
+            onChange={onChange}
+            required
+          />
+          <input
+            type='text'
+            placeholder='Last Name'
+            name='lastName'
+            value={lastName}
+            onChange={onChange}
+            required
           />
           <input
             type='email'
             placeholder='Email'
             name='email'
             value={email}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
+            required
           />
           <input
             type='password'
-            placeholder='Password'
+            placeholder='Password (min 8 characters)'
             name='password'
             value={password}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
+            required
           />
           <input
             type='password'
             placeholder='Confirm Password'
             name='password2'
             value={password2}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
+            required
           />
+
           <button type='submit'>Register</button>
+
           <p style={{ marginTop: '10px', fontSize: '14px', color: '#555' }}>
             Already have an account?{' '}
             <Link to='/login' style={{ color: '#1a083d', fontWeight: 'bold' }}>

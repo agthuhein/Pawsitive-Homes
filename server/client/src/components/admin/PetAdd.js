@@ -184,14 +184,25 @@ const PetAdd = () => {
           </div>
 
           {/* Additional Images */}
+          {/* Additional Images */}
           <div className='form-group'>
-            <label htmlFor='additionalImages'>Additional Images</label>
+            <label htmlFor='additionalImages'>Additional Images (max 2)</label>
             <input
               type='file'
               id='additionalImages'
               name='additionalImages'
               accept='image/*'
               multiple
+              onChange={(e) => {
+                if (e.target.files.length > 2) {
+                  Swal.fire({
+                    icon: 'warning',
+                    title: 'Too many images',
+                    text: 'You can only upload up to 2 additional images.',
+                  });
+                  e.target.value = ''; // reset input
+                }
+              }}
             />
           </div>
 
