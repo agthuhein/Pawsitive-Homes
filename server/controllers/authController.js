@@ -2,11 +2,16 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Helper function to generate token
+/* const generateToken = (user) => {
+  return jwt.sign({ id: user._id, role: user.role }, 'your_jwt_secret_key', {
+    expiresIn: '1d',
+  });
+};*/
+
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user._id, role: user.role },
-    'your_jwt_secret_key', // store in env variable in real apps
+    { id: user._id, role: user.role }, // ✅ include role in token
+    'your_jwt_secret_key',
     { expiresIn: '1d' }
   );
 };

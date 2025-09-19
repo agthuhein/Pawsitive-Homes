@@ -2,8 +2,7 @@ const User = require('../models/User');
 const Pet = require('../models/Pet');
 const Adoption = require('../models/Adoption');
 
-// ✅ GET /api/admin/dashboard
-// Return summary statistics
+/*
 exports.getDashboard = async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
@@ -20,9 +19,79 @@ exports.getDashboard = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
+*/
+// Adoption stats by month
+exports.getAdoptionTrends = async (req, res) => {
+  try {
+    const trends = await Adoption.aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: '$createdAt' },
+            month: { $month: '$createdAt' },
+            status: '$status',
+          },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $group: {
+          _id: { year: '$_id.year', month: '$_id.month' },
+          statuses: {
+            $push: { status: '$_id.status', count: '$count' },
+          },
+        },
+      },
+      { $sort: { '_id.year': 1, '_id.month': 1 } },
+    ]);
 
-// ✅ GET /api/admin/users
-// Return all users
+    // Format for chart
+    const formatted = trends.map((t) => {
+      const month = `${t._id.month}-${t._id.year}`;
+      const data = { month };
+      t.statuses.forEach((s) => {
+        data[s.status] = s.count;
+      });
+      return data;
+    });
+
+    res.json(formatted);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
+exports.getDashboardStats = async (req, res) => {
+  try {
+    const totalPets = await Pet.countDocuments();
+    const totalUsers = await User.countDocuments();
+    const totalAdoptions = await Adoption.countDocuments();
+    const pendingRequests = await Adoption.countDocuments({
+      status: 'pending',
+    });
+    const approvedRequests = await Adoption.countDocuments({
+      status: 'approved',
+    });
+    const rejectedRequests = await Adoption.countDocuments({
+      status: 'rejected',
+    });
+
+    res.json({
+      totalPets,
+      totalUsers,
+      totalAdoptions,
+      pendingRequests,
+      approvedRequests,
+      rejectedRequests,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
+// Get all users
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find().select('-password'); // exclude password

@@ -8,7 +8,7 @@ router.get(
   '/dashboard',
   authMiddleware,
   adminMiddleware,
-  adminController.getDashboard
+  adminController.getDashboardStats
 );
 
 // Manage users
@@ -24,6 +24,13 @@ router.delete(
   authMiddleware,
   adminMiddleware,
   adminController.deleteUser
+);
+
+router.get(
+  '/adoption-trends',
+  authMiddleware,
+  adminMiddleware,
+  adminController.getAdoptionTrends
 );
 
 module.exports = router;

@@ -3,6 +3,7 @@ const Adoption = require('../models/Adoption');
 const Pet = require('../models/Pet');
 
 // adoptionController.js
+// controllers/adoptionController.js
 exports.create = async (req, res) => {
   try {
     const {
@@ -12,24 +13,16 @@ exports.create = async (req, res) => {
       address,
       phone,
       pet: petId,
-      user,
+      message,
     } = req.body;
 
     const pet = await Pet.findById(petId);
     if (!pet) return res.status(404).json({ error: 'Pet not found' });
-    if (pet.status === 'adopted')
-      return res.status(400).json({ error: 'Already adopted' });
 
-    // Prevent duplicate request by same user for same pet
-    const existing = await Adoption.findOne({
-      user,
-      pet: petId,
-      status: 'pending',
-    });
-    if (existing) {
+    if (pet.status !== 'available') {
       return res
         .status(400)
-        .json({ error: 'You already requested adoption for this pet' });
+        .json({ error: 'Pet is not available for adoption' });
     }
 
     const adoption = await Adoption.create({
@@ -38,87 +31,70 @@ exports.create = async (req, res) => {
       email,
       address,
       phone,
+      message,
       pet: petId,
-      user, // 👈 take from body (Postman test)
+      user: req.user?.id,
       status: 'pending',
     });
 
-    if (pet.status === 'available') {
-      pet.status = 'pending';
-      await pet.save();
-    }
+    // Update pet status to pending
+    pet.status = 'pending';
+    await pet.save();
 
     res.status(201).json({ msg: 'Adoption request submitted', adoption });
   } catch (err) {
     console.error(err);
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
 // Approve adoption
 exports.approve = async (req, res) => {
   try {
-    const { id } = req.params; // adoption request id
-    const adoption = await Adoption.findById(id).populate('pet');
-    if (!adoption) return res.status(404).json({ error: 'Adoption not found' });
+    const adoption = await Adoption.findById(req.params.id);
+    if (!adoption)
+      return res.status(404).json({ msg: 'Adoption request not found' });
 
-    const pet = adoption.pet;
-    if (!pet) return res.status(404).json({ error: 'Pet not found' });
-
-    // Ensure pet not already adopted
-    if (pet.status === 'adopted') {
-      return res.status(400).json({ error: 'Pet already adopted' });
+    if (adoption.status !== 'pending') {
+      return res
+        .status(400)
+        .json({ msg: 'Only pending requests can be approved' });
     }
 
-    // Approve this adoption
     adoption.status = 'approved';
     await adoption.save();
 
-    // Reject all other pending requests for this pet
-    await Adoption.updateMany(
-      { pet: pet._id, _id: { $ne: adoption._id }, status: 'pending' },
-      { $set: { status: 'rejected' } }
-    );
-
-    // Update pet status
-    pet.status = 'adopted';
-    await pet.save();
+    await Pet.findByIdAndUpdate(adoption.pet, { status: 'adopted' });
 
     res.json({ msg: 'Adoption approved', adoption });
   } catch (err) {
     console.error(err);
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
 // Reject adoption
 exports.reject = async (req, res) => {
   try {
-    const { id } = req.params;
-    const adoption = await Adoption.findById(id).populate('pet');
-    if (!adoption) return res.status(404).json({ error: 'Adoption not found' });
+    const adoption = await Adoption.findById(req.params.id);
+    if (!adoption)
+      return res.status(404).json({ msg: 'Adoption request not found' });
 
-    const pet = adoption.pet;
-    if (!pet) return res.status(404).json({ error: 'Pet not found' });
+    if (adoption.status !== 'pending') {
+      return res
+        .status(400)
+        .json({ msg: 'Only pending requests can be rejected' });
+    }
 
     adoption.status = 'rejected';
     await adoption.save();
 
-    // If ALL requests for this pet are rejected, set pet back to available
-    const pendingOrApproved = await Adoption.findOne({
-      pet: pet._id,
-      status: { $in: ['pending', 'approved'] },
-    });
-
-    if (!pendingOrApproved) {
-      pet.status = 'available';
-      await pet.save();
-    }
+    await Pet.findByIdAndUpdate(adoption.pet, { status: 'available' });
 
     res.json({ msg: 'Adoption rejected', adoption });
   } catch (err) {
     console.error(err);
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -126,11 +102,17 @@ exports.reject = async (req, res) => {
 exports.getAll = async (req, res) => {
   try {
     const adoptions = await Adoption.find()
-      .populate('pet', 'name status')
-      .populate('user', 'name email');
+      .populate({
+        path: 'pet',
+        select: 'name status category',
+        populate: { path: 'category', select: 'name' }, // ✅ nested populate
+      })
+      .populate('user', 'name email')
+      .sort({ createdAt: -1 }); // optional: newest first
+
     res.json(adoptions);
   } catch (err) {
-    console.error(err);
+    console.error('Error fetching adoptions:', err);
     res.status(500).json({ error: 'Server error' });
   }
 };

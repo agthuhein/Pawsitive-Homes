@@ -1230,3 +1230,38 @@ nav a.logout {
   border-radius: 6px;
   font-size: 14px;
 }
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.badge-pending {
+  background-color: #f1c40f;
+  color: #000;
+}
+
+.badge-approved {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.badge-rejected {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.main-content section {
+  margin-bottom: 2rem; /* adds space between sections */
+}
+
+.stat-card {
+  margin: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}

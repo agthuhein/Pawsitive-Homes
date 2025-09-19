@@ -10,7 +10,7 @@ exports.authMiddleware = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret_key'); // keep secret in env
+    const decoded = jwt.verify(token, 'your_jwt_secret_key');
     req.user = decoded;
     next();
   } catch (err) {

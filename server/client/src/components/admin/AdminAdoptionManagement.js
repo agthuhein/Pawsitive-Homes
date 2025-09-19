@@ -8,26 +8,50 @@ const AdminAdoptMgmt = () => {
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [perPage] = useState(5); // show 5 requests per page
+  const [perPage] = useState(5);
 
   const token = localStorage.getItem('token');
 
   // Fetch adoption requests
+  const fetchAdoptions = async () => {
+    try {
+      const res = await axios.get('/api/adoption', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setAdoptions(res.data);
+    } catch (err) {
+      console.error('Error fetching adoptions:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchAdoptions = async () => {
-      try {
-        const res = await axios.get('/api/adoption', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setAdoptions(res.data);
-      } catch (err) {
-        console.error('Error fetching adoptions:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchAdoptions();
   }, [token]);
+
+  // Show Details in SweetAlert2
+  const handleDetails = (req) => {
+    Swal.fire({
+      title: `Adoption Request - ${req.pet?.name}`,
+      html: `
+        <strong>User:</strong> ${req.firstName} ${req.lastName} <br/>
+        <strong>Email:</strong> ${req.email} <br/>
+        <strong>Phone:</strong> ${req.phone} <br/>
+        <strong>Address:</strong> ${req.address} <br/>
+        <strong>Message:</strong> ${req.message || 'N/A'} <br/>
+        <hr/>
+        <strong>Pet:</strong> ${req.pet?.name} (${
+        req.pet?.category?.name || 'N/A'
+      }) <br/>
+        <strong>Status:</strong> ${req.status} <br/>
+        <strong>Requested At:</strong> ${new Date(
+          req.createdAt
+        ).toLocaleString()}
+      `,
+      confirmButtonText: 'Close',
+    });
+  };
 
   // Approve request
   const handleApprove = async (id) => {
@@ -35,16 +59,10 @@ const AdminAdoptMgmt = () => {
       await axios.put(
         `/api/adoption/${id}/approve`,
         {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      Swal.fire('Approved!', 'Adoption request approved.', 'success');
-      setAdoptions(
-        adoptions.map((req) =>
-          req._id === id ? { ...req, status: 'approved' } : req
-        )
-      );
+      await Swal.fire('Approved!', 'Adoption request approved.', 'success');
+      fetchAdoptions(); // refresh list
     } catch (err) {
       Swal.fire(
         'Error',
@@ -60,16 +78,10 @@ const AdminAdoptMgmt = () => {
       await axios.put(
         `/api/adoption/${id}/reject`,
         {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      Swal.fire('Rejected!', 'Adoption request rejected.', 'info');
-      setAdoptions(
-        adoptions.map((req) =>
-          req._id === id ? { ...req, status: 'rejected' } : req
-        )
-      );
+      await Swal.fire('Rejected!', 'Adoption request rejected.', 'info');
+      fetchAdoptions(); // refresh list
     } catch (err) {
       Swal.fire(
         'Error',
@@ -82,10 +94,10 @@ const AdminAdoptMgmt = () => {
   // ✅ Filtering
   const filteredAdoptions = adoptions.filter((req) => {
     const matchesSearch =
-      req.firstName.toLowerCase().includes(search.toLowerCase()) ||
-      req.lastName.toLowerCase().includes(search.toLowerCase()) ||
-      req.email.toLowerCase().includes(search.toLowerCase()) ||
-      req.pet?.name.toLowerCase().includes(search.toLowerCase());
+      req.firstName?.toLowerCase().includes(search.toLowerCase()) ||
+      req.lastName?.toLowerCase().includes(search.toLowerCase()) ||
+      req.email?.toLowerCase().includes(search.toLowerCase()) ||
+      req.pet?.name?.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = filterStatus ? req.status === filterStatus : true;
     return matchesSearch && matchesStatus;
   });
@@ -98,12 +110,26 @@ const AdminAdoptMgmt = () => {
 
   if (loading) return <p>Loading adoption requests...</p>;
 
+  // helper: badge color
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'approved':
+        return <span className='badge badge-approved'>Approved</span>;
+      case 'rejected':
+        return <span className='badge badge-rejected'>Rejected</span>;
+      case 'pending':
+      default:
+        return <span className='badge badge-pending'>Pending</span>;
+    }
+  };
+
   return (
     <main className='main-content'>
       <h2>Manage Adoption Requests</h2>
 
       {/* Controls Row */}
       <div className='controls-row'>
+        <p></p>
         <div className='filters'>
           <input
             type='text'
@@ -122,7 +148,6 @@ const AdminAdoptMgmt = () => {
           </select>
         </div>
       </div>
-
       {/* Table */}
       <table className='admin-table'>
         <thead>
@@ -141,13 +166,19 @@ const AdminAdoptMgmt = () => {
               <td data-label='ID'>{req._id.slice(-6).toUpperCase()}</td>
               <td data-label='User'>{req.email}</td>
               <td data-label='Pet'>
-                {req.pet?.name} ({req.pet?.category?.name})
+                {req.pet?.name} ({req.pet?.category?.name || 'N/A'})
               </td>
-              <td data-label='Status'>{req.status}</td>
+              <td data-label='Status'>{getStatusBadge(req.status)}</td>
               <td data-label='Requested At'>
                 {new Date(req.createdAt).toLocaleDateString()}
               </td>
               <td data-label='Actions'>
+                <button
+                  className='details-btn'
+                  onClick={() => handleDetails(req)}
+                >
+                  Details
+                </button>
                 {req.status === 'pending' && (
                   <>
                     <button
@@ -163,14 +194,6 @@ const AdminAdoptMgmt = () => {
                       Reject
                     </button>
                   </>
-                )}
-                {req.status === 'approved' && (
-                  <button
-                    className='reject-btn'
-                    onClick={() => handleReject(req._id)}
-                  >
-                    Reject
-                  </button>
                 )}
               </td>
             </tr>
