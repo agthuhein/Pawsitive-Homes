@@ -54,36 +54,68 @@ const AdoptForm = () => {
 
   return (
     <main className='main-content'>
-      <h2>Adopt {pet.name}</h2>
-      <form onSubmit={handleSubmit} className='adopt-form'>
-        <div>
-          <label>First Name</label>
-          <input type='text' name='firstName' required />
-        </div>
-        <div>
-          <label>Last Name</label>
-          <input type='text' name='lastName' required />
-        </div>
-        <div>
-          <label>Email</label>
-          <input type='email' name='email' required />
-        </div>
-        <div>
-          <label>Phone</label>
-          <input type='text' name='phone' required />
-        </div>
-        <div>
-          <label>Address</label>
-          <textarea name='address' required></textarea>
-        </div>
-        <div>
-          <label>Message (optional)</label>
-          <textarea name='message'></textarea>
-        </div>
-        <button type='submit' className='add-btn'>
-          Submit Request
-        </button>
-      </form>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>
+        Adopt {pet.name}
+      </h2>
+
+      <div className='form-wrapper'>
+        <form onSubmit={handleSubmit} className='pet-form'>
+          {/* First Name */}
+          <div className='form-group'>
+            <label htmlFor='firstName'>First Name</label>
+            <input type='text' id='firstName' name='firstName' required />
+          </div>
+
+          {/* Last Name */}
+          <div className='form-group'>
+            <label htmlFor='lastName'>Last Name</label>
+            <input type='text' id='lastName' name='lastName' required />
+          </div>
+
+          {/* Email */}
+          <div className='form-group'>
+            <label htmlFor='email'>Email</label>
+            <input type='email' id='email' name='email' required />
+          </div>
+
+          {/* Phone */}
+          <div className='form-group'>
+            <label htmlFor='phone'>Phone</label>
+            <input type='text' id='phone' name='phone' required />
+          </div>
+
+          {/* Address */}
+          <div className='form-group'>
+            <label htmlFor='address'>Address</label>
+            <textarea id='address' name='address' rows='3' required></textarea>
+          </div>
+
+          {/* Message */}
+          <div className='form-group'>
+            <label htmlFor='message'>Message (optional)</label>
+            <textarea
+              id='message'
+              name='message'
+              rows='3'
+              placeholder='Write something to us...'
+            ></textarea>
+          </div>
+
+          {/* Actions */}
+          <div className='form-actions'>
+            <button type='submit' className='add-btn'>
+              Submit Request
+            </button>
+            <button
+              type='button'
+              className='cancel-btn'
+              onClick={() => navigate('/user/pets')}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
   );
 };
