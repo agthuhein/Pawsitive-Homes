@@ -33,7 +33,6 @@ exports.create = async (req, res) => {
     petDoc.status = 'pending';
     await petDoc.save();
 
-    // fire-and-forget email (don’t fail the request if email fails)
     sendMail({
       to: email,
       subject: 'We received your adoption request 🐾',
@@ -43,6 +42,12 @@ exports.create = async (req, res) => {
 
     res.status(201).json({ msg: 'Adoption request submitted', adoption });
   } catch (err) {
+    if (err.code === 11000) {
+      // Duplicate key error → index violation
+      return res
+        .status(400)
+        .json({ error: 'You have already requested this pet.' });
+    }
     console.error('Adoption create error:', err);
     res.status(500).json({ error: 'Server error' });
   }
@@ -51,21 +56,20 @@ exports.create = async (req, res) => {
 // APPROVE
 exports.approve = async (req, res) => {
   try {
-    const adoption = await Adoption.findById(req.params.id).populate(
-      'pet',
-      'name'
-    );
-    if (!adoption)
-      return res.status(404).json({ msg: 'Adoption request not found' });
-    if (adoption.status !== 'pending') {
-      return res
-        .status(400)
-        .json({ msg: 'Only pending requests can be approved' });
-    }
+    const adoption = await Adoption.findOneAndUpdate(
+      { _id: req.params.id, status: 'pending' }, // only pending
+      { status: 'approved' },
+      { new: true }
+    ).populate('pet', 'name');
 
-    adoption.status = 'approved';
-    await adoption.save();
-    await Pet.findByIdAndUpdate(adoption.pet, { status: 'adopted' });
+    if (!adoption)
+      return res
+        .status(404)
+        .json({ msg: 'Adoption request not found or not pending' });
+
+    await Pet.findByIdAndUpdate(adoption.pet._id || adoption.pet, {
+      status: 'adopted',
+    });
 
     sendMail({
       to: adoption.email,
@@ -77,29 +81,27 @@ exports.approve = async (req, res) => {
 
     res.json({ msg: 'Adoption approved', adoption });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server error' });
+    console.error('Approve error:', err);
+    res.status(500).json({ msg: 'Server error', error: err.message });
   }
 };
 
-// REJECT
 exports.reject = async (req, res) => {
   try {
-    const adoption = await Adoption.findById(req.params.id).populate(
-      'pet',
-      'name'
-    );
-    if (!adoption)
-      return res.status(404).json({ msg: 'Adoption request not found' });
-    if (adoption.status !== 'pending') {
-      return res
-        .status(400)
-        .json({ msg: 'Only pending requests can be rejected' });
-    }
+    const adoption = await Adoption.findOneAndUpdate(
+      { _id: req.params.id, status: 'pending' }, // only pending
+      { status: 'rejected' },
+      { new: true }
+    ).populate('pet', 'name');
 
-    adoption.status = 'rejected';
-    await adoption.save();
-    await Pet.findByIdAndUpdate(adoption.pet, { status: 'available' });
+    if (!adoption)
+      return res
+        .status(404)
+        .json({ msg: 'Adoption request not found or not pending' });
+
+    await Pet.findByIdAndUpdate(adoption.pet._id || adoption.pet, {
+      status: 'available',
+    });
 
     sendMail({
       to: adoption.email,
@@ -111,8 +113,8 @@ exports.reject = async (req, res) => {
 
     res.json({ msg: 'Adoption rejected', adoption });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server error' });
+    console.error('Reject error:', err);
+    res.status(500).json({ msg: 'Server error', error: err.message });
   }
 };
 

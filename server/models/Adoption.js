@@ -1,13 +1,13 @@
-// models/Adoption.js
 const mongoose = require('mongoose');
 
 const AdoptionSchema = new mongoose.Schema(
   {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    firstName: String,
+    lastName: String,
     email: { type: String, required: true },
-    address: { type: String, required: true },
-    phone: { type: String, required: true },
+    address: String,
+    phone: String,
+    message: String,
 
     pet: {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,14 +22,20 @@ const AdoptionSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'],
+      enum: ['pending', 'approved', 'rejected', 'canceled'],
       default: 'pending',
     },
   },
   { timestamps: true }
 );
 
-// Prevent same user making multiple *pending* requests for same pet
-AdoptionSchema.index({ pet: 1, user: 1, status: 1 }, { unique: true });
+// ✅ Prevent same user requesting the same pet more than once
+AdoptionSchema.index({ pet: 1, user: 1 }, { unique: true });
+
+// ✅ Prevent multiple pending requests on the same pet
+AdoptionSchema.index(
+  { pet: 1 },
+  { unique: true, partialFilterExpression: { status: 'pending' } }
+);
 
 module.exports = mongoose.model('Adoption', AdoptionSchema);
