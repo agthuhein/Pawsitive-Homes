@@ -42,7 +42,7 @@ const AdoptForm = () => {
       });
 
       Swal.fire('Success', 'Your adoption request was submitted!', 'success');
-      navigate('/user/adoptions');
+      navigate('/user/myrequests');
     } catch (err) {
       Swal.fire(
         'Error',

@@ -54,7 +54,7 @@ const Navbar = () => {
           <>
             <Link to='/user/dashboard'>My Dashboard</Link>
             <Link to='/user/pets'>Browse Pets</Link>
-            <Link to='/user/adoptions'>My Requests</Link>
+            <Link to='/user/myrequests'>My Requests</Link>
             <Link to='/user/donate'>Donate</Link>
             <Link to='/' onClick={handleLogout} className='logout'>
               Logout

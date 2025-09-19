@@ -110,13 +110,14 @@ const AdminAdoptMgmt = () => {
 
   if (loading) return <p>Loading adoption requests...</p>;
 
-  // helper: badge color
   const getStatusBadge = (status) => {
     switch (status) {
       case 'approved':
         return <span className='badge badge-approved'>Approved</span>;
       case 'rejected':
         return <span className='badge badge-rejected'>Rejected</span>;
+      case 'canceled':
+        return <span className='badge badge-canceled'>Canceled</span>;
       case 'pending':
       default:
         return <span className='badge badge-pending'>Pending</span>;

@@ -171,16 +171,8 @@ exports.cancelMine = async (req, res) => {
     adoption.status = 'canceled';
     await adoption.save();
 
-    // If this was the only pending request, revert pet to available
-    const otherPending = await Adoption.countDocuments({
-      pet: adoption.pet,
-      _id: { $ne: adoption._id },
-      status: 'pending',
-    });
-
-    if (otherPending === 0) {
-      await Pet.findByIdAndUpdate(adoption.pet, { status: 'available' });
-    }
+    // ✅ Pet should always return to available if the pending request is canceled
+    await Pet.findByIdAndUpdate(adoption.pet, { status: 'available' });
 
     // ✅ Send cancellation email
     await sendMail({
@@ -192,7 +184,7 @@ exports.cancelMine = async (req, res) => {
 
     res.json({ msg: 'Request canceled', adoption });
   } catch (e) {
-    console.error(e);
+    console.error('Cancel error:', e);
     res.status(500).json({ msg: 'Server error' });
   }
 };

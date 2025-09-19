@@ -48,7 +48,7 @@ const PetSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['available', 'adopted', 'pending'],
+      enum: ['available', 'adopted', 'pending', 'rejected', 'canceled'],
       default: 'available',
     },
   },
