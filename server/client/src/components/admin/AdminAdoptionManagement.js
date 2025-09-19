@@ -1,44 +1,218 @@
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AdminAdoptMgmt = () => {
-  const navigate = useNavigate();
+  const [adoptions, setAdoptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage] = useState(5); // show 5 requests per page
+
+  const token = localStorage.getItem('token');
+
+  // Fetch adoption requests
+  useEffect(() => {
+    const fetchAdoptions = async () => {
+      try {
+        const res = await axios.get('/api/adoption', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAdoptions(res.data);
+      } catch (err) {
+        console.error('Error fetching adoptions:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAdoptions();
+  }, [token]);
+
+  // Approve request
+  const handleApprove = async (id) => {
+    try {
+      await axios.put(
+        `/api/adoption/${id}/approve`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      Swal.fire('Approved!', 'Adoption request approved.', 'success');
+      setAdoptions(
+        adoptions.map((req) =>
+          req._id === id ? { ...req, status: 'approved' } : req
+        )
+      );
+    } catch (err) {
+      Swal.fire(
+        'Error',
+        err.response?.data?.msg || 'Failed to approve',
+        'error'
+      );
+    }
+  };
+
+  // Reject request
+  const handleReject = async (id) => {
+    try {
+      await axios.put(
+        `/api/adoption/${id}/reject`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      Swal.fire('Rejected!', 'Adoption request rejected.', 'info');
+      setAdoptions(
+        adoptions.map((req) =>
+          req._id === id ? { ...req, status: 'rejected' } : req
+        )
+      );
+    } catch (err) {
+      Swal.fire(
+        'Error',
+        err.response?.data?.msg || 'Failed to reject',
+        'error'
+      );
+    }
+  };
+
+  // ✅ Filtering
+  const filteredAdoptions = adoptions.filter((req) => {
+    const matchesSearch =
+      req.firstName.toLowerCase().includes(search.toLowerCase()) ||
+      req.lastName.toLowerCase().includes(search.toLowerCase()) ||
+      req.email.toLowerCase().includes(search.toLowerCase()) ||
+      req.pet?.name.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = filterStatus ? req.status === filterStatus : true;
+    return matchesSearch && matchesStatus;
+  });
+
+  // ✅ Pagination
+  const indexOfLast = currentPage * perPage;
+  const indexOfFirst = indexOfLast - perPage;
+  const currentAdoptions = filteredAdoptions.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredAdoptions.length / perPage);
+
+  if (loading) return <p>Loading adoption requests...</p>;
 
   return (
-    <main class='main-content'>
+    <main className='main-content'>
       <h2>Manage Adoption Requests</h2>
 
-      <table class='admin-table'>
+      {/* Controls Row */}
+      <div className='controls-row'>
+        <div className='filters'>
+          <input
+            type='text'
+            placeholder='Search by user or pet...'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value=''>All Status</option>
+            <option value='pending'>Pending</option>
+            <option value='approved'>Approved</option>
+            <option value='rejected'>Rejected</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Table */}
+      <table className='admin-table'>
         <thead>
           <tr>
             <th>ID</th>
             <th>User</th>
             <th>Pet</th>
             <th>Status</th>
+            <th>Requested At</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>201</td>
-            <td>john@example.com</td>
-            <td>Mina (Cat)</td>
-            <td>Pending</td>
-            <td>
-              <button class='approve-btn'>Approve</button>
-              <button class='reject-btn'>Reject</button>
-            </td>
-          </tr>
-          <tr>
-            <td>202</td>
-            <td>emma@example.com</td>
-            <td>Zazu (Dog)</td>
-            <td>Approved</td>
-            <td>
-              <button class='reject-btn'>Reject</button>
-            </td>
-          </tr>
+          {currentAdoptions.map((req) => (
+            <tr key={req._id}>
+              <td data-label='ID'>{req._id.slice(-6).toUpperCase()}</td>
+              <td data-label='User'>{req.email}</td>
+              <td data-label='Pet'>
+                {req.pet?.name} ({req.pet?.category?.name})
+              </td>
+              <td data-label='Status'>{req.status}</td>
+              <td data-label='Requested At'>
+                {new Date(req.createdAt).toLocaleDateString()}
+              </td>
+              <td data-label='Actions'>
+                {req.status === 'pending' && (
+                  <>
+                    <button
+                      className='approve-btn'
+                      onClick={() => handleApprove(req._id)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className='reject-btn'
+                      onClick={() => handleReject(req._id)}
+                    >
+                      Reject
+                    </button>
+                  </>
+                )}
+                {req.status === 'approved' && (
+                  <button
+                    className='reject-btn'
+                    onClick={() => handleReject(req._id)}
+                  >
+                    Reject
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+          {currentAdoptions.length === 0 && (
+            <tr>
+              <td colSpan='6' style={{ textAlign: 'center', padding: '20px' }}>
+                No adoption requests found
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className='pagination'>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              className={currentPage === i + 1 ? 'active' : ''}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </main>
   );
 };

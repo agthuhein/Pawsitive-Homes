@@ -1,21 +1,28 @@
 const express = require('express');
-const adoptionController = require('../controllers/adoptionController');
-
 const router = express.Router();
+const adoptionController = require('../controllers/adoptionController');
+const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
-// Create adoption
-router.post('/create', adoptionController.create);
+// Create
+router.post('/', authMiddleware, adoptionController.create);
 
-// Get all adoption
-router.get('/all', adoptionController.getAll);
+// Get adoptions requests (admin)
+router.get('/', authMiddleware, adminMiddleware, adoptionController.getAll);
 
-// Get adoption by Id
-router.get('/get/:id', adoptionController.getById);
+// Approve (admin)
+router.put(
+  '/:id/approve',
+  authMiddleware,
+  adminMiddleware,
+  adoptionController.approve
+);
 
-// Update adoption
-router.put('/update/:id', adoptionController.update);
-
-// Delete adoption
-router.delete('/delete/:id', adoptionController.delete);
+// Reject (admin)
+router.put(
+  '/:id/reject',
+  authMiddleware,
+  adminMiddleware,
+  adoptionController.reject
+);
 
 module.exports = router;
