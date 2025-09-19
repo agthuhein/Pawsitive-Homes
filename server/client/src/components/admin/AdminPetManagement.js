@@ -32,6 +32,45 @@ const AdminPetManagement = () => {
     fetchPets();
   }, [token]);
 
+  // ✅ Pet Details popup
+  const handleDetails = (pet) => {
+    Swal.fire({
+      title: `${pet.name} (${pet.gender === 'male' ? '♂ Male' : '♀ Female'})`,
+      html: `
+        <img 
+          src="http://localhost:4000${pet.image}" 
+          alt="${pet.name}" 
+          style="width:200px; height:200px; object-fit:cover; border-radius:10px; margin-bottom:10px"
+        />
+        <p><strong>Age:</strong> ${pet.age}</p>
+        <p><strong>Breed:</strong> ${pet.breed}</p>
+        <p><strong>Color:</strong> ${pet.color}</p>
+        <p><strong>Status:</strong> ${pet.status}</p>
+        <p><strong>Category:</strong> ${pet.category?.name || 'N/A'}</p>
+        <p><strong>Description:</strong> ${pet.description}</p>
+        <p><strong>Traits:</strong> ${
+          pet.traits && pet.traits.length > 0
+            ? pet.traits.join(', ')
+            : 'No traits added'
+        }</p>
+        ${
+          pet.additionalImages && pet.additionalImages.length > 0
+            ? `<hr/><p><strong>Additional Images:</strong></p>
+               ${pet.additionalImages
+                 .map(
+                   (img) =>
+                     `<img src="http://localhost:4000${img}" 
+                       style="width:80px; height:80px; object-fit:cover; border-radius:8px; margin:5px" />`
+                 )
+                 .join('')}`
+            : ''
+        }
+      `,
+      confirmButtonText: 'Close',
+      width: '600px',
+    });
+  };
+
   // ✅ Safe delete logic
   const handleDelete = async (id, status) => {
     if (status === 'pending') {
@@ -68,11 +107,9 @@ const AdminPetManagement = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // update pets state
         const updatedPets = pets.filter((pet) => pet._id !== id);
         setPets(updatedPets);
 
-        // ✅ check pagination after delete
         const totalPages = Math.ceil(updatedPets.length / petsPerPage);
         if (currentPage > totalPages) {
           setCurrentPage(totalPages || 1);
@@ -184,7 +221,7 @@ const AdminPetManagement = () => {
               <td data-label='Actions'>
                 <button
                   className='details-btn'
-                  onClick={() => navigate(`/admin/pets/${pet._id}`)}
+                  onClick={() => handleDetails(pet)}
                 >
                   Details
                 </button>
