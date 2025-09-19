@@ -1,14 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // ✅ add this
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const { email, password } = formData;
 
   const onChange = (e) =>
@@ -19,19 +17,31 @@ const Login = () => {
     try {
       const res = await axios.post('/api/auth/login', { email, password });
 
-      console.log('Login response:', res.data);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.user.role);
 
-      //Check role to route to dashboard
+      // ✅ Success Alert
+      await Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        text: `Welcome back, ${res.data.user.name}!`,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      // ✅ Redirect after alert
       if (res.data.user.role === 'admin') {
         navigate('/admin/dashboard');
       } else {
-        navigate('/user/dashboard'); // user dashboard
+        navigate('/user/dashboard');
       }
     } catch (err) {
-      console.error('Login error:', err.response?.data || err.message);
-      alert(err.response?.data?.msg || 'Login failed');
+      // ✅ Error Alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: err.response?.data?.msg || 'Something went wrong',
+      });
     }
   };
 

@@ -189,15 +189,30 @@ exports.delete = async (req, res) => {
       return res.status(404).json({ msg: 'Pet does not exist' });
     }
 
+    // 🚨 Prevent deleting if status is pending
+    if (existingPet.status === 'pending') {
+      return res
+        .status(400)
+        .json({ msg: 'Cannot delete pet with pending adoption request' });
+    }
+
     // Delete files
     if (existingPet.image) await deleteFile(existingPet.image);
     for (const img of existingPet.additionalImages) {
       await deleteFile(img);
     }
 
+    // ✅ Delete the pet
     const deletedPet = await Pet.findByIdAndDelete(id);
 
-    res.json({ msg: 'Pet removed successfully', deletedPet });
+    // ✅ Cascade delete adoption requests for this pet
+    const Adoption = require('../models/Adoption');
+    await Adoption.deleteMany({ pet: id });
+
+    res.json({
+      msg: 'Pet removed successfully (and related adoption requests cleared)',
+      deletedPet,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Server error' });

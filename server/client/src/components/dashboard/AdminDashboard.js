@@ -30,7 +30,7 @@ const AdminDashboard = () => {
         setAdoptionTrends(trendsRes.data);
       } catch (err) {
         console.error(
-          '❌ Error fetching dashboard:',
+          'Error fetching dashboard:',
           err.response?.data || err.message
         );
       } finally {
@@ -51,7 +51,6 @@ const AdminDashboard = () => {
         <p>Here’s a quick overview of the system stats.</p>
       </section>
 
-      {/* ✅ Stats Cards */}
       <section className='stats mb-8'>
         <div className='stat-card'>
           <h3>Total Pets</h3>
@@ -71,7 +70,6 @@ const AdminDashboard = () => {
         </div>
       </section>
 
-      {/* ✅ Adoption Status Breakdown */}
       <section className='stats breakdown mb-8'>
         <div className='stat-card'>
           <h3>Approved</h3>
@@ -83,9 +81,8 @@ const AdminDashboard = () => {
         </div>
       </section>
 
-      {/* 📊 Adoption Trends Chart */}
       <section className='adoption-trends mb-8'>
-        <h3>Adoption Trends</h3>
+        <h3>Adoption Trends</h3> <br />
         <ResponsiveContainer width='100%' height={300}>
           <LineChart data={adoptionTrends}>
             <CartesianGrid strokeDasharray='3 3' />
@@ -100,7 +97,6 @@ const AdminDashboard = () => {
         </ResponsiveContainer>
       </section>
 
-      {/* ✅ Latest Users */}
       <section className='latest-users mb-8'>
         <h3>Newly Registered Users</h3>
         <table className='admin-table'>

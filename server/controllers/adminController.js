@@ -130,7 +130,6 @@ exports.updateUserRole = async (req, res) => {
   }
 };
 
-// ✅ DELETE /api/admin/users/:id
 // Delete a user
 exports.deleteUser = async (req, res) => {
   try {

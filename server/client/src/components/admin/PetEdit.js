@@ -172,11 +172,17 @@ const PetEdit = () => {
           {/* Status */}
           <div className='form-group'>
             <label htmlFor='status'>Status</label>
-            <select id='status' name='status' defaultValue={pet.status}>
+            <select
+              id='status'
+              name='status'
+              defaultValue={pet.status}
+              disabled
+            >
               <option value='available'>Available</option>
               <option value='adopted'>Adopted</option>
               <option value='pending'>Pending</option>
             </select>
+            <small className='small-style'>Status cannot be changed.</small>
           </div>
 
           {/* Traits */}

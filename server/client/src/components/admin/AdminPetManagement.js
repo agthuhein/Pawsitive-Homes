@@ -10,7 +10,7 @@ const AdminPetManagement = () => {
   const [filterCategory, setFilterCategory] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [petsPerPage] = useState(5); // show 5 pets per page
+  const [petsPerPage] = useState(5);
 
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -32,7 +32,26 @@ const AdminPetManagement = () => {
     fetchPets();
   }, [token]);
 
-  const handleDelete = async (id) => {
+  // ✅ Safe delete logic
+  const handleDelete = async (id, status) => {
+    if (status === 'pending') {
+      Swal.fire(
+        'Not Allowed',
+        'This pet has a pending adoption request. Please resolve it before deleting.',
+        'warning'
+      );
+      return;
+    }
+
+    if (status === 'adopted') {
+      Swal.fire(
+        'Not Allowed',
+        'This pet has already been adopted and cannot be deleted.',
+        'error'
+      );
+      return;
+    }
+
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'This action cannot be undone!',
@@ -56,7 +75,7 @@ const AdminPetManagement = () => {
         // ✅ check pagination after delete
         const totalPages = Math.ceil(updatedPets.length / petsPerPage);
         if (currentPage > totalPages) {
-          setCurrentPage(totalPages || 1); // fallback to page 1
+          setCurrentPage(totalPages || 1);
         }
 
         Swal.fire('Deleted!', 'Pet has been removed.', 'success');
@@ -177,7 +196,7 @@ const AdminPetManagement = () => {
                 </button>
                 <button
                   className='delete-btn'
-                  onClick={() => handleDelete(pet._id)}
+                  onClick={() => handleDelete(pet._id, pet.status)}
                 >
                   Delete
                 </button>
