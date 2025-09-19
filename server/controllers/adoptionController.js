@@ -1,25 +1,18 @@
 // controllers/adoptionController.js
 const Adoption = require('../models/Adoption');
 const Pet = require('../models/Pet');
+const { sendMail } = require('../utils/mailer');
 
-// adoptionController.js
-// controllers/adoptionController.js
+// CREATE (POST /api/adoption/:petId/request)
 exports.create = async (req, res) => {
   try {
-    const {
-      firstName,
-      lastName,
-      email,
-      address,
-      phone,
-      pet: petId,
-      message,
-    } = req.body;
+    const { firstName, lastName, email, address, phone, message } = req.body;
+    const { petId } = req.params;
 
-    const pet = await Pet.findById(petId);
-    if (!pet) return res.status(404).json({ error: 'Pet not found' });
+    const petDoc = await Pet.findById(petId);
+    if (!petDoc) return res.status(404).json({ error: 'Pet not found' });
 
-    if (pet.status !== 'available') {
+    if (petDoc.status !== 'available') {
       return res
         .status(400)
         .json({ error: 'Pet is not available for adoption' });
@@ -37,24 +30,33 @@ exports.create = async (req, res) => {
       status: 'pending',
     });
 
-    // Update pet status to pending
-    pet.status = 'pending';
-    await pet.save();
+    petDoc.status = 'pending';
+    await petDoc.save();
+
+    // fire-and-forget email (don’t fail the request if email fails)
+    sendMail({
+      to: email,
+      subject: 'We received your adoption request 🐾',
+      html: `<p>Hi ${firstName},</p>
+             <p>Thanks for requesting to adopt <strong>${petDoc.name}</strong>. We’ll review and update you soon.</p>`,
+    }).catch((err) => console.error('Mail error (create):', err.message));
 
     res.status(201).json({ msg: 'Adoption request submitted', adoption });
   } catch (err) {
-    console.error(err);
+    console.error('Adoption create error:', err);
     res.status(500).json({ error: 'Server error' });
   }
 };
 
-// Approve adoption
+// APPROVE
 exports.approve = async (req, res) => {
   try {
-    const adoption = await Adoption.findById(req.params.id);
+    const adoption = await Adoption.findById(req.params.id).populate(
+      'pet',
+      'name'
+    );
     if (!adoption)
       return res.status(404).json({ msg: 'Adoption request not found' });
-
     if (adoption.status !== 'pending') {
       return res
         .status(400)
@@ -63,8 +65,15 @@ exports.approve = async (req, res) => {
 
     adoption.status = 'approved';
     await adoption.save();
-
     await Pet.findByIdAndUpdate(adoption.pet, { status: 'adopted' });
+
+    sendMail({
+      to: adoption.email,
+      subject: 'Your adoption request was approved 🎉',
+      html: `<p>Congratulations! Your request for <strong>${
+        adoption.pet?.name || 'the pet'
+      }</strong> was approved.</p>`,
+    }).catch((err) => console.error('Mail error (approve):', err.message));
 
     res.json({ msg: 'Adoption approved', adoption });
   } catch (err) {
@@ -73,13 +82,15 @@ exports.approve = async (req, res) => {
   }
 };
 
-// Reject adoption
+// REJECT
 exports.reject = async (req, res) => {
   try {
-    const adoption = await Adoption.findById(req.params.id);
+    const adoption = await Adoption.findById(req.params.id).populate(
+      'pet',
+      'name'
+    );
     if (!adoption)
       return res.status(404).json({ msg: 'Adoption request not found' });
-
     if (adoption.status !== 'pending') {
       return res
         .status(400)
@@ -88,8 +99,15 @@ exports.reject = async (req, res) => {
 
     adoption.status = 'rejected';
     await adoption.save();
-
     await Pet.findByIdAndUpdate(adoption.pet, { status: 'available' });
+
+    sendMail({
+      to: adoption.email,
+      subject: 'Update on your adoption request',
+      html: `<p>We’re sorry — your request for <strong>${
+        adoption.pet?.name || 'the pet'
+      }</strong> was not approved this time.</p>`,
+    }).catch((err) => console.error('Mail error (reject):', err.message));
 
     res.json({ msg: 'Adoption rejected', adoption });
   } catch (err) {
@@ -105,14 +123,74 @@ exports.getAll = async (req, res) => {
       .populate({
         path: 'pet',
         select: 'name status category',
-        populate: { path: 'category', select: 'name' }, // ✅ nested populate
+        populate: { path: 'category', select: 'name' },
       })
-      .populate('user', 'name email')
-      .sort({ createdAt: -1 }); // optional: newest first
+      .populate('user', 'firstName lastName email')
+      .sort({ createdAt: -1 });
 
     res.json(adoptions);
   } catch (err) {
     console.error('Error fetching adoptions:', err);
     res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Get logged-in user's adoption requests
+exports.getMine = async (req, res) => {
+  try {
+    const mine = await Adoption.find({ user: req.user.id })
+      .populate({
+        path: 'pet',
+        select: 'name status category image',
+        populate: { path: 'category', select: 'name' },
+      })
+      .sort({ createdAt: -1 });
+
+    res.json(mine);
+  } catch (e) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Cancel user's adoption request
+exports.cancelMine = async (req, res) => {
+  try {
+    const adoption = await Adoption.findById(req.params.id);
+    if (!adoption) return res.status(404).json({ msg: 'Request not found' });
+    if (String(adoption.user) !== req.user.id) {
+      return res.status(403).json({ msg: 'Not your request' });
+    }
+    if (adoption.status !== 'pending') {
+      return res
+        .status(400)
+        .json({ msg: 'Only pending requests can be canceled' });
+    }
+
+    adoption.status = 'canceled';
+    await adoption.save();
+
+    // If this was the only pending request, revert pet to available
+    const otherPending = await Adoption.countDocuments({
+      pet: adoption.pet,
+      _id: { $ne: adoption._id },
+      status: 'pending',
+    });
+
+    if (otherPending === 0) {
+      await Pet.findByIdAndUpdate(adoption.pet, { status: 'available' });
+    }
+
+    // ✅ Send cancellation email
+    await sendMail({
+      to: adoption.email,
+      subject: 'Your adoption request was canceled',
+      html: `<p>Hi ${adoption.firstName},</p>
+             <p>Your adoption request has been canceled successfully.</p>`,
+    });
+
+    res.json({ msg: 'Request canceled', adoption });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: 'Server error' });
   }
 };

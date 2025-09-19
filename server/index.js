@@ -12,6 +12,9 @@ const adoptionRoutes = require('./routes/adoption');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
+const donationRoutes = require('./routes/donation');
+const moongoUri = 'mongodb://localhost:27017/Pawsitive-Home';
+const { verifyTransport } = require('./utils/mailer');
 
 const app = express();
 
@@ -31,8 +34,9 @@ app.use('/api/pets', petRoutes);
 app.use('/api/adoption', adoptionRoutes);
 
 app.use('/api/admin', adminRoutes);
+app.use('/api/donations', donationRoutes);
 
-const moongoUri = 'mongodb://localhost:27017/Pawsitive-Home';
+verifyTransport();
 
 mongoose.connect(moongoUri, {
   useNewUrlParser: true,

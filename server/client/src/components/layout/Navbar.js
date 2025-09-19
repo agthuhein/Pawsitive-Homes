@@ -53,9 +53,19 @@ const Navbar = () => {
         ) : (
           <>
             <Link to='/user/dashboard'>My Dashboard</Link>
+            <Link to='/user/pets'>Browse Pets</Link>
+            <Link to='/user/adoptions'>My Requests</Link>
+            <Link to='/user/donate'>Donate</Link>
             <button
               onClick={handleLogout}
-              style={{ background: 'red', color: 'white', borderRadius: '6px' }}
+              style={{
+                background: 'red',
+                color: 'white',
+                borderRadius: '6px',
+                padding: '5px 10px',
+                border: 'none',
+                cursor: 'pointer',
+              }}
             >
               Logout
             </button>
