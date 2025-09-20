@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Dogs from '../card/Dogs';
 import Cats from '../card/Cats';
 import Footer from './Footer';
+import PreFooter from './PreFooter';
 
 const Landing = () => {
   return (
@@ -23,6 +23,7 @@ const Landing = () => {
       </section>
       <Dogs />
       <Cats />
+      <PreFooter />
       <Footer />
     </>
   );
