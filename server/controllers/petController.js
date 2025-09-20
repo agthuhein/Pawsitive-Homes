@@ -76,9 +76,31 @@ exports.create = async (req, res) => {
 };
 
 // GET ALL PETS (Public)
+/*
 exports.getAll = async (req, res) => {
   try {
     const pets = await Pet.find().populate('category', 'name');
+    res.json(pets);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};*/
+exports.getAll = async (req, res) => {
+  try {
+    const { category, status, search } = req.query;
+    const q = {};
+    if (status) q.status = status.toLowerCase(); // 'available'
+    if (category)
+      q.category = await (async () => {
+        // find category by name -> id
+        const Category = require('../models/Category');
+        const c = await Category.findOne({ name: category });
+        return c ? c._id : undefined;
+      })();
+    if (search) q.name = new RegExp(search, 'i');
+
+    const pets = await Pet.find(q).populate('category', 'name');
     res.json(pets);
   } catch (error) {
     console.log(error);

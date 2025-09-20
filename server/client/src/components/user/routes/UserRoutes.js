@@ -18,6 +18,7 @@ const UserRoutes = () => {
       <Route path='/myrequests' element={<UserRequests />} />
       <Route path='/success-payment' element={<SuccessPayment />} />
       <Route path='/cancel-payment' element={<CancelPayment />} />
+      <Route path='/pets/:id/adopt' element={<AdoptForm />} /> {/* ✅ Adopt */}
     </Routes>
   );
 };

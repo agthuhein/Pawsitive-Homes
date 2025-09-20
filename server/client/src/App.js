@@ -11,6 +11,7 @@ import UserRoutes from './components/user/routes/UserRoutes';
 
 import AdminRoute from './components/routing/AdminRoute';
 import UserRoute from './components/routing/UserRoute';
+import PetDetail from './components/user/PetDetail';
 
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/' element={<Landing />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/pets/:id' element={<PetDetail />} />
 
         {/* User Routes (protected) */}
         <Route
