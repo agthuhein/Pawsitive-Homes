@@ -5,7 +5,7 @@ import PetGallery from '../PetGallery';
 import Donate from '../Donate';
 import AdoptForm from '../AdoptForm';
 import UserRequests from '../UserRequest';
-import SuccessPayment from '../SuccessPayment';
+import SuccessPayment from '../successPayment';
 import CancelPayment from '../CancelPayment';
 
 const UserRoutes = () => {
