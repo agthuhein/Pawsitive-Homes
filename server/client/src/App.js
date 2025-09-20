@@ -13,6 +13,8 @@ import AdminRoute from './components/routing/AdminRoute';
 import UserRoute from './components/routing/UserRoute';
 import PetDetail from './components/user/PetDetail';
 import Stories from './components/user/Stories';
+import About from './components/user/About';
+import Contact from './components/user/Contact';
 
 import './App.css';
 
@@ -28,6 +30,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/pets/:id' element={<PetDetail />} />
         <Route path='/stories' element={<Stories />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contact' element={<Contact />} />
 
         {/* User Routes (protected) */}
         <Route

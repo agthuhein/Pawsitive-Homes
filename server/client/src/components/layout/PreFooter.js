@@ -20,13 +20,7 @@ const PreFooter = () => {
             <a href='/about'>About us</a>
           </li>
           <li>
-            <a href='/mission'>Mission</a>
-          </li>
-          <li>
-            <a href='/terms'>Terms</a>
-          </li>
-          <li>
-            <a href='/privacy'>Privacy</a>
+            <a href='/contact'>Contact</a>
           </li>
         </ul>
       </div>
