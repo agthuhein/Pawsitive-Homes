@@ -164,7 +164,12 @@ const AdminAdoptMgmt = () => {
         <tbody>
           {currentAdoptions.map((req) => (
             <tr key={req._id}>
-              <td data-label='ID'>{req._id.slice(-6).toUpperCase()}</td>
+              <td data-label='ID'>
+                <code className='pet-id'>
+                  {'REQ_' + req._id.slice(-6).toUpperCase()}
+                </code>
+              </td>
+
               <td data-label='User'>{req.email}</td>
               <td data-label='Pet'>
                 {req.pet?.name} ({req.pet?.category?.name || 'N/A'})
@@ -174,28 +179,30 @@ const AdminAdoptMgmt = () => {
                 {new Date(req.createdAt).toLocaleDateString()}
               </td>
               <td data-label='Actions'>
-                <button
-                  className='details-btn'
-                  onClick={() => handleDetails(req)}
-                >
-                  Details
-                </button>
-                {req.status === 'pending' && (
-                  <>
-                    <button
-                      className='approve-btn'
-                      onClick={() => handleApprove(req._id)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className='reject-btn'
-                      onClick={() => handleReject(req._id)}
-                    >
-                      Reject
-                    </button>
-                  </>
-                )}
+                <div className='action-buttons'>
+                  <button
+                    className='details-btn'
+                    onClick={() => handleDetails(req)}
+                  >
+                    Details
+                  </button>
+                  {req.status === 'pending' && (
+                    <>
+                      <button
+                        className='approve-btn'
+                        onClick={() => handleApprove(req._id)}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className='reject-btn'
+                        onClick={() => handleReject(req._id)}
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                </div>
               </td>
             </tr>
           ))}

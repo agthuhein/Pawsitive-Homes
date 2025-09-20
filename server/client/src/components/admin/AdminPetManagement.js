@@ -197,10 +197,13 @@ const AdminPetManagement = () => {
           {currentPets.map((pet) => (
             <tr key={pet._id}>
               <td data-label='ID'>
-                {(pet.category?.name.toUpperCase() || 'PET') +
-                  '_' +
-                  pet._id.slice(-6).toUpperCase()}
+                <code className='pet-id'>
+                  {(pet.category?.name.toUpperCase() || 'PET') +
+                    '_' +
+                    pet._id.slice(-6).toUpperCase()}
+                </code>
               </td>
+
               <td data-label='Photo'>
                 <img
                   src={`http://localhost:4000${pet.image}`}
@@ -217,26 +220,41 @@ const AdminPetManagement = () => {
               <td data-label='Age'>{pet.age}</td>
               <td data-label='Type'>{pet.breed}</td>
               <td data-label='Category'>{pet.category?.name}</td>
-              <td data-label='Status'>{pet.status}</td>
+              <td data-label='Status'>
+                <span
+                  className={`badge ${
+                    pet.status === 'available'
+                      ? 'badge-available'
+                      : pet.status === 'adopted'
+                      ? 'badge-adopted'
+                      : 'badge-pending'
+                  }`}
+                >
+                  {pet.status}
+                </span>
+              </td>
+
               <td data-label='Actions'>
-                <button
-                  className='details-btn'
-                  onClick={() => handleDetails(pet)}
-                >
-                  Details
-                </button>
-                <button
-                  className='edit-btn'
-                  onClick={() => navigate(`/admin/pets/edit/${pet._id}`)}
-                >
-                  Edit
-                </button>
-                <button
-                  className='delete-btn'
-                  onClick={() => handleDelete(pet._id, pet.status)}
-                >
-                  Delete
-                </button>
+                <div className='table-actions'>
+                  <button
+                    className='details-btn'
+                    onClick={() => handleDetails(pet)}
+                  >
+                    Details
+                  </button>
+                  <button
+                    className='edit-btn'
+                    onClick={() => navigate(`/admin/pets/edit/${pet._id}`)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className='delete-btn'
+                    onClick={() => handleDelete(pet._id, pet.status)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

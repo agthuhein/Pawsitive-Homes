@@ -476,6 +476,23 @@ nav a.logout {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+.admin-table td img:hover {
+  transform: scale(1.4);
+  z-index: 10;
+  position: relative;
+}
+.table-actions {
+  display: flex;
+  justify-content: flex-start; /* align left */
+  align-items: center;
+  gap: 8px; /* spacing between buttons */
+  flex-wrap: nowrap; /* keeps them in the same row */
+}
+
+.table-actions button {
+  white-space: nowrap; /* prevent text wrapping inside buttons */
 }
 
 .admin-table th,
@@ -1238,7 +1255,15 @@ nav a.logout {
   font-weight: bold;
   text-transform: capitalize;
 }
+.badge-available {
+  background-color: #2ecc71; /* green */
+  color: #fff;
+}
 
+.badge-adopted {
+  background-color: #3498db; /* red */
+  color: #fff;
+}
 .badge-pending {
   background-color: #f1c40f;
   color: #000;
@@ -1256,6 +1281,12 @@ nav a.logout {
 
 .main-content section {
   margin-bottom: 2rem; /* adds space between sections */
+}
+/* Keep action buttons side by side */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
 }
 
 .stat-card {
@@ -1560,4 +1591,11 @@ nav a.logout {
 .contact-form button:hover {
   background: #f6b800;
   color: #1a083d;
+}
+.pet-id {
+  background: #f4f4f4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 13px;
 }
