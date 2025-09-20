@@ -25,21 +25,31 @@ const PetAdd = () => {
   // form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
 
+    // Handle Age (pluralize if > 1)
+    const ageNumber = formData.get('ageNumber');
+    let ageUnit = formData.get('ageUnit');
+    if (parseInt(ageNumber, 10) > 1) ageUnit += 's';
+    formData.delete('ageNumber');
+    formData.delete('ageUnit');
+    formData.set('age', `${ageNumber} ${ageUnit}`);
+
+    // Handle Traits (multi-select)
+    const selectedTraits = Array.from(e.target.traits.selectedOptions).map(
+      (opt) => opt.value
+    );
+    formData.delete('traits');
+    formData.set('traits', selectedTraits.join(','));
+
     try {
-      const token = localStorage.getItem('token'); // must be Admin token
-      const res = await axios.post(
-        'http://localhost:4000/api/pets/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const token = localStorage.getItem('token');
+      await axios.post('http://localhost:4000/api/pets/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       Swal.fire({
         title: 'Success!',
@@ -78,13 +88,22 @@ const PetAdd = () => {
           {/* Age */}
           <div className='form-group'>
             <label htmlFor='age'>Age</label>
-            <input
-              type='text'
-              id='age'
-              name='age'
-              placeholder='e.g. 2 years'
-              required
-            />
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <select id='ageNumber' name='ageNumber' required>
+                <option value=''>-- Select Number --</option>
+                {[...Array(30)].map((_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+
+              <select id='ageUnit' name='ageUnit' required>
+                <option value=''>-- Select Unit --</option>
+                <option value='year'>Year</option>
+                <option value='month'>Month</option>
+              </select>
+            </div>
           </div>
 
           {/* Breed */}
@@ -163,12 +182,29 @@ const PetAdd = () => {
           {/* Traits */}
           <div className='form-group'>
             <label htmlFor='traits'>Traits</label>
-            <input
-              type='text'
-              id='traits'
-              name='traits'
-              placeholder='e.g. Friendly, Best with kids, Playful'
-            />
+            <select id='traits' name='traits' multiple>
+              <option value='Friendly'>Friendly</option>
+              <option value='Playful'>Playful</option>
+              <option value='Good with Kids'>Good with Kids</option>
+              <option value='Good with Other Pets'>Good with Other Pets</option>
+              <option value='Trained'>Trained / House-trained</option>
+              <option value='Energetic'>Energetic</option>
+              <option value='Calm'>Calm</option>
+              <option value='Shy'>Shy / Timid</option>
+              <option value='Protective'>Protective</option>
+              <option value='Intelligent'>Intelligent</option>
+              <option value='Affectionate'>Affectionate</option>
+              <option value='Independent'>Independent</option>
+              <option value='Curious'>Curious</option>
+              <option value='Loyal'>Loyal</option>
+              <option value='Gentle'>Gentle</option>
+              <option value='Active Outdoors'>Active Outdoors</option>
+              <option value='Indoor Only'>Indoor Only</option>
+              <option value='Special Needs'>Special Needs</option>
+            </select>
+            <small>
+              Hold CTRL (Windows) / CMD (Mac) to select multiple traits
+            </small>
           </div>
 
           {/* Main Image */}

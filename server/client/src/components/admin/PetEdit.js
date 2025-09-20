@@ -9,11 +9,25 @@ const PetEdit = () => {
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Age + Traits states
+  const [ageNumber, setAgeNumber] = useState('');
+  const [ageUnit, setAgeUnit] = useState('');
+  const [selectedTraits, setSelectedTraits] = useState([]);
+
   useEffect(() => {
     const fetchPet = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/api/pets/${id}`);
         setPet(res.data);
+
+        // Parse age like "2 years" -> number=2, unit=year
+        const match = res.data.age.match(/(\d+)\s*(year|month)/i);
+        if (match) {
+          setAgeNumber(match[1]);
+          setAgeUnit(match[2]);
+        }
+
+        setSelectedTraits(res.data.traits || []);
       } catch (err) {
         console.error('Error fetching pet:', err);
         Swal.fire('Error', 'Could not load pet details', 'error');
@@ -29,33 +43,28 @@ const PetEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
 
-    const traitsInput = e.target.traits.value;
-    if (traitsInput) {
-      const traitsArray = traitsInput.split(',').map((t) => t.trim());
-      formData.delete('traits'); // remove plain string version
-      formData.append('traits', JSON.stringify(traitsArray));
-    }
+    // Age handling (pluralize if > 1)
+    let ageValue = `${ageNumber} ${ageUnit}`;
+    if (parseInt(ageNumber, 10) > 1) ageValue += 's';
+    formData.set('age', ageValue);
+
+    // Traits handling
+    formData.delete('traits');
+    formData.set('traits', JSON.stringify(selectedTraits));
 
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put(
-        `http://localhost:4000/api/pets/${pet._id}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.put(`http://localhost:4000/api/pets/${pet._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      Swal.fire('Success!', 'Pet updated successfully 🎉', 'success').then(
-        () => {
-          navigate('/admin/pets');
-        }
+      Swal.fire('Success!', 'Pet updated successfully 🎉', 'success').then(() =>
+        navigate('/admin/pets')
       );
     } catch (err) {
       Swal.fire(
@@ -93,13 +102,34 @@ const PetEdit = () => {
           {/* Age */}
           <div className='form-group'>
             <label htmlFor='age'>Age</label>
-            <input
-              type='text'
-              id='age'
-              name='age'
-              defaultValue={pet.age}
-              required
-            />
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <select
+                id='ageNumber'
+                name='ageNumber'
+                value={ageNumber}
+                onChange={(e) => setAgeNumber(e.target.value)}
+                required
+              >
+                <option value=''>-- Select Number --</option>
+                {[...Array(30)].map((_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                id='ageUnit'
+                name='ageUnit'
+                value={ageUnit}
+                onChange={(e) => setAgeUnit(e.target.value)}
+                required
+              >
+                <option value=''>-- Select Unit --</option>
+                <option value='year'>Year</option>
+                <option value='month'>Month</option>
+              </select>
+            </div>
           </div>
 
           {/* Breed */}
@@ -125,6 +155,7 @@ const PetEdit = () => {
             >
               <option value='male'>Male ♂</option>
               <option value='female'>Female ♀</option>
+              <option value='unknown'>Unknown</option>
             </select>
             <small className='small-style'>Gender cannot be changed.</small>
           </div>
@@ -188,13 +219,39 @@ const PetEdit = () => {
           {/* Traits */}
           <div className='form-group'>
             <label htmlFor='traits'>Traits</label>
-            <input
-              type='text'
+            <select
               id='traits'
               name='traits'
-              defaultValue={pet.traits?.join(', ')} // show as comma separated
-              placeholder='e.g. Friendly, Best with kids, Playful'
-            />
+              multiple
+              value={selectedTraits}
+              onChange={(e) =>
+                setSelectedTraits(
+                  Array.from(e.target.selectedOptions).map((opt) => opt.value)
+                )
+              }
+            >
+              <option value='Friendly'>Friendly</option>
+              <option value='Playful'>Playful</option>
+              <option value='Good with Kids'>Good with Kids</option>
+              <option value='Good with Other Pets'>Good with Other Pets</option>
+              <option value='Trained'>Trained / House-trained</option>
+              <option value='Energetic'>Energetic</option>
+              <option value='Calm'>Calm</option>
+              <option value='Shy'>Shy / Timid</option>
+              <option value='Protective'>Protective</option>
+              <option value='Intelligent'>Intelligent</option>
+              <option value='Affectionate'>Affectionate</option>
+              <option value='Independent'>Independent</option>
+              <option value='Curious'>Curious</option>
+              <option value='Loyal'>Loyal</option>
+              <option value='Gentle'>Gentle</option>
+              <option value='Active Outdoors'>Active Outdoors</option>
+              <option value='Indoor Only'>Indoor Only</option>
+              <option value='Special Needs'>Special Needs</option>
+            </select>
+            <small>
+              Hold CTRL (Windows) / CMD (Mac) to select multiple traits
+            </small>
           </div>
 
           {/* Image Upload */}
