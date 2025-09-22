@@ -174,7 +174,12 @@ const AdminDashboard = () => {
           <tbody>
             {users.map((u) => (
               <tr key={u._id}>
-                <td>{u.name}</td>
+                <td>
+                  {`${
+                    u.firstName.charAt(0).toUpperCase() + u.firstName.slice(1)
+                  } 
+    ${u.lastName.charAt(0).toUpperCase() + u.lastName.slice(1)}`}
+                </td>
                 <td>{u.email}</td>
                 <td>{u.role}</td>
               </tr>

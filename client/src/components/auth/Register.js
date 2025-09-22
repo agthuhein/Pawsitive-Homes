@@ -10,11 +10,14 @@ const Register = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
+    address: '',
     password: '',
     password2: '',
   });
 
-  const { firstName, lastName, email, password, password2 } = formData;
+  const { firstName, lastName, email, phone, address, password, password2 } =
+    formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,10 +43,10 @@ const Register = () => {
           firstName,
           lastName,
           email,
+          phone,
+          address,
           password,
         });
-
-        console.log('Register response:', res.data);
 
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('role', res.data.user.role);
@@ -54,9 +57,8 @@ const Register = () => {
           text: 'Your account has been created successfully.',
         });
 
-        navigate('/');
+        navigate('/user/dashboard');
       } catch (err) {
-        console.error('Register error:', err.response?.data || err.message);
         Swal.fire({
           icon: 'error',
           title: 'Registration Failed',
@@ -97,6 +99,20 @@ const Register = () => {
             value={email}
             onChange={onChange}
             required
+          />
+          <input
+            type='text'
+            placeholder='Phone Number'
+            name='phone'
+            value={phone}
+            onChange={onChange}
+          />
+          <input
+            type='text'
+            placeholder='Address'
+            name='address'
+            value={address}
+            onChange={onChange}
           />
           <input
             type='password'

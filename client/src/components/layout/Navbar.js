@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <header>
       <h1 onClick={handleLogoClick} style={{ all: 'unset', cursor: 'pointer' }}>
-        Pawsitive Home New Client
+        Pawsitive Home
       </h1>
 
       <nav id='nav-menu'>
