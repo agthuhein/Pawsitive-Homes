@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import setAuthToken from '../../utils/setAuthToken';
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
   Legend,
   ResponsiveContainer,
   CartesianGrid,
+  PieChart,
+  Pie,
+  Cell,
 } from 'recharts';
+
+const COLORS = ['#5cb85c', '#d9534f', '#f0ad4e']; // Approved, Rejected, Pending
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -27,7 +32,7 @@ const AdminDashboard = () => {
         setUsers(usersRes.data.slice(0, 5));
 
         const trendsRes = await setAuthToken.get('/api/admin/adoption-trends');
-        setAdoptionTrends(trendsRes.data);
+        setAdoptionTrends(trendsRes.data.slice(-3)); // ✅ last 3 months
       } catch (err) {
         console.error(
           'Error fetching dashboard:',
@@ -43,6 +48,13 @@ const AdminDashboard = () => {
 
   if (loading) return <p>Loading...</p>;
   if (!stats) return <p>Failed to load dashboard data.</p>;
+
+  // ✅ Prepare pie data from stats
+  const pieData = [
+    { name: 'Approved', value: stats.approvedRequests },
+    { name: 'Rejected', value: stats.rejectedRequests },
+    { name: 'Pending', value: stats.pendingRequests },
+  ];
 
   return (
     <main className='main-content'>
@@ -68,10 +80,6 @@ const AdminDashboard = () => {
           <h3>Pending Requests</h3>
           <p>{stats.pendingRequests}</p>
         </div>
-        <div className='stat-card'>
-          <h3>Total Funds Collected</h3>
-          <p>€{stats.totalDonations}</p>
-        </div>
       </section>
 
       <section className='stats breakdown mb-8'>
@@ -83,22 +91,74 @@ const AdminDashboard = () => {
           <h3>Rejected</h3>
           <p>{stats.rejectedRequests}</p>
         </div>
+        <div className='stat-card'>
+          <h3>Total Funds Collected</h3>
+          <p>€{stats.totalDonations}</p>
+        </div>
       </section>
 
+      {/* ✅ Adoption Trends Charts */}
       <section className='adoption-trends mb-8'>
-        <h3>Adoption Trends</h3> <br />
-        <ResponsiveContainer width='100%' height={300}>
-          <LineChart data={adoptionTrends}>
-            <CartesianGrid strokeDasharray='3 3' />
-            <XAxis dataKey='month' />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type='monotone' dataKey='pending' stroke='#f0ad4e' />
-            <Line type='monotone' dataKey='approved' stroke='#5cb85c' />
-            <Line type='monotone' dataKey='rejected' stroke='#d9534f' />
-          </LineChart>
-        </ResponsiveContainer>
+        <h3 style={{ textAlign: 'center', marginBottom: '15px' }}>
+          Adoption Trends (Last 3 Months)
+        </h3>
+        <div style={{ display: 'flex', gap: '30px' }}>
+          {/* Bar Chart */}
+          <ResponsiveContainer width='60%' height={300}>
+            <BarChart data={adoptionTrends}>
+              <CartesianGrid strokeDasharray='3 3' />
+              <XAxis dataKey='month' />
+              <YAxis
+                domain={[0, 'dataMax + 5']}
+                ticks={[0, 5, 10, 15, 20, 25, 30]}
+              />
+              <Tooltip />
+              <Legend />
+              <Bar
+                dataKey='pending'
+                name='Pending'
+                fill='#f0ad4e'
+                barSize={30}
+              />
+              <Bar
+                dataKey='approved'
+                name='Approved'
+                fill='#5cb85c'
+                barSize={30}
+              />
+              <Bar
+                dataKey='rejected'
+                name='Rejected'
+                fill='#d9534f'
+                barSize={30}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+
+          {/* Pie Chart */}
+          <ResponsiveContainer width='40%' height={300}>
+            <PieChart>
+              <Pie
+                data={pieData}
+                dataKey='value'
+                nameKey='name'
+                cx='50%'
+                cy='50%'
+                outerRadius={100}
+                label
+              >
+                {pieData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </section>
 
       <section className='latest-users mb-8'>
