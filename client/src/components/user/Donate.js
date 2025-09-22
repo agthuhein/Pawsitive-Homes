@@ -1,59 +1,16 @@
+// client/src/components/user/Donate.js
 import React, { useState } from 'react';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 function DonateButton() {
-  const [email, setEmail] = useState('');
-  const [amount, setAmount] = useState(10); // default donation $10
+  const [amount, setAmount] = useState(10);
 
-  const handleDonate = async () => {
-    if (!email) {
-      alert('Please enter your email so we can send you a receipt.');
-      return;
-    }
-
-    try {
-      const res = await fetch(
-        'http://localhost:4000/api/create-checkout-session',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount, email }),
-        }
-      );
-
-      const data = await res.json();
-
-      if (data.url) {
-        window.location.href = data.url; // redirect to Stripe Checkout
-      } else {
-        alert('Something went wrong. Please try again.');
-      }
-    } catch (err) {
-      console.error('Error creating checkout session:', err);
-      alert('Error creating checkout session');
-    }
-  };
+  const token = localStorage.getItem('token'); // JWT from your login
 
   return (
     <main style={{ textAlign: 'center', marginTop: '50px' }}>
       <h2>🐾 Support Our Mission ❤️</h2>
       <p>Your donations help us feed, shelter, and care for our pets.</p>
-
-      <div style={{ marginTop: '20px' }}>
-        <input
-          type='email'
-          placeholder='Enter your email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{
-            padding: '10px',
-            fontSize: '16px',
-            marginRight: '10px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-            width: '250px',
-          }}
-        />
-      </div>
 
       <div style={{ marginTop: '15px' }}>
         <input
@@ -70,25 +27,72 @@ function DonateButton() {
             textAlign: 'center',
           }}
         />
-        <span style={{ marginLeft: '8px' }}>USD</span>
+        <span style={{ marginLeft: '8px' }}>EUR</span>
       </div>
 
-      <button
-        onClick={handleDonate}
-        style={{
-          marginTop: '20px',
-          padding: '12px 24px',
-          fontSize: '16px',
-          fontWeight: 'bold',
-          background: '#635bff', // Stripe purple
-          color: 'white',
-          border: 'none',
-          borderRadius: '6px',
-          cursor: 'pointer',
-        }}
-      >
-        Donate
-      </button>
+      <div style={{ marginTop: '20px', display: 'inline-block' }}>
+        <PayPalScriptProvider
+          options={{
+            'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID,
+            currency: 'EUR',
+            intent: 'capture',
+          }}
+        >
+          <PayPalButtons
+            style={{ layout: 'horizontal', tagline: false, height: 45 }}
+            // 1) Ask your server to create the order
+            createOrder={async () => {
+              const res = await fetch('/api/donations/paypal/create-order', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ amount }),
+              });
+              const data = await res.json();
+              if (!res.ok) {
+                alert(data.msg || 'Failed to create PayPal order');
+                throw new Error('create-order failed');
+              }
+              return data.orderID;
+            }}
+            // 2) On approval, ask your server to capture the order
+            onApprove={async (data) => {
+              try {
+                const res = await fetch('/api/donations/paypal/capture-order', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({ orderID: data.orderID }),
+                });
+                const json = await res.json();
+
+                if (!res.ok) {
+                  console.error('Capture error:', json);
+                  alert(json.msg || 'Payment capture failed');
+                  return;
+                }
+
+                alert('🎉 Thank you! Your donation was successful.');
+                window.location.href = '/user/success-payment';
+              } catch (err) {
+                console.error(err);
+                alert('Unexpected error capturing donation.');
+              }
+            }}
+            onCancel={() => {
+              window.location.href = '/user/cancel-payment';
+            }}
+            onError={(err) => {
+              console.error('PayPal Buttons error:', err);
+              alert('PayPal error occurred.');
+            }}
+          />
+        </PayPalScriptProvider>
+      </div>
     </main>
   );
 }

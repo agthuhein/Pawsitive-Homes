@@ -1,15 +1,12 @@
+// models/Donation.js
 const mongoose = require('mongoose');
 
 const DonationSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: false,
-    }, // null if guest
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     email: { type: String, required: true },
-    amount: { type: Number, required: true }, // in USD
-    currency: { type: String, default: 'USD' },
+    amount: { type: Number, required: true },
+    currency: { type: String, default: 'EUR' },
     paypalOrderId: { type: String, required: true },
     status: {
       type: String,
