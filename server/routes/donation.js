@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const donationController = require('../controllers/donationController');
-const { authMiddleware } = require('../middleware/auth');
+const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 // Create PayPal order (requires login so we can use req.user.email)
 router.post(
@@ -19,5 +19,12 @@ router.post(
 
 // View my donations
 router.get('/me', authMiddleware, donationController.getMine);
+
+router.get(
+  '/all',
+  authMiddleware,
+  adminMiddleware,
+  donationController.getAllDonations
+);
 
 module.exports = router;

@@ -68,6 +68,10 @@ const AdminDashboard = () => {
           <h3>Pending Requests</h3>
           <p>{stats.pendingRequests}</p>
         </div>
+        <div className='stat-card'>
+          <h3>Total Funds Collected</h3>
+          <p>€{stats.totalDonations}</p>
+        </div>
       </section>
 
       <section className='stats breakdown mb-8'>

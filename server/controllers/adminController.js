@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Pet = require('../models/Pet');
 const Adoption = require('../models/Adoption');
+const Donation = require('../models/Donation');
 
 /*
 exports.getDashboard = async (req, res) => {
@@ -143,6 +144,37 @@ exports.deleteUser = async (req, res) => {
     res.json({ msg: 'User deleted', user: deletedUser });
   } catch (err) {
     console.error('Error deleting user:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+exports.getDashboardStats = async (req, res) => {
+  try {
+    const totalPets = await Pet.countDocuments();
+    const totalUsers = await User.countDocuments();
+    const totalAdoptions = await Adoption.countDocuments();
+    const pendingRequests = await Adoption.countDocuments({
+      status: 'pending',
+    });
+    const approvedRequests = await Adoption.countDocuments({
+      status: 'approved',
+    });
+    const rejectedRequests = await Adoption.countDocuments({
+      status: 'rejected',
+    });
+    const totalDonations = await Donation.aggregate([
+      { $group: { _id: null, total: { $sum: '$amount' } } },
+    ]);
+
+    res.json({
+      totalPets,
+      totalUsers,
+      totalAdoptions,
+      pendingRequests,
+      approvedRequests,
+      rejectedRequests,
+      totalDonations: totalDonations[0]?.total || 0,
+    });
+  } catch (err) {
     res.status(500).json({ msg: 'Server error' });
   }
 };

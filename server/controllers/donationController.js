@@ -114,3 +114,19 @@ exports.getMine = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
+
+// Get all donations (Admin)
+exports.getAllDonations = async (req, res) => {
+  try {
+    const donations = await Donation.find()
+      .populate('user', 'firstName lastName email') // 👈 populate user info
+      .sort({ createdAt: -1 });
+
+    const total = donations.reduce((sum, d) => sum + d.amount, 0);
+
+    res.json({ donations, total });
+  } catch (err) {
+    console.error('❌ getAllDonations error:', err.message);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};

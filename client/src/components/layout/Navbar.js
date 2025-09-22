@@ -46,6 +46,7 @@ const Navbar = () => {
             <Link to='/admin/pets'>Manage Pets</Link>
             <Link to='/admin/adoptions'>Manage Adoptions</Link>
             <Link to='/admin/users'>Manage Users</Link>
+            <Link to='/admin/donations'>View Donations</Link>
             <Link to='/' onClick={handleLogout} className='logout'>
               Logout
             </Link>

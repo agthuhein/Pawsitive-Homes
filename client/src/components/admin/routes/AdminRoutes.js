@@ -7,6 +7,7 @@ import PetAdd from '../PetAdd';
 import AdminAdoptMgmt from '../AdminAdoptionManagement';
 import AdminUserMgmt from '../AdminUserManagement';
 import PetEdit from '../PetEdit';
+import AdminDonations from '../AdminDonations';
 
 const AdminRoutes = () => {
   return (
@@ -17,6 +18,8 @@ const AdminRoutes = () => {
       <Route path='pets/edit/:id' element={<PetEdit />} />
       <Route path='adoptions' element={<AdminAdoptMgmt />} />
       <Route path='users' element={<AdminUserMgmt />} />
+
+      <Route path='/donations' element={<AdminDonations />} />
     </Routes>
   );
 };
