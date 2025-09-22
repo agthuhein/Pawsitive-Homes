@@ -62,36 +62,6 @@ exports.getAdoptionTrends = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
-
-exports.getDashboardStats = async (req, res) => {
-  try {
-    const totalPets = await Pet.countDocuments();
-    const totalUsers = await User.countDocuments();
-    const totalAdoptions = await Adoption.countDocuments();
-    const pendingRequests = await Adoption.countDocuments({
-      status: 'pending',
-    });
-    const approvedRequests = await Adoption.countDocuments({
-      status: 'approved',
-    });
-    const rejectedRequests = await Adoption.countDocuments({
-      status: 'rejected',
-    });
-
-    res.json({
-      totalPets,
-      totalUsers,
-      totalAdoptions,
-      pendingRequests,
-      approvedRequests,
-      rejectedRequests,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server error' });
-  }
-};
-
 // Get all users
 exports.getUsers = async (req, res) => {
   try {
@@ -161,10 +131,13 @@ exports.getDashboardStats = async (req, res) => {
     const rejectedRequests = await Adoption.countDocuments({
       status: 'rejected',
     });
+
     const totalDonations = await Donation.aggregate([
       { $group: { _id: null, total: { $sum: '$amount' } } },
     ]);
-
+    const admin = await User.findById(req.user.id).select(
+      'firstName lastName email'
+    );
     res.json({
       totalPets,
       totalUsers,
@@ -173,8 +146,10 @@ exports.getDashboardStats = async (req, res) => {
       approvedRequests,
       rejectedRequests,
       totalDonations: totalDonations[0]?.total || 0,
+      admin,
     });
   } catch (err) {
+    console.error('Error fetching dashboard stats:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 };

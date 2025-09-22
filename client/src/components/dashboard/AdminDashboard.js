@@ -16,11 +16,19 @@ import {
 
 const COLORS = ['#5cb85c', '#d9534f', '#f0ad4e']; // Approved, Rejected, Pending
 
+// Helper to capitalize first letter
+const formatName = (name) => {
+  if (!name) return '';
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+};
+
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [adoptionTrends, setAdoptionTrends] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const storedUser = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +57,6 @@ const AdminDashboard = () => {
   if (loading) return <p>Loading...</p>;
   if (!stats) return <p>Failed to load dashboard data.</p>;
 
-  // ✅ Prepare pie data from stats
   const pieData = [
     { name: 'Approved', value: stats.approvedRequests },
     { name: 'Rejected', value: stats.rejectedRequests },
@@ -59,7 +66,13 @@ const AdminDashboard = () => {
   return (
     <main className='main-content'>
       <section className='dashboard-welcome mb-8'>
-        <h2>Welcome back, Admin 👋</h2>
+        <h2>
+          Welcome back,{' '}
+          {stats?.admin?.firstName
+            ? formatName(stats.admin.firstName)
+            : 'Admin'}{' '}
+          👋
+        </h2>
         <p>Here’s a quick overview of the system stats.</p>
       </section>
 
