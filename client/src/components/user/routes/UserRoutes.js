@@ -7,6 +7,7 @@ import AdoptForm from '../AdoptForm';
 import UserRequests from '../UserRequest';
 import SuccessPayment from '../SuccessPayment';
 import CancelPayment from '../CancelPayment';
+import UpdateProfile from '../UpdateProfile';
 
 const UserRoutes = () => {
   return (
@@ -18,7 +19,8 @@ const UserRoutes = () => {
       <Route path='/myrequests' element={<UserRequests />} />
       <Route path='/success-payment' element={<SuccessPayment />} />
       <Route path='/cancel-payment' element={<CancelPayment />} />
-      <Route path='/pets/:id/adopt' element={<AdoptForm />} /> {/* ✅ Adopt */}
+      <Route path='/pets/:id/adopt' element={<AdoptForm />} />
+      <Route path='/update-profile' element={<UpdateProfile />} />
     </Routes>
   );
 };

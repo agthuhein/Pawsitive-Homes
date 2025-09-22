@@ -658,7 +658,8 @@ nav a.logout {
 /* Action Buttons */
 .add-btn {
   margin: 10px 0;
-  padding: 10px 16px;
+  padding: 12px;
+  margin: 15px 0;
   background: #1a083d;
   color: #fff;
   border: none;
@@ -667,8 +668,9 @@ nav a.logout {
   font-weight: bold;
 }
 .cancel-btn {
-  margin: 10px 0;
-  padding: 10px 16px;
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
   background: red;
   color: #fff;
   border: none;

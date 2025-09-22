@@ -87,6 +87,7 @@ exports.deleteUser = async (req, res) => {
 exports.getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).json({ msg: 'User not found' });
     res.json(user);
   } catch (err) {
     console.error('Error fetching profile:', err);
@@ -97,14 +98,66 @@ exports.getProfile = async (req, res) => {
 // Update profile
 exports.updateProfile = async (req, res) => {
   try {
-    const updates = req.body;
-    const user = await User.findByIdAndUpdate(req.user.id, updates, {
+    const { firstName, lastName, phone, address, password } = req.body;
+    const userId = req.user.id; // from authMiddleware
+
+    const updateData = { firstName, lastName, phone, address };
+
+    // If user wants to change password
+    if (password && password.length >= 8) {
+      const salt = await bcrypt.genSalt(10);
+      updateData.password = await bcrypt.hash(password, salt);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
       new: true,
     }).select('-password');
 
+    if (!updatedUser) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    res.json({ msg: 'Profile updated successfully', user: updatedUser });
+  } catch (err) {
+    console.error('Update profile error:', err.message);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
+// Get current logged-in user profile
+exports.getMe = async (req, res) => {
+  try {
+    console.log('🔎 req.user:', req.user);
+
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ msg: 'User not authenticated' });
+    }
+
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
     res.json(user);
   } catch (err) {
-    console.error('Error updating profile:', err);
+    console.error('❌ getMe error:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
+// Update profile
+exports.updateMe = async (req, res) => {
+  try {
+    const { firstName, lastName, phone, address } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { firstName, lastName, phone, address },
+      { new: true }
+    ).select('-password');
+
+    res.json({ msg: 'Profile updated', user });
+  } catch (err) {
+    console.error('updateMe error:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 };
