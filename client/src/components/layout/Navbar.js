@@ -1,0 +1,73 @@
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+const Navbar = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate('/login');
+  };
+
+  const handleLogoClick = () => {
+    if (!token) {
+      navigate('/'); // landing page
+    } else if (role === 'admin') {
+      navigate('/admin/dashboard');
+    } else if (role === 'user') {
+      navigate('/user/dashboard');
+    } else {
+      navigate('/'); // fallback
+    }
+  };
+
+  return (
+    <header>
+      <h1 onClick={handleLogoClick} style={{ all: 'unset', cursor: 'pointer' }}>
+        Pawsitive Home New Client
+      </h1>
+
+      <nav id='nav-menu'>
+        {!token ? (
+          <>
+            <Link to='/login' className='login'>
+              Log in
+            </Link>
+            <Link to='/register' className='signup'>
+              Sign up
+            </Link>
+          </>
+        ) : role === 'admin' ? (
+          <>
+            <Link to='/admin/dashboard'>Admin Dashboard</Link>
+            <Link to='/admin/pets'>Manage Pets</Link>
+            <Link to='/admin/adoptions'>Manage Adoptions</Link>
+            <Link to='/admin/users'>Manage Users</Link>
+            <Link to='/' onClick={handleLogout} className='logout'>
+              Logout
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to='/user/dashboard'>My Dashboard</Link>
+            <Link to='/user/pets'>Browse Pets</Link>
+            <Link to='/user/myrequests'>My Requests</Link>
+            <Link to='/user/donate'>Donate</Link>
+            <Link to='/' onClick={handleLogout} className='logout'>
+              Logout
+            </Link>
+          </>
+        )}
+      </nav>
+
+      <button className='hamburger' id='hamburger'>
+        ☰
+      </button>
+    </header>
+  );
+};
+
+export default Navbar;
