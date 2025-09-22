@@ -15,6 +15,9 @@ import PetDetail from './components/user/PetDetail';
 import Stories from './components/user/Stories';
 import About from './components/user/About';
 import Contact from './components/user/Contact';
+import ForgotPassword from './components/auth/ForgotPassword';
+import ResetPassword from './components/auth/ResetPassword';
+import ChangePassword from './components/auth/ChangePassword';
 
 import './App.css';
 
@@ -32,6 +35,10 @@ function App() {
         <Route path='/stories' element={<Stories />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password/:token' element={<ResetPassword />} />
+        <Route path='/user/change-password' element={<ChangePassword />} />
+        <Route path='/admin/change-password' element={<ChangePassword />} />
 
         {/* User Routes (protected) */}
         <Route

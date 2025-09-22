@@ -120,15 +120,6 @@ const PetGallery = () => {
             <option value='Cat'>Cat</option>
             <option value='Other'>Other</option>
           </select>
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-          >
-            <option value=''>All Status</option>
-            <option value='available'>Available</option>
-            <option value='pending'>Pending</option>
-            <option value='adopted'>Adopted</option>
-          </select>
         </div>
       </div>
 

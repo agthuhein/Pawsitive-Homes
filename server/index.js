@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
-require('dotenv').config();
 
 const categoryRoutes = require('./routes/category');
 const petRoutes = require('./routes/pet');

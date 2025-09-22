@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 // Get all users (admin)
 exports.getAllUsers = async (req, res) => {
@@ -158,6 +159,37 @@ exports.updateMe = async (req, res) => {
     res.json({ msg: 'Profile updated', user });
   } catch (err) {
     console.error('updateMe error:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
+exports.changePassword = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { currentPassword, newPassword } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ msg: 'User not found' });
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch)
+      return res.status(400).json({ msg: 'Current password is incorrect' });
+
+    if (newPassword.length < 8) {
+      return res
+        .status(400)
+        .json({ msg: 'Password must be at least 8 characters' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // ✅ Only update password field
+    await User.findByIdAndUpdate(userId, { password: hashedPassword });
+
+    res.json({ msg: 'Password changed successfully' });
+  } catch (err) {
+    console.error('Change password error:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 };

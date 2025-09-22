@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // ✅ add this
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,23 +20,20 @@ const Login = () => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.user.role);
 
-      // ✅ Success Alert
       await Swal.fire({
         icon: 'success',
         title: 'Login Successful',
-        text: `Welcome back, ${res.data.user.name}!`,
+        text: `Welcome back, ${res.data.user.firstName}!`, // ✅ use firstName
         timer: 2000,
         showConfirmButton: false,
       });
 
-      // ✅ Redirect after alert
       if (res.data.user.role === 'admin') {
         navigate('/admin/dashboard');
       } else {
         navigate('/user/dashboard');
       }
     } catch (err) {
-      // ✅ Error Alert
       Swal.fire({
         icon: 'error',
         title: 'Login Failed',
@@ -66,6 +63,17 @@ const Login = () => {
             onChange={onChange}
             required
           />
+
+          {/* ✅ Forgot Password link */}
+          <p style={{ textAlign: 'right', marginTop: '5px' }}>
+            <Link
+              to='/forgot-password'
+              style={{ fontSize: '14px', color: '#007bff' }}
+            >
+              Forgot Password?
+            </Link>
+          </p>
+
           <button type='submit'>Continue</button>
 
           <p style={{ marginTop: '10px', fontSize: '14px', color: '#555' }}>

@@ -28,4 +28,6 @@ router.delete(
   userController.deleteUser
 );
 
+router.put('/change-password', authMiddleware, userController.changePassword);
+
 module.exports = router;

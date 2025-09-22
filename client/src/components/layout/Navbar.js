@@ -47,6 +47,9 @@ const Navbar = () => {
             <Link to='/admin/adoptions'>Manage Adoptions</Link>
             <Link to='/admin/users'>Manage Users</Link>
             <Link to='/admin/donations'>View Donations</Link>
+            <Link to='/admin/change-password' className='btn-link'>
+              Change Password
+            </Link>
             <Link to='/' onClick={handleLogout} className='logout'>
               Logout
             </Link>
@@ -54,10 +57,14 @@ const Navbar = () => {
         ) : (
           <>
             <Link to='/user/dashboard'>My Dashboard</Link>
-            <Link to='/user/update-profile'>Update Profile</Link>
+
             <Link to='/user/pets'>Browse Pets</Link>
             <Link to='/user/myrequests'>My Requests</Link>
             <Link to='/user/donate'>Donate</Link>
+            <Link to='/user/update-profile'>Update Profile</Link>
+            <Link to='/user/change-password' className='btn-link'>
+              Change Password
+            </Link>
             <Link to='/' onClick={handleLogout} className='logout'>
               Logout
             </Link>
