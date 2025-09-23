@@ -8,11 +8,9 @@ const nodemailer = require('nodemailer');
 
 // Generate JWT
 const generateToken = (user) => {
-  return jwt.sign(
-    { id: user._id, role: user.role }, // include role in token
-    'your_jwt_secret_key', // ⚠️ move this to process.env.JWT_SECRET in production
-    { expiresIn: '1d' }
-  );
+  return jwt.sign({ id: user._id, role: user.role }, 'your_jwt_secret_key', {
+    expiresIn: '20m',
+  });
 };
 
 // Register
