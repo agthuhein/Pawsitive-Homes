@@ -5,14 +5,46 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 function DonateButton() {
   const [amount, setAmount] = useState(10);
 
-  const token = localStorage.getItem('token'); // JWT from your login
+  const token = localStorage.getItem('token'); // JWT from login
 
   return (
-    <main style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h2>🐾 Support Our Mission ❤️</h2>
-      <p>Your donations help us feed, shelter, and care for our pets.</p>
+    <main style={{ textAlign: 'center', marginTop: '50px', padding: '20px' }}>
+      <h2 style={{ fontSize: '28px', marginBottom: '15px' }}>
+        🐾 Support Our Mission ❤️
+      </h2>
 
-      <div style={{ marginTop: '15px' }}>
+      <p
+        style={{
+          maxWidth: '650px',
+          margin: '0 auto',
+          fontSize: '18px',
+          lineHeight: '1.6',
+          color: '#444',
+        }}
+      >
+        Every wagging tail and gentle purr needs love, care, and a safe home.
+        Your donation helps us provide{' '}
+        <strong>food, shelter, and medical treatment</strong>
+        for abandoned and rescued pets. 💕
+      </p>
+
+      <p
+        style={{
+          maxWidth: '650px',
+          margin: '20px auto',
+          fontSize: '18px',
+          lineHeight: '1.6',
+          color: '#444',
+        }}
+      >
+        Even the smallest contribution can make a huge difference — turning{' '}
+        <em>hunger into nourishment</em>, <em>fear into comfort</em>, and{' '}
+        <em>loneliness into companionship</em>. Together, we can give these
+        animals the <strong>second chance</strong> they truly deserve. 🐶🐱
+      </p>
+
+      {/* Donation amount input */}
+      <div style={{ marginTop: '20px' }}>
         <input
           type='number'
           min='1'
@@ -27,10 +59,11 @@ function DonateButton() {
             textAlign: 'center',
           }}
         />
-        <span style={{ marginLeft: '8px' }}>EUR</span>
+        <span style={{ marginLeft: '8px', fontWeight: 'bold' }}>EUR</span>
       </div>
 
-      <div style={{ marginTop: '20px', display: 'inline-block' }}>
+      {/* PayPal button */}
+      <div style={{ marginTop: '30px', display: 'inline-block' }}>
         <PayPalScriptProvider
           options={{
             'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID,
@@ -40,7 +73,7 @@ function DonateButton() {
         >
           <PayPalButtons
             style={{ layout: 'horizontal', tagline: false, height: 45 }}
-            // 1) Ask your server to create the order
+            // 1) Ask server to create the order
             createOrder={async () => {
               const res = await fetch('/api/donations/paypal/create-order', {
                 method: 'POST',
@@ -57,7 +90,7 @@ function DonateButton() {
               }
               return data.orderID;
             }}
-            // 2) On approval, ask your server to capture the order
+            // 2) On approval, capture the order
             onApprove={async (data) => {
               try {
                 const res = await fetch('/api/donations/paypal/capture-order', {

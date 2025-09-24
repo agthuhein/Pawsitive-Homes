@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
 const PetGallery = () => {
@@ -8,7 +7,7 @@ const PetGallery = () => {
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
   const [filterStatus, setFilterStatus] = useState('available');
-  const [filterGender, setFilterGender] = useState(''); // ✅ new filter
+  const [filterGender, setFilterGender] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -28,67 +27,12 @@ const PetGallery = () => {
     const s = p.name.toLowerCase().includes(search.toLowerCase());
     const c = filterCategory ? p.category?.name === filterCategory : true;
     const st = filterStatus ? p.status === filterStatus : true;
-    const g = filterGender ? p.gender === filterGender : true; // ✅ gender check
+    const g = filterGender ? p.gender === filterGender : true;
     return s && c && st && g;
   });
 
-  const openDetails = (pet) => {
-    Swal.fire({
-      width: 900,
-      title: `${pet.name} — ${pet.category?.name || ''}`,
-      html: `
-        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:16px;align-items:start;max-height:70vh;overflow:auto;">
-          <div>
-            <img src="http://localhost:4000${pet.image}" 
-                 style="width:100%;height:340px;object-fit:cover;border-radius:12px;" />
-            ${
-              (pet.additionalImages?.length || 0) > 0
-                ? `<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
-                    ${pet.additionalImages
-                      .map(
-                        (img) => `
-                      <img src="http://localhost:4000${img}" 
-                           style="width:110px;height:110px;object-fit:cover;border-radius:8px;" />
-                    `
-                      )
-                      .join('')}
-                  </div>`
-                : ''
-            }
-          </div>
-          <div style="text-align:left">
-            <div style="margin-bottom:8px;color:#444">${pet.description}</div>
-            <ul style="list-style:none;padding:0;margin:0 0 10px 0;color:#666;font-size:14px">
-              <li><strong>Breed:</strong> ${pet.breed}</li>
-              <li><strong>Age:</strong> ${pet.age}</li>
-              <li><strong>Gender:</strong> ${pet.gender}</li>
-              <li><strong>Status:</strong> ${pet.status}</li>
-            </ul>
-            ${
-              (pet.traits?.length || 0) > 0
-                ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">
-                    ${pet.traits
-                      .map(
-                        (t) =>
-                          `<span style="padding:6px 10px;border-radius:999px;background:#f6f6f6;font-size:12px;color:#333">${t}</span>`
-                      )
-                      .join('')}
-                  </div>`
-                : ''
-            }
-          </div>
-        </div>
-      `,
-      showCancelButton: true,
-      cancelButtonText: 'Close',
-      confirmButtonText: 'Adopt',
-      reverseButtons: true,
-      preConfirm: () => true,
-    }).then((res) => {
-      if (res.isConfirmed) {
-        navigate(`/user/pets/${pet._id}/adopt`);
-      }
-    });
+  const goToDetails = (petId) => {
+    navigate(`/pets/${petId}`);
   };
 
   if (loading) return <p>Loading pets...</p>;
@@ -113,7 +57,6 @@ const PetGallery = () => {
             <option value='Cat'>Cat</option>
             <option value='Other'>Other</option>
           </select>
-          {/* ✅ Gender filter */}
           <select
             value={filterGender}
             onChange={(e) => setFilterGender(e.target.value)}
@@ -130,7 +73,7 @@ const PetGallery = () => {
           <div
             key={pet._id}
             className='card'
-            onClick={() => openDetails(pet)}
+            onClick={() => goToDetails(pet._id)}
             style={{ cursor: 'pointer' }}
           >
             <div className='card-img'>

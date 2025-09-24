@@ -134,7 +134,7 @@ const PetDetail = () => {
 
             <p className='pet-detail__helper'>
               <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/user/pets')}
                 className='back-btn'
                 style={{
                   background: 'transparent',
@@ -144,7 +144,7 @@ const PetDetail = () => {
                   marginTop: '10px',
                 }}
               >
-                ← Back to Home
+                ← Back
               </button>
             </p>
           </div>
