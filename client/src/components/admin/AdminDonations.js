@@ -1,3 +1,4 @@
+// client/src/components/admin/AdminDonationMgmt.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -11,26 +12,27 @@ const AdminDonationMgmt = () => {
 
   const token = localStorage.getItem('token');
 
-  const fetchDonations = async () => {
-    try {
-      const res = await axios.get('/api/donations/all', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setDonations(res.data.donations);
-      setTotalAmount(res.data.total);
-    } catch (err) {
-      console.error('Error fetching donations:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchDonations();
+    const fetchDonations = async () => {
+      try {
+        const res = await axios.get('/api/donations/all', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        // ✅ Assuming server returns { donations, total }
+        setDonations(res.data.donations || []);
+        setTotalAmount(res.data.total || 0);
+      } catch (err) {
+        console.error('Error fetching donations:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDonations(); // ✅ Call it!
   }, [token]);
 
-  // ✅ Filtering
-  // ✅ Filtering
+  // ✅ Search filter
   const filteredDonations = donations.filter((d) => {
     const donorName = d.user
       ? `${d.user.firstName || ''} ${d.user.lastName || ''}`.toLowerCase()
@@ -52,7 +54,7 @@ const AdminDonationMgmt = () => {
 
   return (
     <main className='main-content'>
-      <h2>Manage Donations</h2>
+      <h2>View Donations</h2>
 
       {/* Total Donations Card */}
       <div className='stat-card highlight'>
@@ -64,13 +66,15 @@ const AdminDonationMgmt = () => {
 
       {/* Controls Row */}
       <div className='controls-row'>
-        <p></p>
         <div className='filters'>
           <input
             type='text'
             placeholder='Search by donor name or email...'
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1); // reset page on new search
+            }}
           />
         </div>
       </div>
@@ -114,7 +118,7 @@ const AdminDonationMgmt = () => {
           ))}
           {currentDonations.length === 0 && (
             <tr>
-              <td colSpan='5' style={{ textAlign: 'center', padding: '20px' }}>
+              <td colSpan='6' style={{ textAlign: 'center', padding: '20px' }}>
                 No donations found
               </td>
             </tr>
