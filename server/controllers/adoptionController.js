@@ -37,7 +37,7 @@ exports.create = async (req, res) => {
       to: email,
       subject: 'We received your adoption request 🐾',
       html: `<p>Hi ${firstName},</p>
-             <p>Thanks for requesting to adopt <strong>${petDoc.name}</strong>. We’ll review and update you soon.</p>`,
+             <p>Thanks for requesting to adopt <strong>${petDoc.name}</strong>. We’ll review and update you soon.</p><br /> Thank you.<br />Pawsitive Home`,
     }).catch((err) => console.error('Mail error (create):', err.message));
 
     res.status(201).json({ msg: 'Adoption request submitted', adoption });
@@ -76,7 +76,7 @@ exports.approve = async (req, res) => {
       subject: 'Your adoption request was approved 🎉',
       html: `<p>Congratulations! Your request for <strong>${
         adoption.pet?.name || 'the pet'
-      }</strong> was approved.</p>`,
+      }</strong> was approved.</p><br /> Thank you.<br />Pawsitive Home`,
     }).catch((err) => console.error('Mail error (approve):', err.message));
 
     res.json({ msg: 'Adoption approved', adoption });
@@ -108,7 +108,7 @@ exports.reject = async (req, res) => {
       subject: 'Update on your adoption request',
       html: `<p>We’re sorry — your request for <strong>${
         adoption.pet?.name || 'the pet'
-      }</strong> was not approved this time.</p>`,
+      }</strong> was not approved this time.</p><br /> Thank you.<br />Pawsitive Home`,
     }).catch((err) => console.error('Mail error (reject):', err.message));
 
     res.json({ msg: 'Adoption rejected', adoption });
@@ -179,7 +179,7 @@ exports.cancelMine = async (req, res) => {
       to: adoption.email,
       subject: 'Your adoption request was canceled',
       html: `<p>Hi ${adoption.firstName},</p>
-             <p>Your adoption request has been canceled successfully.</p>`,
+             <p>Your adoption request has been canceled successfully.</p><br /> Thank you.<br />Pawsitive Home`,
     });
 
     res.json({ msg: 'Request canceled', adoption });
