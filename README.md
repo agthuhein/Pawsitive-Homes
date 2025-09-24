@@ -15,47 +15,50 @@ It provides APIs for:
 ## 📊 ER Diagram (MongoDB Schema)
 
 ```text
-+-------------------+            +-------------------+
-|       User        |            |      Category     |
-|-------------------|            |-------------------|
-| _id (PK)          |            | _id (PK)          |
-| firstName         |            | name (unique)     |
-| lastName          |            +-------------------+
-| email (unique)    |
-| phone             |
-| address           |                ^
-| password          |                |
-| role [user/admin] |                |
-| lastLogin         |                |
-+-------------------+                |
-         ^                           |
-         | user                      |
-         |                           |
-+-------------------+        +-------------------+
-|    Donation       |        |       Pet         |
-|-------------------|        |-------------------|
-| _id (PK)          |        | _id (PK)          |
-| user_id (ref) ----+------> | category_id (ref) |
-| email             |        | name, age, color  |
-| amount            |        | description       |
-| currency          |        | breed, gender     |
-| paypalOrderId     |        | image(s)          |
-| status            |        | traits [ ]        |
-+-------------------+        | status            |
-                             +-------------------+
-                                      ^
-                                      |
-                                      | pet
-                                      |
-                             +-------------------+
-                             |     Adoption      |
-                             |-------------------|
-                             | _id (PK)          |
-                             | pet_id (ref) -----+
-                             | user_id (ref) ----+
-                             | firstName, email  |
-                             | address, phone    |
-                             | message           |
-                             | status            |
-                             +-------------------+
+                +-------------------+
+                |       User        |
+                |-------------------|
+                | _id (PK)          |
+                | firstName         |
+                | lastName          |
+                | email (unique)    |
+                | phone             |
+                | address           |
+                | password          |
+                | role [user/admin] |
+                | lastLogin         |
+                +-------------------+
+                   ^            ^
+                   | user       | user
+                   |            |
+   +-------------------+   +-------------------+
+   |     Donation      |   |     Adoption      |
+   |-------------------|   |-------------------|
+   | _id (PK)          |   | _id (PK)          |
+   | user_id (ref) ----+   | pet_id (ref)      |
+   | email             |   | user_id (ref) ----+
+   | amount            |   | firstName, email  |
+   | currency          |   | address, phone    |
+   | paypalOrderId     |   | message           |
+   | status            |   | status            |
+   +-------------------+   +-------------------+
+                                 |
+                                 | pet
+                                 v
+                        +-------------------+
+                        |        Pet        |
+                        |-------------------|
+                        | _id (PK)          |
+                        | name, age, color  |
+                        | description       |
+                        | breed, gender     |
+                        | image(s)          |
+                        | traits [ ]        |
+                        | status            |
+                        | category_id (ref)-+----> +-------------------+
+                        | timestamps        |      |     Category      |
+                        +-------------------+      |-------------------|
+                                                   | _id (PK)          |
+                                                   | name (unique)     |
+                                                   +-------------------+
 ```
