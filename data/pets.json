@@ -1,0 +1,374 @@
+[
+  {
+    "_id": {
+      "$oid": "68ce984063265f776517e4b0"
+    },
+    "name": "Testing",
+    "age": "2 years",
+    "color": "Brown",
+    "description": "adsfdasdfasdf",
+    "breed": "Golden Retriever",
+    "gender": "male",
+    "image": "/public/images/1758369856221-cat_3.jpg",
+    "additionalImages": [
+      "/public/images/1758369856228-hus_2.jpg",
+      "/public/images/1758369856232-hus_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Trained",
+      "Energetic",
+      "Calm",
+      "Curious"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-20T12:04:16.241Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-23T07:06:18.841Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68ce987263265f776517e4b8"
+    },
+    "name": "testttt",
+    "age": "3 year",
+    "color": "Yellow and white",
+    "description": "adsf",
+    "breed": "Husky",
+    "gender": "female",
+    "image": "/public/images/1758369906807-hus_1.jpg",
+    "additionalImages": [],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Curious"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-20T12:05:06.815Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-20T12:05:06.815Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68ce98f8bdb0a24b0eeff406"
+    },
+    "name": "dasfasdfasdf",
+    "age": "4 months",
+    "color": "asdf",
+    "description": "asdf",
+    "breed": "Husky",
+    "gender": "female",
+    "image": "/public/images/1758370040377-p3.jpg",
+    "additionalImages": [],
+    "traits": [
+      "Playful",
+      "Best with kids"
+    ],
+    "category": {
+      "$oid": "68c83e181249c85158f2a6e1"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-20T12:07:20.391Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-20T12:07:20.391Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68ce9aecb24d0a27f0364ab5"
+    },
+    "name": "adsfadsdfdasdf",
+    "age": "4 months",
+    "color": "asdfasdf",
+    "description": "asdfasdf",
+    "breed": "asdfasdf",
+    "gender": "male",
+    "image": "/public/images/1758370540247-d1.jpg",
+    "additionalImages": [],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Trained"
+    ],
+    "category": {
+      "$oid": "68c83e181249c85158f2a6e1"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-20T12:15:40.259Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-22T14:44:45.939Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68cea149e301149858cbc601"
+    },
+    "name": "asdfadfadsfad",
+    "age": "3 months",
+    "color": "asdfasdf",
+    "description": "asdfasdf",
+    "breed": "asdfasdf",
+    "gender": "female",
+    "image": "/public/images/1758372169806-d2.jpg",
+    "additionalImages": [],
+    "traits": [
+      "Playful"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-20T12:42:49.812Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-20T12:42:49.812Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68cea163e301149858cbc606"
+    },
+    "name": "asdfasdfasdfasdfasdfsdf",
+    "age": "4 months",
+    "color": "asdfasdf",
+    "description": "asdfasdf",
+    "breed": "asdfasdfadsf",
+    "gender": "male",
+    "image": "/public/images/1758372195170-p3.jpg",
+    "additionalImages": [],
+    "traits": [
+      "Good with Kids",
+      "Good with Other Pets"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "adopted",
+    "createdAt": {
+      "$date": "2025-09-20T12:43:15.173Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-20T13:56:01.372Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68ced46f3b22679c4c3927ac"
+    },
+    "name": "Sumon",
+    "age": "1 year",
+    "color": "Black and white",
+    "description": "She is cute",
+    "breed": "Husky",
+    "gender": "female",
+    "image": "/public/images/1758385263269-hus_1.jpg",
+    "additionalImages": [
+      "/public/images/1758385263280-hus_2.jpg",
+      "/public/images/1758385263285-hus_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Good with Other Pets"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-20T16:21:03.295Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-22T14:44:53.452Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68ced48d3b22679c4c3927b1"
+    },
+    "name": "MPS",
+    "age": "6 months",
+    "color": "Yellow and white",
+    "description": "He is bad",
+    "breed": "Golden Retriever",
+    "gender": "male",
+    "image": "/public/images/1758385293968-d4.jpg",
+    "additionalImages": [],
+    "traits": [
+      "Gentle",
+      "Active Outdoors",
+      "Indoor Only"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "pending",
+    "createdAt": {
+      "$date": "2025-09-20T16:21:33.975Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-20T16:27:21.246Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68ced4af3b22679c4c3927b6"
+    },
+    "name": "YKP",
+    "age": "9 months",
+    "color": "Yellow and white",
+    "description": "afadsf",
+    "breed": "Husky",
+    "gender": "male",
+    "image": "/public/images/1758385327295-p7.jpg",
+    "additionalImages": [
+      "/public/images/1758385327311-p11.jpg",
+      "/public/images/1758385327318-pets.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Good with Kids",
+      "Good with Other Pets"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "adopted",
+    "createdAt": {
+      "$date": "2025-09-20T16:22:07.321Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-20T16:23:30.833Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d161dd4d732c70b5cd7392"
+    },
+    "name": "Lola",
+    "age": "9 months",
+    "color": "Yellow and white",
+    "description": "She is good",
+    "breed": "Golden Retriever",
+    "gender": "female",
+    "image": "/public/images/1758552541328-p3.jpg",
+    "additionalImages": [
+      "/public/images/1758552541336-c3.jpg",
+      "/public/images/1758552541341-c4.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-22T14:49:01.349Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-22T14:49:01.349Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d163244d732c70b5cd73df"
+    },
+    "name": "Lina",
+    "age": "6 months",
+    "color": "Light Yellow",
+    "description": "asdfasdf",
+    "breed": "Golden",
+    "gender": "male",
+    "image": "/public/images/1758552868205-dog_1.jpeg",
+    "additionalImages": [
+      "/public/images/1758552868209-dog_3.jpg",
+      "/public/images/1758552868213-dog_4.jpeg"
+    ],
+    "traits": [
+      "Friendly",
+      "Good with Kids",
+      "Good with Other Pets"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-22T14:54:28.215Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-22T14:54:28.215Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d163454d732c70b5cd73e4"
+    },
+    "name": "Pussy",
+    "age": "6 months",
+    "color": "Yellow and white",
+    "description": "fadsfasdf",
+    "breed": "Apple",
+    "gender": "female",
+    "image": "/public/images/1758552901858-c4.jpg",
+    "additionalImages": [
+      "/public/images/1758552901859-c3.jpg",
+      "/public/images/1758552901861-d1.jpg"
+    ],
+    "traits": [
+      "Trained",
+      "Energetic",
+      "Calm",
+      "Shy",
+      "Protective",
+      "Intelligent",
+      "Affectionate"
+    ],
+    "category": {
+      "$oid": "68c83e021249c85158f2a6df"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-22T14:55:01.863Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-22T14:55:01.863Z"
+    },
+    "__v": 0
+  }
+]

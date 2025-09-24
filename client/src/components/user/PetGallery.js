@@ -8,6 +8,7 @@ const PetGallery = () => {
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
   const [filterStatus, setFilterStatus] = useState('available');
+  const [filterGender, setFilterGender] = useState(''); // ✅ new filter
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -27,7 +28,8 @@ const PetGallery = () => {
     const s = p.name.toLowerCase().includes(search.toLowerCase());
     const c = filterCategory ? p.category?.name === filterCategory : true;
     const st = filterStatus ? p.status === filterStatus : true;
-    return s && c && st;
+    const g = filterGender ? p.gender === filterGender : true; // ✅ gender check
+    return s && c && st && g;
   });
 
   const openDetails = (pet) => {
@@ -84,18 +86,9 @@ const PetGallery = () => {
       preConfirm: () => true,
     }).then((res) => {
       if (res.isConfirmed) {
-        navigate(`/user/pets/${pet._id}/adopt`); // ✅ match route
+        navigate(`/user/pets/${pet._id}/adopt`);
       }
     });
-    setTimeout(() => {
-      const btn = document.getElementById('adopt-btn');
-      if (btn) {
-        btn.addEventListener('click', () => {
-          Swal.close();
-          navigate(`/user/pets/${pet._id}/adopt`); // ✅ match route
-        });
-      }
-    }, 0);
   };
 
   if (loading) return <p>Loading pets...</p>;
@@ -119,6 +112,15 @@ const PetGallery = () => {
             <option value='Dog'>Dog</option>
             <option value='Cat'>Cat</option>
             <option value='Other'>Other</option>
+          </select>
+          {/* ✅ Gender filter */}
+          <select
+            value={filterGender}
+            onChange={(e) => setFilterGender(e.target.value)}
+          >
+            <option value=''>All Genders</option>
+            <option value='male'>Male</option>
+            <option value='female'>Female</option>
           </select>
         </div>
       </div>
