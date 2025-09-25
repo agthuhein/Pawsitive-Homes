@@ -1,14 +1,14 @@
 [
   {
     "_id": {
-      "$oid": "68c83e021249c85158f2a6df"
+      "$oid": "68d42cae4cda8f1ca61dc465"
     },
     "name": "Dog",
     "__v": 0
   },
   {
     "_id": {
-      "$oid": "68c83e181249c85158f2a6e1"
+      "$oid": "68d42cc24cda8f1ca61dc46a"
     },
     "name": "Cat",
     "__v": 0

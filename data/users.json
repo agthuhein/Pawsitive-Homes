@@ -1,126 +1,111 @@
 [
   {
     "_id": {
-      "$oid": "68cd1cd9c51b824f968ccbd5"
+      "$oid": "68d4274e4cda8f1ca61dc40c"
+    },
+    "firstName": "Martin",
+    "lastName": "Tyler",
+    "email": "tyler@pawsitive-home.com",
+    "phone": "015218481833",
+    "address": "Karlsruher Str. 14, Germany",
+    "password": "$2b$10$lfswdXTdaMvEGhwqgiHGK.IJs.saD/JSK/VpYAiJdtaJnLRXQn5d2",
+    "role": "admin",
+    "lastLogin": {
+      "$date": "2025-09-24T17:15:58.740Z"
+    },
+    "createdAt": {
+      "$date": "2025-09-24T17:15:58.742Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:15:58.742Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d4287c4cda8f1ca61dc441"
+    },
+    "firstName": "Lina",
+    "lastName": "Wagner",
+    "email": "lina.w@gmail.com",
+    "phone": "123456789",
+    "address": "User Str. 123, 10123, Berlin, Germany",
+    "password": "$2b$10$czEWNLoy8VqBRn3a.4EBvOc8o9b6ZH6l.Mbp3VjPX/9BI3.l/WZmK",
+    "role": "user",
+    "lastLogin": {
+      "$date": "2025-09-24T17:21:00.296Z"
+    },
+    "createdAt": {
+      "$date": "2025-09-24T17:21:00.296Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T19:59:02.945Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d42a254cda8f1ca61dc44d"
+    },
+    "firstName": "Johanna",
+    "lastName": "Klein",
+    "email": "johannaklein007@gmail.com",
+    "phone": "1234567890",
+    "address": "Massower Str. 24, 10123, Berlin",
+    "password": "$2b$10$0LCNdzXIWxDm0A1nxub83O1sTI8WLFTJQc/cP5cGRfavLCdNluF5u",
+    "role": "user",
+    "lastLogin": {
+      "$date": "2025-09-24T17:28:05.365Z"
+    },
+    "createdAt": {
+      "$date": "2025-09-24T17:28:05.365Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:28:05.365Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d4394c000047171d8837ef"
     },
     "firstName": "Aung",
     "lastName": "Thu Hein",
     "email": "agthuhein.mm@gmail.com",
-    "password": "$2b$10$BeHPYqLLbo9aDmymDDzx2.dNLES8/8Uj5OrPGNgg2rlvM..kXlaAa",
-    "role": "admin",
-    "lastLogin": {
-      "$date": "2025-09-19T09:05:29.333Z"
-    },
-    "createdAt": {
-      "$date": "2025-09-19T09:05:29.334Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-22T23:32:04.848Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68cd1e670d6371dd17839520"
-    },
-    "firstName": "Myat",
-    "lastName": "Mon",
-    "email": "myatsumon@gmail.com",
-    "password": "$2b$10$5WNeZRwRuSTGcCYNFO7N4edTHM/VnOiyOMM1uNORGeHBZjFmUWJUW",
+    "phone": "015218481833",
+    "address": "Karlsruher Str. 14, Germany",
+    "password": "$2b$10$M/fTqF0fhpV62VzLV7RyLOXjDgReA5qXTuQakmUGmOoKtaOAZigj.",
     "role": "user",
     "lastLogin": {
-      "$date": "2025-09-19T09:12:07.497Z"
+      "$date": "2025-09-24T18:32:44.491Z"
     },
     "createdAt": {
-      "$date": "2025-09-19T09:12:07.498Z"
+      "$date": "2025-09-24T18:32:44.493Z"
     },
     "updatedAt": {
-      "$date": "2025-09-19T14:19:57.798Z"
+      "$date": "2025-09-24T20:05:53.453Z"
     },
     "__v": 0
   },
   {
     "_id": {
-      "$oid": "68cda0066e671744c7a6d5cd"
+      "$oid": "68d4452b000047171d8839a2"
     },
-    "firstName": "Tyler",
-    "lastName": "Aung",
-    "email": "agthuhein.bm@gmail.com",
-    "password": "$2b$10$zNPYtpqFYP/XkOkjJ4dVO.sxhHgwGDvsJcml6VKsOs5zSvpiSySbq",
-    "role": "user",
-    "lastLogin": {
-      "$date": "2025-09-19T18:25:10.761Z"
-    },
-    "createdAt": {
-      "$date": "2025-09-19T18:25:10.762Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-19T18:25:10.762Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68d10176565e02ca4abaf313"
-    },
-    "firstName": "Aung",
-    "lastName": "Thu Hein",
+    "firstName": "Aung Thu",
+    "lastName": "Hein",
     "email": "aungthuhein.bm@gmail.com",
-    "password": "$2b$10$2juvgeQWFZ0XT54sCDmgtOUh2s86g0.0rGZ8hg4WOCfbQhmL87LWu",
-    "role": "user",
-    "lastLogin": {
-      "$date": "2025-09-22T07:57:42.068Z"
-    },
-    "createdAt": {
-      "$date": "2025-09-22T07:57:42.070Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-22T22:52:04.176Z"
-    },
-    "__v": 0,
-    "resetPasswordToken": "e4b716b848f6a43c81ff16bf68521752e2720814245e4746e3e4098d5984b5da"
-  },
-  {
-    "_id": {
-      "$oid": "68d1b3eb3123d6bd306bc98e"
-    },
-    "firstName": "Aung",
-    "lastName": "Thu Hein",
-    "email": "aung.thu@gisma-student.com",
     "phone": "015218481833",
     "address": "Karlsruher Str. 14, Germany",
-    "password": "$2b$10$rpgUIuud2yC1RqVJjNDeCObuz9spEfJIKH.4SX.hMEZfxZFnADUke",
-    "role": "admin",
-    "lastLogin": {
-      "$date": "2025-09-22T20:39:07.706Z"
-    },
-    "createdAt": {
-      "$date": "2025-09-22T20:39:07.707Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-22T21:01:52.130Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68d1b5413123d6bd306bc9cf"
-    },
-    "firstName": "Martin",
-    "lastName": "Tyler",
-    "email": "agthuhein1991@gmail.com",
-    "phone": "015218481833",
-    "address": "Karlsruher Str. 14, Germany",
-    "password": "$2b$10$ayqgnhFsajlJT6mzuVNbROtoxvRs.bo7uVl3uyXxrQJdgN9ZFZ8Au",
+    "password": "$2b$10$W1opSLPGwcnZ2ch6gkXk5.IZZdQFN8a.sIiWKobo3NNWK/kIltMmK",
     "role": "user",
     "lastLogin": {
-      "$date": "2025-09-22T20:44:49.131Z"
+      "$date": "2025-09-24T19:23:23.644Z"
     },
     "createdAt": {
-      "$date": "2025-09-22T20:44:49.132Z"
+      "$date": "2025-09-24T19:23:23.645Z"
     },
     "updatedAt": {
-      "$date": "2025-09-23T07:05:15.122Z"
+      "$date": "2025-09-24T19:23:23.645Z"
     },
     "__v": 0
   }

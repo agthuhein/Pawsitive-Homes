@@ -1,196 +1,277 @@
 [
   {
     "_id": {
-      "$oid": "68ce984063265f776517e4b0"
+      "$oid": "68d42d104cda8f1ca61dc478"
     },
-    "name": "Testing",
-    "age": "2 years",
-    "color": "Brown",
-    "description": "adsfdasdfasdf",
-    "breed": "Golden Retriever",
-    "gender": "male",
-    "image": "/public/images/1758369856221-cat_3.jpg",
+    "name": "Rex",
+    "age": "10 months",
+    "color": "Brown and White",
+    "description": "Rex was rescued from the streets in Spain and is now safe in foster care. She’s gentle, playful, and loves children. Rex will need daily walks and affection in her new home.",
+    "breed": "Beagle Mix",
+    "gender": "female",
+    "image": "/public/images/1758735632388-Rex_1.jpg",
     "additionalImages": [
-      "/public/images/1758369856228-hus_2.jpg",
-      "/public/images/1758369856232-hus_3.jpg"
+      "/public/images/1758735632393-Rex_2.jpg"
     ],
     "traits": [
       "Friendly",
       "Playful",
-      "Good with Kids",
-      "Trained",
-      "Energetic",
-      "Calm",
-      "Curious"
-    ],
-    "category": {
-      "$oid": "68c83e021249c85158f2a6df"
-    },
-    "status": "available",
-    "createdAt": {
-      "$date": "2025-09-20T12:04:16.241Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-23T07:06:18.841Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68ce987263265f776517e4b8"
-    },
-    "name": "testttt",
-    "age": "3 year",
-    "color": "Yellow and white",
-    "description": "adsf",
-    "breed": "Husky",
-    "gender": "female",
-    "image": "/public/images/1758369906807-hus_1.jpg",
-    "additionalImages": [],
-    "traits": [
-      "Friendly",
-      "Playful",
-      "Curious"
-    ],
-    "category": {
-      "$oid": "68c83e021249c85158f2a6df"
-    },
-    "status": "available",
-    "createdAt": {
-      "$date": "2025-09-20T12:05:06.815Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-20T12:05:06.815Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68ce98f8bdb0a24b0eeff406"
-    },
-    "name": "dasfasdfasdf",
-    "age": "4 months",
-    "color": "asdf",
-    "description": "asdf",
-    "breed": "Husky",
-    "gender": "female",
-    "image": "/public/images/1758370040377-p3.jpg",
-    "additionalImages": [],
-    "traits": [
-      "Playful",
-      "Best with kids"
-    ],
-    "category": {
-      "$oid": "68c83e181249c85158f2a6e1"
-    },
-    "status": "available",
-    "createdAt": {
-      "$date": "2025-09-20T12:07:20.391Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-20T12:07:20.391Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68ce9aecb24d0a27f0364ab5"
-    },
-    "name": "adsfadsdfdasdf",
-    "age": "4 months",
-    "color": "asdfasdf",
-    "description": "asdfasdf",
-    "breed": "asdfasdf",
-    "gender": "male",
-    "image": "/public/images/1758370540247-d1.jpg",
-    "additionalImages": [],
-    "traits": [
-      "Friendly",
-      "Playful",
-      "Good with Kids",
-      "Trained"
-    ],
-    "category": {
-      "$oid": "68c83e181249c85158f2a6e1"
-    },
-    "status": "available",
-    "createdAt": {
-      "$date": "2025-09-20T12:15:40.259Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-22T14:44:45.939Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68cea149e301149858cbc601"
-    },
-    "name": "asdfadfadsfad",
-    "age": "3 months",
-    "color": "asdfasdf",
-    "description": "asdfasdf",
-    "breed": "asdfasdf",
-    "gender": "female",
-    "image": "/public/images/1758372169806-d2.jpg",
-    "additionalImages": [],
-    "traits": [
-      "Playful"
-    ],
-    "category": {
-      "$oid": "68c83e021249c85158f2a6df"
-    },
-    "status": "available",
-    "createdAt": {
-      "$date": "2025-09-20T12:42:49.812Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-20T12:42:49.812Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68cea163e301149858cbc606"
-    },
-    "name": "asdfasdfasdfasdfasdfsdf",
-    "age": "4 months",
-    "color": "asdfasdf",
-    "description": "asdfasdf",
-    "breed": "asdfasdfadsf",
-    "gender": "male",
-    "image": "/public/images/1758372195170-p3.jpg",
-    "additionalImages": [],
-    "traits": [
       "Good with Kids",
       "Good with Other Pets"
     ],
     "category": {
-      "$oid": "68c83e021249c85158f2a6df"
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:40:32.402Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:42:15.315Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d42d6e4cda8f1ca61dc47d"
+    },
+    "name": "Titan",
+    "age": "6 months",
+    "color": "Brown and White",
+    "description": "Titan was rescued from the streets in Spain and is now safe in foster care. She’s gentle, playful, and loves children. Titan will need daily walks and affection in her new home.",
+    "breed": "Beagle Mix",
+    "gender": "male",
+    "image": "/public/images/1758735726149-Titan_1.jpg",
+    "additionalImages": [
+      "/public/images/1758735726150-Titan_2.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Good with Other Pets"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:42:06.155Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T19:58:19.128Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d42e124cda8f1ca61dc48b"
+    },
+    "name": "Thor",
+    "age": "8 months",
+    "color": "Brown",
+    "description": "This young dog was rescued from the streets and is now safe in foster care. He is playful, curious, and enjoys exploring new surroundings. He is ready to find a loving home.",
+    "breed": "Chihuahua",
+    "gender": "male",
+    "image": "/public/images/1758735890071-Thor_1.jpg",
+    "additionalImages": [
+      "/public/images/1758735890071-Thor_2.jpg"
+    ],
+    "traits": [
+      "Good with Other Pets",
+      "Energetic",
+      "Protective",
+      "Intelligent"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:44:50.073Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:44:50.073Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d42e564cda8f1ca61dc490"
+    },
+    "name": "Mini",
+    "age": "11 months",
+    "color": "Black and white",
+    "description": "A gentle and affectionate dog who loves human contact. She enjoys short walks and quiet evenings. Perfect for a calm household.",
+    "breed": "Chihuahua",
+    "gender": "female",
+    "image": "/public/images/1758735958569-Mimi_1.jpg",
+    "additionalImages": [
+      "/public/images/1758735958571-Mimi_2.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Good with Other Pets"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:45:58.578Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:45:58.578Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d42eb24cda8f1ca61dc495"
+    },
+    "name": "Duke",
+    "age": "7 months",
+    "color": "Brown",
+    "description": "This dog was abandoned but quickly learned to trust people again. He is cheerful, active, and eager to play. He will make a loyal family companion.",
+    "breed": "German Shepherd",
+    "gender": "male",
+    "image": "/public/images/1758736050854-Duke_1.jpg",
+    "additionalImages": [
+      "/public/images/1758736050854-Duke_2.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Good with Other Pets"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
     },
     "status": "adopted",
     "createdAt": {
-      "$date": "2025-09-20T12:43:15.173Z"
+      "$date": "2025-09-24T17:47:30.857Z"
     },
     "updatedAt": {
-      "$date": "2025-09-20T13:56:01.372Z"
+      "$date": "2025-09-24T20:06:43.208Z"
     },
     "__v": 0
   },
   {
     "_id": {
-      "$oid": "68ced46f3b22679c4c3927ac"
+      "$oid": "68d42f094cda8f1ca61dc49a"
     },
-    "name": "Sumon",
+    "name": "Bella",
     "age": "1 year",
-    "color": "Black and white",
-    "description": "She is cute",
-    "breed": "Husky",
+    "color": "Brown",
+    "description": "A lively and curious dog who loves outdoor activities. She has lots of energy and needs regular walks. She would suit an active family.",
+    "breed": "German Shepherd",
     "gender": "female",
-    "image": "/public/images/1758385263269-hus_1.jpg",
+    "image": "/public/images/1758736137414-Bella_1.jpg",
     "additionalImages": [
-      "/public/images/1758385263280-hus_2.jpg",
-      "/public/images/1758385263285-hus_3.jpg"
+      "/public/images/1758736137414-Bella_2.jpg"
+    ],
+    "traits": [
+      "Protective",
+      "Intelligent",
+      "Loyal",
+      "Gentle",
+      "Active Outdoors"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:48:57.418Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:48:57.418Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d42f934cda8f1ca61dc4ad"
+    },
+    "name": "Lola",
+    "age": "2 years",
+    "color": "Light Yellow",
+    "description": "A sweet-natured dog who loves cuddles and attention. She is house-trained and very easy to handle. A great match for families with children.",
+    "breed": "Golden Retriever",
+    "gender": "female",
+    "image": "/public/images/1758736275407-Lola_1.jpg",
+    "additionalImages": [
+      "/public/images/1758736275407-Lola_2.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Good with Other Pets",
+      "Energetic",
+      "Protective",
+      "Intelligent"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:51:15.410Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:51:15.410Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d42feb4cda8f1ca61dc4b2"
+    },
+    "name": "Lucky",
+    "age": "7 months",
+    "color": "Light Yellow",
+    "description": "Found near a village, this dog is now healthy and safe. He is friendly, social, and enjoys the company of other animals. He is looking forward to a forever home.",
+    "breed": "Golden Retriever",
+    "gender": "male",
+    "image": "/public/images/1758736363699-Lucky_1.jpg",
+    "additionalImages": [
+      "/public/images/1758736363699-Lucky_2.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Good with Kids",
+      "Curious",
+      "Gentle"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:52:43.703Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:52:43.703Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d430364cda8f1ca61dc4b7"
+    },
+    "name": "Mochi",
+    "age": "5 months",
+    "color": "Brown",
+    "description": "This dog is full of energy and enjoys running and playing fetch. He is intelligent and quick to learn new things. He will thrive in a home that keeps him active.",
+    "breed": "Terrier",
+    "gender": "female",
+    "image": "/public/images/1758736438297-Mochi_1.jpg",
+    "additionalImages": [
+      "/public/images/1758736438298-Mochi_2.jpg"
     ],
     "traits": [
       "Friendly",
@@ -199,175 +280,342 @@
       "Good with Other Pets"
     ],
     "category": {
-      "$oid": "68c83e021249c85158f2a6df"
+      "$oid": "68d42cae4cda8f1ca61dc465"
     },
-    "status": "available",
+    "status": "adopted",
     "createdAt": {
-      "$date": "2025-09-20T16:21:03.295Z"
+      "$date": "2025-09-24T17:53:58.301Z"
     },
     "updatedAt": {
-      "$date": "2025-09-22T14:44:53.452Z"
+      "$date": "2025-09-24T19:58:00.598Z"
     },
     "__v": 0
   },
   {
     "_id": {
-      "$oid": "68ced48d3b22679c4c3927b1"
+      "$oid": "68d430854cda8f1ca61dc4bc"
     },
-    "name": "MPS",
-    "age": "6 months",
-    "color": "Yellow and white",
-    "description": "He is bad",
-    "breed": "Golden Retriever",
-    "gender": "male",
-    "image": "/public/images/1758385293968-d4.jpg",
-    "additionalImages": [],
+    "name": "Max",
+    "age": "10 months",
+    "color": "Brown",
+    "description": "A shy but gentle dog who takes time to warm up. Once she trusts you, she is very affectionate and loyal. She prefers a calm environment.",
+    "breed": "Terrier",
+    "gender": "female",
+    "image": "/public/images/1758736517684-Max_1.jpg",
+    "additionalImages": [
+      "/public/images/1758736517684-Max_2.jpg"
+    ],
     "traits": [
-      "Gentle",
-      "Active Outdoors",
+      "Friendly",
+      "Playful",
+      "Good with Kids",
+      "Shy",
+      "Gentle"
+    ],
+    "category": {
+      "$oid": "68d42cae4cda8f1ca61dc465"
+    },
+    "status": "adopted",
+    "createdAt": {
+      "$date": "2025-09-24T17:55:17.686Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T19:25:31.312Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d4312f4cda8f1ca61dc4c1"
+    },
+    "name": "Louis",
+    "age": "11 months",
+    "color": "Grey",
+    "description": "A gentle and affectionate cat who enjoys naps in sunny spots. He is calm and easygoing. Perfect for a quiet home.",
+    "breed": "British Shorthair",
+    "gender": "male",
+    "image": "/public/images/1758736687105-Louis_1.jpg",
+    "additionalImages": [
+      "/public/images/1758736687107-Louis_2.jpg",
+      "/public/images/1758736687107-Louis_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Loyal",
       "Indoor Only"
     ],
     "category": {
-      "$oid": "68c83e021249c85158f2a6df"
+      "$oid": "68d42cc24cda8f1ca61dc46a"
     },
-    "status": "pending",
+    "status": "available",
     "createdAt": {
-      "$date": "2025-09-20T16:21:33.975Z"
+      "$date": "2025-09-24T17:58:07.109Z"
     },
     "updatedAt": {
-      "$date": "2025-09-20T16:27:21.246Z"
+      "$date": "2025-09-24T17:58:07.109Z"
     },
     "__v": 0
   },
   {
     "_id": {
-      "$oid": "68ced4af3b22679c4c3927b6"
+      "$oid": "68d4318c4cda8f1ca61dc4c6"
     },
-    "name": "YKP",
-    "age": "9 months",
-    "color": "Yellow and white",
-    "description": "afadsf",
-    "breed": "Husky",
+    "name": "Theo",
+    "age": "1 year",
+    "color": "Cream",
+    "description": "This curious cat enjoys exploring high places and playing with strings. He is very active and keeps himself entertained. He is ready to join an active family.",
+    "breed": "British Shorthair",
     "gender": "male",
-    "image": "/public/images/1758385327295-p7.jpg",
+    "image": "/public/images/1758736780470-Theo_1.jpg",
     "additionalImages": [
-      "/public/images/1758385327311-p11.jpg",
-      "/public/images/1758385327318-pets.jpg"
+      "/public/images/1758736780471-Theo_2.jpg",
+      "/public/images/1758736780471-Theo_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Curious",
+      "Loyal",
+      "Gentle"
+    ],
+    "category": {
+      "$oid": "68d42cc24cda8f1ca61dc46a"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T17:59:40.473Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T17:59:40.473Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d431f14cda8f1ca61dc4e9"
+    },
+    "name": "Zeus",
+    "age": "1 year",
+    "color": "Yellow, Black and White",
+    "description": "This cat is friendly and always eager to greet people. He enjoys attention and playtime. He will be a cheerful addition to any family.",
+    "breed": "Calico",
+    "gender": "male",
+    "image": "/public/images/1758736881562-Zeus_1.png",
+    "additionalImages": [
+      "/public/images/1758736881564-Zeus_2.jpg"
     ],
     "traits": [
       "Friendly",
       "Good with Kids",
-      "Good with Other Pets"
+      "Trained",
+      "Energetic",
+      "Calm"
     ],
     "category": {
-      "$oid": "68c83e021249c85158f2a6df"
+      "$oid": "68d42cc24cda8f1ca61dc46a"
     },
-    "status": "adopted",
+    "status": "available",
     "createdAt": {
-      "$date": "2025-09-20T16:22:07.321Z"
+      "$date": "2025-09-24T18:01:21.566Z"
     },
     "updatedAt": {
-      "$date": "2025-09-20T16:23:30.833Z"
+      "$date": "2025-09-24T18:01:21.566Z"
     },
     "__v": 0
   },
   {
     "_id": {
-      "$oid": "68d161dd4d732c70b5cd7392"
+      "$oid": "68d4323d4cda8f1ca61dc4ee"
     },
-    "name": "Lola",
-    "age": "9 months",
-    "color": "Yellow and white",
-    "description": "She is good",
-    "breed": "Golden Retriever",
+    "name": "Loki",
+    "age": "4 months",
+    "color": "Black and white",
+    "description": "A playful kitten who is full of energy. She enjoys chasing balls and playing with other cats. She is looking for a fun-loving family.",
+    "breed": "Tuxedo",
     "gender": "female",
-    "image": "/public/images/1758552541328-p3.jpg",
+    "image": "/public/images/1758736957460-Loki_2.jpg",
     "additionalImages": [
-      "/public/images/1758552541336-c3.jpg",
-      "/public/images/1758552541341-c4.jpg"
+      "/public/images/1758736957460-Loki_1.jpg"
     ],
     "traits": [
       "Friendly",
       "Playful",
-      "Good with Kids"
-    ],
-    "category": {
-      "$oid": "68c83e021249c85158f2a6df"
-    },
-    "status": "available",
-    "createdAt": {
-      "$date": "2025-09-22T14:49:01.349Z"
-    },
-    "updatedAt": {
-      "$date": "2025-09-22T14:49:01.349Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "68d163244d732c70b5cd73df"
-    },
-    "name": "Lina",
-    "age": "6 months",
-    "color": "Light Yellow",
-    "description": "asdfasdf",
-    "breed": "Golden",
-    "gender": "male",
-    "image": "/public/images/1758552868205-dog_1.jpeg",
-    "additionalImages": [
-      "/public/images/1758552868209-dog_3.jpg",
-      "/public/images/1758552868213-dog_4.jpeg"
-    ],
-    "traits": [
-      "Friendly",
       "Good with Kids",
       "Good with Other Pets"
     ],
     "category": {
-      "$oid": "68c83e021249c85158f2a6df"
+      "$oid": "68d42cc24cda8f1ca61dc46a"
     },
     "status": "available",
     "createdAt": {
-      "$date": "2025-09-22T14:54:28.215Z"
+      "$date": "2025-09-24T18:02:37.462Z"
     },
     "updatedAt": {
-      "$date": "2025-09-22T14:54:28.215Z"
+      "$date": "2025-09-24T18:02:37.462Z"
     },
     "__v": 0
   },
   {
     "_id": {
-      "$oid": "68d163454d732c70b5cd73e4"
+      "$oid": "68d432774cda8f1ca61dc4f3"
     },
-    "name": "Pussy",
-    "age": "6 months",
-    "color": "Yellow and white",
-    "description": "fadsfasdf",
-    "breed": "Apple",
-    "gender": "female",
-    "image": "/public/images/1758552901858-c4.jpg",
+    "name": "Smokey",
+    "age": "7 months",
+    "color": "Black and white",
+    "description": "This sweet cat enjoys being held and cuddled. He is gentle, affectionate, and very easy to care for. He is waiting for a new home.",
+    "breed": "Tuxedo",
+    "gender": "male",
+    "image": "/public/images/1758737015928-Smokey_1.jpg",
     "additionalImages": [
-      "/public/images/1758552901859-c3.jpg",
-      "/public/images/1758552901861-d1.jpg"
+      "/public/images/1758737015928-Smokey_2.jpg",
+      "/public/images/1758737015928-Smokey_3.jpg"
     ],
     "traits": [
-      "Trained",
+      "Friendly",
+      "Playful",
       "Energetic",
-      "Calm",
-      "Shy",
-      "Protective",
-      "Intelligent",
-      "Affectionate"
+      "Calm"
     ],
     "category": {
-      "$oid": "68c83e021249c85158f2a6df"
+      "$oid": "68d42cc24cda8f1ca61dc46a"
     },
     "status": "available",
     "createdAt": {
-      "$date": "2025-09-22T14:55:01.863Z"
+      "$date": "2025-09-24T18:03:35.931Z"
     },
     "updatedAt": {
-      "$date": "2025-09-22T14:55:01.863Z"
+      "$date": "2025-09-24T18:03:35.931Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d432be4cda8f1ca61dc4f8"
+    },
+    "name": "Alfie",
+    "age": "9 months",
+    "color": "Yellow and white",
+    "description": "A small kitten full of energy and cheerfulness. She is playful, active, and loves to climb. She is perfect for a lively family.",
+    "breed": "Ginger",
+    "gender": "female",
+    "image": "/public/images/1758737086993-Alfie_1.jpg",
+    "additionalImages": [
+      "/public/images/1758737086993-Alfie_2.jpg",
+      "/public/images/1758737086994-Alfie_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Affectionate",
+      "Curious",
+      "Loyal"
+    ],
+    "category": {
+      "$oid": "68d42cc24cda8f1ca61dc46a"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T18:04:46.996Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T18:04:46.996Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d4331f4cda8f1ca61dc4fd"
+    },
+    "name": "Hugo",
+    "age": "1 year",
+    "color": "Yellow and white",
+    "description": "A quiet and elegant cat who prefers peaceful surroundings. She is affectionate but not demanding. She will be happiest in a calm home.",
+    "breed": "Ginger",
+    "gender": "female",
+    "image": "/public/images/1758737183956-Hugo_1.jpg",
+    "additionalImages": [
+      "/public/images/1758737183956-Hugo_2.jpg",
+      "/public/images/1758737183957-Hugo_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Good with Kids",
+      "Good with Other Pets",
+      "Indoor Only"
+    ],
+    "category": {
+      "$oid": "68d42cc24cda8f1ca61dc46a"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T18:06:23.959Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T18:06:23.959Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d433764cda8f1ca61dc502"
+    },
+    "name": "Sophie",
+    "age": "1 year",
+    "color": "Brown and Black",
+    "description": "This mischievous kitten loves climbing and exploring. He is playful and energetic. He will bring lots of fun to his new home.",
+    "breed": "Tabby",
+    "gender": "male",
+    "image": "/public/images/1758737270242-Sophie_1.jpg",
+    "additionalImages": [
+      "/public/images/1758737270244-Sophie_2.jpg",
+      "/public/images/1758737270248-Sophie_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Playful",
+      "Curious",
+      "Indoor Only"
+    ],
+    "category": {
+      "$oid": "68d42cc24cda8f1ca61dc46a"
+    },
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-09-24T18:07:50.249Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T19:25:14.241Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68d434074cda8f1ca61dc507"
+    },
+    "name": "Ivy",
+    "age": "5 months",
+    "color": "Yellow, Black and Brown",
+    "description": "This outgoing cat loves to meet new people. He is playful, curious, and enjoys attention. He will settle easily into a forever home.",
+    "breed": "Tabby",
+    "gender": "male",
+    "image": "/public/images/1758737415436-Ivy_1.jpg",
+    "additionalImages": [
+      "/public/images/1758737415436-Ivy_2.jpg",
+      "/public/images/1758737415437-Ivy_3.jpg"
+    ],
+    "traits": [
+      "Friendly",
+      "Good with Kids",
+      "Good with Other Pets",
+      "Energetic"
+    ],
+    "category": {
+      "$oid": "68d42cc24cda8f1ca61dc46a"
+    },
+    "status": "adopted",
+    "createdAt": {
+      "$date": "2025-09-24T18:10:15.439Z"
+    },
+    "updatedAt": {
+      "$date": "2025-09-24T19:25:17.043Z"
     },
     "__v": 0
   }
