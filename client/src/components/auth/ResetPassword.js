@@ -4,7 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const ResetPassword = () => {
-  const { token } = useParams(); // get token from URL
+  const { token } = useParams();
   const navigate = useNavigate();
 
   const [password, setPassword] = useState('');

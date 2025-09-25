@@ -18,7 +18,6 @@ const UpdateProfile = () => {
   const token = localStorage.getItem('token');
   const { firstName, lastName, email, phone, address } = formData;
 
-  // ✅ Load current user profile on page load
   useEffect(() => {
     const fetchProfile = async () => {
       try {

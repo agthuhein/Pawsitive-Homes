@@ -31,7 +31,7 @@ const ChangePassword = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // ✅ Clear localStorage
+      // Clear localStorage
       localStorage.removeItem('token');
       localStorage.removeItem('role');
 

@@ -1,4 +1,3 @@
-// seed.js
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -8,11 +7,10 @@ import { EJSON } from 'bson';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// —— Config via env or defaults ——
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const DB_NAME = process.env.DB_NAME || 'Pawsitive-Home';
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
-// Default: clear collections before inserting
+
 const DROP_FIRST =
   String(process.env.DROP_FIRST || 'true').toLowerCase() === 'true';
 
@@ -57,9 +55,9 @@ async function main() {
       }
     }
 
-    console.log('✅ Seeding complete.');
+    console.log('Seeding complete.');
   } catch (err) {
-    console.error('❌ Seeding failed:', err);
+    console.error('Seeding failed:', err);
     process.exitCode = 1;
   } finally {
     await client.close();

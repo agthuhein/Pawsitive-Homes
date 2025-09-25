@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const setAuthToken = axios.create({
-  baseURL: 'http://localhost:4000', // backend server
+  baseURL: 'http://localhost:4000',
 });
 
 // Attach token automatically

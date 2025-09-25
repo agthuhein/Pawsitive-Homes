@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CARD_WIDTH = 260; // px (card + gap)
+const CARD_WIDTH = 260;
 
 const Cats = () => {
   const [cats, setCats] = useState([]);

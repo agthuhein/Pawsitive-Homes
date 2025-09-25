@@ -14,9 +14,8 @@ import {
   Cell,
 } from 'recharts';
 
-const COLORS = ['#5cb85c', '#d9534f', '#f0ad4e']; // Approved, Rejected, Pending
+const COLORS = ['#5cb85c', '#d9534f', '#f0ad4e'];
 
-// Helper to capitalize first letter
 const formatName = (name) => {
   if (!name) return '';
   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
@@ -40,7 +39,7 @@ const AdminDashboard = () => {
         setUsers(usersRes.data.slice(0, 5));
 
         const trendsRes = await setAuthToken.get('/api/admin/adoption-trends');
-        setAdoptionTrends(trendsRes.data.slice(-3)); // ✅ last 3 months
+        setAdoptionTrends(trendsRes.data.slice(-3));
       } catch (err) {
         console.error(
           'Error fetching dashboard:',
@@ -110,7 +109,7 @@ const AdminDashboard = () => {
         </div>
       </section>
 
-      {/* ✅ Adoption Trends Charts */}
+      {/*Adoption Trends Charts */}
       <section className='adoption-trends mb-8'>
         <h3 style={{ textAlign: 'center', marginBottom: '15px' }}>
           Adoption Trends (Last 3 Months)

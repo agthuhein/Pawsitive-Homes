@@ -1,4 +1,3 @@
-// src/components/routing/AdminRoute.js
 import { Navigate } from 'react-router-dom';
 
 const AdminRoute = ({ children }) => {
@@ -10,7 +9,6 @@ const AdminRoute = ({ children }) => {
   }
 
   if (role !== 'admin') {
-    // ✅ redirect user to their dashboard
     if (role === 'user') {
       return <Navigate to='/user/dashboard' replace />;
     }

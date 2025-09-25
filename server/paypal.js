@@ -1,4 +1,3 @@
-// server/paypal.js
 const paypal = require('@paypal/checkout-server-sdk');
 
 function paypalClient() {

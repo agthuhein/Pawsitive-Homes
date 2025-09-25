@@ -2,7 +2,6 @@ const Pet = require('../models/Pet');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Helper: delete a file safely
 const deleteFile = async (filePath) => {
   if (!filePath) return; // nothing to delete
 
@@ -49,7 +48,7 @@ exports.create = async (req, res) => {
     }*/
     if (additionalImages && additionalImages.length > 0) {
       additionalImagesPath = additionalImages.map(
-        (file) => `/public/images/${file.filename}` // ✅ public path
+        (file) => `/public/images/${file.filename}`
       );
     }
 
@@ -75,17 +74,6 @@ exports.create = async (req, res) => {
   }
 };
 
-// GET ALL PETS (Public)
-/*
-exports.getAll = async (req, res) => {
-  try {
-    const pets = await Pet.find().populate('category', 'name');
-    res.json(pets);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Server error' });
-  }
-};*/
 exports.getAll = async (req, res) => {
   try {
     const { category, status, search } = req.query;
@@ -211,7 +199,7 @@ exports.delete = async (req, res) => {
       return res.status(404).json({ msg: 'Pet does not exist' });
     }
 
-    // 🚨 Prevent deleting if status is pending
+    // Prevent deleting if status is pending
     if (existingPet.status === 'pending') {
       return res
         .status(400)
@@ -224,10 +212,10 @@ exports.delete = async (req, res) => {
       await deleteFile(img);
     }
 
-    // ✅ Delete the pet
+    // Delete the pet
     const deletedPet = await Pet.findByIdAndDelete(id);
 
-    // ✅ Cascade delete adoption requests for this pet
+    // Cascade delete adoption requests for this pet
     const Adoption = require('../models/Adoption');
     await Adoption.deleteMany({ pet: id });
 

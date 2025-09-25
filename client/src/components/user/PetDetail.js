@@ -46,7 +46,7 @@ const PetDetail = () => {
       : '⚪ Unknown';
 
   const handleAdopt = () => {
-    if (status !== 'available') return; // guard (shouldn't show if not available)
+    if (status !== 'available') return;
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
 

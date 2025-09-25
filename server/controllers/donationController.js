@@ -35,12 +35,12 @@ exports.createPaypalOrder = async (req, res) => {
 
     return res.json({ orderID: order.result.id });
   } catch (err) {
-    console.error('❌ PayPal create order error:', err);
+    console.error('PayPal create order error:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 };
 
-// Capture a PayPal order (server-side) -> save donation + send email
+// Capture a PayPal order (server-side)
 exports.capturePaypalOrder = async (req, res) => {
   try {
     const { orderID } = req.body;
@@ -52,11 +52,11 @@ exports.capturePaypalOrder = async (req, res) => {
     const client = paypalClient();
     const capture = await client.execute(request);
 
-    const status = capture.result.status; // should be "COMPLETED"
+    const status = capture.result.status;
     const unit = capture.result.purchase_units[0];
     const captureObj = unit.payments.captures[0];
 
-    const amountValue = parseFloat(captureObj.amount.value); // string -> number
+    const amountValue = parseFloat(captureObj.amount.value);
     const payerEmail =
       req.user?.email ||
       capture.result?.payer?.email_address ||
@@ -77,7 +77,7 @@ exports.capturePaypalOrder = async (req, res) => {
       status: 'completed',
     });
 
-    // Send thank-you email from YOUR SMTP
+    // Send thank-you email
     await sendMail({
       to: payerEmail,
       subject: 'Thank you for your donation 💛',
@@ -97,12 +97,11 @@ exports.capturePaypalOrder = async (req, res) => {
       capture: capture.result,
     });
   } catch (err) {
-    console.error('❌ PayPal capture error:', err);
+    console.error('PayPal capture error:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 };
 
-// (Optional) keep if you want to see your own donations
 exports.getMine = async (req, res) => {
   try {
     const list = await Donation.find({ user: req.user.id }).sort({
@@ -110,7 +109,7 @@ exports.getMine = async (req, res) => {
     });
     res.json(list);
   } catch (e) {
-    console.error('❌ getMine error:', e.message);
+    console.error('getMine error:', e.message);
     res.status(500).json({ msg: 'Server error' });
   }
 };
@@ -119,14 +118,14 @@ exports.getMine = async (req, res) => {
 exports.getAllDonations = async (req, res) => {
   try {
     const donations = await Donation.find()
-      .populate('user', 'firstName lastName email') // 👈 populate user info
+      .populate('user', 'firstName lastName email')
       .sort({ createdAt: -1 });
 
     const total = donations.reduce((sum, d) => sum + d.amount, 0);
 
     res.json({ donations, total });
   } catch (err) {
-    console.error('❌ getAllDonations error:', err.message);
+    console.error('getAllDonations error:', err.message);
     res.status(500).json({ msg: 'Server error' });
   }
 };

@@ -11,7 +11,6 @@ const Stories = () => {
     const loadAdopted = async () => {
       try {
         const res = await axios.get('/api/pets/');
-        // ✅ Case-insensitive filter for adopted pets
         setAdoptedPets(
           res.data.filter((p) => p.status?.toLowerCase() === 'adopted')
         );

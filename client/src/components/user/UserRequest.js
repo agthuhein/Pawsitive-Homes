@@ -58,7 +58,7 @@ const UserRequest = () => {
 
   if (loading) return <p>Loading your requests...</p>;
 
-  // ✅ Filtering
+  // Filtering
   const filteredRequests = requests.filter((req) => {
     const matchesSearch =
       req.pet?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -67,13 +67,13 @@ const UserRequest = () => {
     return matchesSearch && matchesStatus;
   });
 
-  // ✅ Pagination
+  // Pagination
   const indexOfLast = currentPage * perPage;
   const indexOfFirst = indexOfLast - perPage;
   const currentRequests = filteredRequests.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredRequests.length / perPage);
 
-  // ✅ Status badge
+  // Status badge
   const getStatusBadge = (status) => {
     switch (status) {
       case 'approved':

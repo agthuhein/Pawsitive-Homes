@@ -23,7 +23,7 @@ const Login = () => {
       await Swal.fire({
         icon: 'success',
         title: 'Login Successful',
-        text: `Welcome back, ${res.data.user.firstName}!`, // ✅ use firstName
+        text: `Welcome back, ${res.data.user.firstName}!`,
         timer: 2000,
         showConfirmButton: false,
       });
@@ -64,7 +64,7 @@ const Login = () => {
             required
           />
 
-          {/* ✅ Forgot Password link */}
+          {/* Forgot Password link */}
           <p style={{ textAlign: 'right', marginTop: '5px' }}>
             <Link
               to='/forgot-password'

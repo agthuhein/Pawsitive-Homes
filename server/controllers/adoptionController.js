@@ -1,4 +1,3 @@
-// controllers/adoptionController.js
 const Adoption = require('../models/Adoption');
 const Pet = require('../models/Pet');
 const { sendMail } = require('../utils/mailer');
@@ -43,7 +42,6 @@ exports.create = async (req, res) => {
     res.status(201).json({ msg: 'Adoption request submitted', adoption });
   } catch (err) {
     if (err.code === 11000) {
-      // Duplicate key error → index violation
       return res
         .status(400)
         .json({ error: 'You have already requested this pet.' });
@@ -57,7 +55,7 @@ exports.create = async (req, res) => {
 exports.approve = async (req, res) => {
   try {
     const adoption = await Adoption.findOneAndUpdate(
-      { _id: req.params.id, status: 'pending' }, // only pending
+      { _id: req.params.id, status: 'pending' },
       { status: 'approved' },
       { new: true }
     ).populate('pet', 'name');
@@ -89,7 +87,7 @@ exports.approve = async (req, res) => {
 exports.reject = async (req, res) => {
   try {
     const adoption = await Adoption.findOneAndUpdate(
-      { _id: req.params.id, status: 'pending' }, // only pending
+      { _id: req.params.id, status: 'pending' },
       { status: 'rejected' },
       { new: true }
     ).populate('pet', 'name');
@@ -171,10 +169,8 @@ exports.cancelMine = async (req, res) => {
     adoption.status = 'canceled';
     await adoption.save();
 
-    // ✅ Pet should always return to available if the pending request is canceled
     await Pet.findByIdAndUpdate(adoption.pet, { status: 'available' });
 
-    // ✅ Send cancellation email
     await sendMail({
       to: adoption.email,
       subject: 'Your adoption request was canceled',

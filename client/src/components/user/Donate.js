@@ -1,11 +1,10 @@
-// client/src/components/user/Donate.js
 import React, { useState } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 function DonateButton() {
   const [amount, setAmount] = useState(10);
 
-  const token = localStorage.getItem('token'); // JWT from login
+  const token = localStorage.getItem('token');
 
   return (
     <main style={{ textAlign: 'center', marginTop: '50px', padding: '20px' }}>

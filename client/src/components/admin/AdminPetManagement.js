@@ -32,7 +32,7 @@ const AdminPetManagement = () => {
     fetchPets();
   }, [token]);
 
-  // ✅ Pet Details popup
+  // Pet Details popup
   const handleDetails = (pet) => {
     Swal.fire({
       title: `${pet.name} (${pet.gender === 'male' ? '♂ Male' : '♀ Female'})`,
@@ -71,7 +71,7 @@ const AdminPetManagement = () => {
     });
   };
 
-  // ✅ Safe delete logic
+  // Safe delete logic
   const handleDelete = async (id, status) => {
     if (status === 'pending') {
       Swal.fire(
@@ -123,7 +123,7 @@ const AdminPetManagement = () => {
     }
   };
 
-  // ✅ Filtering
+  // Filtering
   const filteredPets = pets.filter((pet) => {
     const matchesSearch = pet.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = filterCategory
@@ -133,7 +133,7 @@ const AdminPetManagement = () => {
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  // ✅ Pagination
+  // Pagination
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
   const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);

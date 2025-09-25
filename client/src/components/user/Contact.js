@@ -5,7 +5,6 @@ import Footer from '../layout/Footer';
 const Contact = () => {
   return (
     <main className='main-content'>
-      {/* Hero */}
       <section className='success-hero'>
         <div className='success-hero__img'>
           <img src='/contact.jpg' alt='Contact us' />

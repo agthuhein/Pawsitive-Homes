@@ -3,24 +3,6 @@ const Pet = require('../models/Pet');
 const Adoption = require('../models/Adoption');
 const Donation = require('../models/Donation');
 
-/*
-exports.getDashboard = async (req, res) => {
-  try {
-    const totalUsers = await User.countDocuments();
-    const totalPets = await Pet.countDocuments();
-    const totalAdoptions = await Adoption.countDocuments();
-
-    res.json({
-      totalUsers,
-      totalPets,
-      totalAdoptions,
-    });
-  } catch (err) {
-    console.error('Error fetching dashboard stats:', err);
-    res.status(500).json({ msg: 'Server error' });
-  }
-};
-*/
 // Adoption stats by month
 exports.getAdoptionTrends = async (req, res) => {
   try {
@@ -73,7 +55,6 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// ✅ PUT /api/admin/users/:id/role
 // Change user role
 exports.updateUserRole = async (req, res) => {
   try {

@@ -26,7 +26,6 @@ import ChangePassword from './components/auth/ChangePassword';
 
 import './App.css';
 
-// ✅ AppContent = main logic
 function AppContent() {
   const navigate = useNavigate();
 
@@ -105,7 +104,6 @@ function AppContent() {
   );
 }
 
-// ✅ Wrap AppContent with Router
 function App() {
   return (
     <Router>

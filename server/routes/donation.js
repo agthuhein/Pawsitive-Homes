@@ -3,7 +3,7 @@ const router = express.Router();
 const donationController = require('../controllers/donationController');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
-// Create PayPal order (requires login so we can use req.user.email)
+// Create PayPal order
 router.post(
   '/paypal/create-order',
   authMiddleware,

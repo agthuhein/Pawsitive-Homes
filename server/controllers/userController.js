@@ -128,7 +128,7 @@ exports.updateProfile = async (req, res) => {
 // Get current logged-in user profile
 exports.getMe = async (req, res) => {
   try {
-    console.log('🔎 req.user:', req.user);
+    console.log('req.user:', req.user);
 
     if (!req.user || !req.user.id) {
       return res.status(401).json({ msg: 'User not authenticated' });
@@ -141,7 +141,7 @@ exports.getMe = async (req, res) => {
 
     res.json(user);
   } catch (err) {
-    console.error('❌ getMe error:', err);
+    console.error('getMe error:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 };
@@ -184,7 +184,7 @@ exports.changePassword = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-    // ✅ Only update password field
+    // Only update password field
     await User.findByIdAndUpdate(userId, { password: hashedPassword });
 
     res.json({ msg: 'Password changed successfully' });

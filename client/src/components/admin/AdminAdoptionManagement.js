@@ -91,7 +91,7 @@ const AdminAdoptMgmt = () => {
     }
   };
 
-  // ✅ Filtering
+  // Filtering
   const filteredAdoptions = adoptions.filter((req) => {
     const matchesSearch =
       req.firstName?.toLowerCase().includes(search.toLowerCase()) ||
@@ -102,7 +102,7 @@ const AdminAdoptMgmt = () => {
     return matchesSearch && matchesStatus;
   });
 
-  // ✅ Pagination
+  // Pagination
   const indexOfLast = currentPage * perPage;
   const indexOfFirst = indexOfLast - perPage;
   const currentAdoptions = filteredAdoptions.slice(indexOfFirst, indexOfLast);

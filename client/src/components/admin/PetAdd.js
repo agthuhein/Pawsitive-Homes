@@ -27,7 +27,7 @@ const PetAdd = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    // Handle Age (pluralize if > 1)
+    // Handle Age
     const ageNumber = formData.get('ageNumber');
     let ageUnit = formData.get('ageUnit');
     if (parseInt(ageNumber, 10) > 1) ageUnit += 's';
@@ -35,7 +35,7 @@ const PetAdd = () => {
     formData.delete('ageUnit');
     formData.set('age', `${ageNumber} ${ageUnit}`);
 
-    // Handle Traits (multi-select)
+    // Handle Traits
     const selectedTraits = Array.from(e.target.traits.selectedOptions).map(
       (opt) => opt.value
     );
@@ -218,8 +218,6 @@ const PetAdd = () => {
               required
             />
           </div>
-
-          {/* Additional Images */}
           {/* Additional Images */}
           <div className='form-group'>
             <label htmlFor='additionalImages'>Additional Images (max 2)</label>

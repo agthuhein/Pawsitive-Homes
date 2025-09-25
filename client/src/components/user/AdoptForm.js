@@ -1,11 +1,10 @@
-// src/components/user/AdoptForm.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const AdoptForm = () => {
-  const { id } = useParams(); // ✅ petId from route
+  const { id } = useParams();
   const [pet, setPet] = useState(null);
   const navigate = useNavigate();
 

@@ -1,4 +1,3 @@
-// utils/mailer.js
 const nodemailer = require('nodemailer');
 
 console.log('🔑 MAIL DEBUG:', {
@@ -8,7 +7,7 @@ console.log('🔑 MAIL DEBUG:', {
 });
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // 👈 use service instead of host for Gmail
+  service: 'gmail',
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -18,9 +17,9 @@ const transporter = nodemailer.createTransport({
 async function verifyTransport() {
   try {
     await transporter.verify();
-    console.log('✅ Mail transport is ready');
+    console.log('Mail transport is ready');
   } catch (e) {
-    console.error('❌ Mail transport failed:', e.message);
+    console.error('Mail transport failed:', e.message);
   }
 }
 
@@ -28,7 +27,7 @@ async function sendMail({ to, subject, html, text }) {
   const from =
     process.env.MAIL_FROM || `"Pawsitive Home" <${process.env.SMTP_USER}>`;
   const info = await transporter.sendMail({ from, to, subject, html, text });
-  console.log('📧 Mail sent:', info.messageId);
+  console.log('Mail sent:', info.messageId);
   return info;
 }
 

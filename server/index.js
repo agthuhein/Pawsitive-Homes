@@ -24,7 +24,6 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// Normal JSON parser after webhook
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
@@ -40,12 +39,12 @@ verifyTransport();
 mongoose.connect(moongoUri);
 
 mongoose.connection.on('connected', () =>
-  console.log('✅ Connected to MongoDB...')
+  console.log('Connected to MongoDB...')
 );
 mongoose.connection.on('error', (err) =>
   console.log('Error connecting to MongoDB:', err)
 );
 
 app.listen(4000, () => {
-  console.log('🚀 App is running on PORT 4000');
+  console.log('App is running on PORT 4000');
 });

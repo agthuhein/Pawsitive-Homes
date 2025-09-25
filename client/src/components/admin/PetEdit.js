@@ -4,12 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const PetEdit = () => {
-  const { id } = useParams(); // get pet id from URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Age + Traits states
   const [ageNumber, setAgeNumber] = useState('');
   const [ageUnit, setAgeUnit] = useState('');
   const [selectedTraits, setSelectedTraits] = useState([]);
@@ -20,7 +19,6 @@ const PetEdit = () => {
         const res = await axios.get(`http://localhost:4000/api/pets/${id}`);
         setPet(res.data);
 
-        // Parse age like "2 years" -> number=2, unit=year
         const match = res.data.age.match(/(\d+)\s*(year|month)/i);
         if (match) {
           setAgeNumber(match[1]);
@@ -45,7 +43,7 @@ const PetEdit = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    // Age handling (pluralize if > 1)
+    // Age handling
     let ageValue = `${ageNumber} ${ageUnit}`;
     if (parseInt(ageNumber, 10) > 1) ageValue += 's';
     formData.set('age', ageValue);
@@ -277,7 +275,7 @@ const PetEdit = () => {
                     title: 'Too many images',
                     text: 'You can only upload up to 2 additional images.',
                   });
-                  e.target.value = ''; // reset input
+                  e.target.value = '';
                 }
               }}
             />

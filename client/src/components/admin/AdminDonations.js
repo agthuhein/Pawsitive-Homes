@@ -1,4 +1,3 @@
-// client/src/components/admin/AdminDonationMgmt.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -19,7 +18,7 @@ const AdminDonationMgmt = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // ✅ Assuming server returns { donations, total }
+        //Assuming server returns { donations, total }
         setDonations(res.data.donations || []);
         setTotalAmount(res.data.total || 0);
       } catch (err) {
@@ -29,10 +28,10 @@ const AdminDonationMgmt = () => {
       }
     };
 
-    fetchDonations(); // ✅ Call it!
+    fetchDonations();
   }, [token]);
 
-  // ✅ Search filter
+  // Search filter
   const filteredDonations = donations.filter((d) => {
     const donorName = d.user
       ? `${d.user.firstName || ''} ${d.user.lastName || ''}`.toLowerCase()
@@ -44,7 +43,7 @@ const AdminDonationMgmt = () => {
     );
   });
 
-  // ✅ Pagination
+  // Pagination
   const indexOfLast = currentPage * perPage;
   const indexOfFirst = indexOfLast - perPage;
   const currentDonations = filteredDonations.slice(indexOfFirst, indexOfLast);
@@ -73,7 +72,7 @@ const AdminDonationMgmt = () => {
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
-              setCurrentPage(1); // reset page on new search
+              setCurrentPage(1);
             }}
           />
         </div>
