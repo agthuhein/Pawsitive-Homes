@@ -72,20 +72,25 @@ Data is stored in **collections**, with references to maintain relationships.
 
 ## 📊 MongoDB Schema (Collection Relationship Diagram)
 
-```text
-   +--------+       +---------+        +-----------+
-   |  User  |------>|Adoption |<-------|   Pet     |
-   +--------+       +---------+        +-----------+
-       |                ^                  |
-       |                |                  v
-       |                |             +-----------+
-       |                |             | Category  |
-       |                |             +-----------+
-       v
-   +-----------+
-   | Donation  |
-   +-----------+
-```
++--------+ +-----------+
+| User |----------->| Adoption |
++--------+ +-----------+
+| ^
+| |
+v |
++-----------+ |
+| Donation | |
++-----------+ |
+|
+v
++-----------+
+| Pet |
++-----------+
+|
+v
++-----------+
+| Category |
++-----------+
 
 ---
 
