@@ -205,6 +205,11 @@ Once the application is running with `npm run dev`, you can log in using the fol
 - **Email:** `agthuhein.mm@gmail.com`
 - **Password:** `user1234`
 
+### PayPal Sandbox Account
+
+- **Email:** `agthuhein1991@gmail.com`
+- **Password:** `AungThuHein@1991`
+
 These pre-seeded accounts allow quick access to explore the system from both perspectives without creating new users manually.
 
 ## 📺 Demo & Resources
