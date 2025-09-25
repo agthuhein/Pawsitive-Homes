@@ -92,7 +92,7 @@ Data is stored in **collections**, with references to maintain relationships.
                           +-----------+
                           | Category  |
                           +-----------+
-
+```
 ---
 
 ## 🚀 Tech Stack
