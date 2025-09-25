@@ -184,6 +184,13 @@ FRONTEND_URL=http://localhost:3000
 REACT_APP_PAYPAL_CLIENT_ID=your_sandbox_client_id
 ```
 
+⚠️ **Note:** For security purposes, the actual values for sensitive credentials such as:
+
+- `SMTP_USER` / `SMTP_PASS` (Gmail App Password)
+- `PAYPAL_CLIENT_ID` / `PAYPAL_CLIENT_SECRET`
+
+are **not stored in this repository**. These values are provided separately in the submitted report.
+
 ---
 
 ## 🧑‍💻 Accounts Login
