@@ -72,7 +72,7 @@ Data is stored in **collections**, with references to maintain relationships.
 
 ## 📊 MongoDB Schema (Collection Relationship Diagram)
 
-````text
+```text
    +--------+            +-----------+
    |  User  |----------->| Adoption  |
    +--------+            +-----------+
@@ -92,8 +92,9 @@ Data is stored in **collections**, with references to maintain relationships.
                           +-----------+
                           | Category  |
                           +-----------+
+```
 
-
+---
 
 ## 🚀 Tech Stack
 
@@ -137,7 +138,7 @@ npm run seed
 
 # 5. Run the app (server + client concurrently)
 npm run dev
-````
+```
 
 App will run at:
 
@@ -186,11 +187,11 @@ REACT_APP_PAYPAL_CLIENT_ID=your_sandbox_client_id
 
 ## ✅ Future Improvements
 
-- Add Category management UI for Admin.
-- Support multiple payment methods (e.g., Stripe).
-- Expand to multiple cities/countries with Google Maps API integration.
-- Add “Favorite Pets” feature for users.
-- Mobile App version for Android/iOS.
+- Add Category management UI for Admin
+- Support multiple payment methods (e.g., Stripe)
+- Expand to multiple cities/countries with Google Maps API integration
+- Add “Favorite Pets” feature for users
+- Mobile App version for Android/iOS
 
 ---
 
