@@ -72,25 +72,26 @@ Data is stored in **collections**, with references to maintain relationships.
 
 ## 📊 MongoDB Schema (Collection Relationship Diagram)
 
-+--------+ +-----------+
-| User |----------->| Adoption |
-+--------+ +-----------+
-| ^
-| |
-v |
-+-----------+ |
-| Donation | |
-+-----------+ |
-|
-v
-+-----------+
-| Pet |
-+-----------+
-|
-v
-+-----------+
-| Category |
-+-----------+
+````text
+   +--------+            +-----------+
+   |  User  |----------->| Adoption  |
+   +--------+            +-----------+
+       |                       ^
+       |                       |
+       v                       |
+   +-----------+               |
+   | Donation  |               |
+   +-----------+               |
+                               |
+                               v
+                          +-----------+
+                          |   Pet     |
+                          +-----------+
+                               |
+                               v
+                          +-----------+
+                          | Category  |
+                          +-----------+
 
 ---
 
@@ -136,7 +137,7 @@ npm run seed
 
 # 5. Run the app (server + client concurrently)
 npm run dev
-```
+````
 
 App will run at:
 
