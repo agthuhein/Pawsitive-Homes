@@ -160,8 +160,6 @@ App will run at:
 ### server/.env
 
 ```env
-MONGODB_URI=mongodb://localhost:27017/Pawsitive-Home
-
 # Gmail SMTP
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=465
