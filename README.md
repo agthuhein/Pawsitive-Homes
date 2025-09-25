@@ -1,6 +1,4 @@
-# Let's generate the refined README.md file content and save it.
-
-readme_content = """# 🐾 Pawsitive Homes – Pet Adoption & Donation System
+# 🐾 Pawsitive Homes – Pet Adoption & Donation System
 
 This project is a **MERN stack (MongoDB, Express, React, Node.js)** application designed to connect users with pets in need of adoption and allow secure donations. The system includes role-based features for **users** and **administrators**, with PayPal donation integration and email notifications.
 
@@ -44,16 +42,17 @@ The system uses a hybrid database design:
 
 ### MongoDB Schema (Entity-style)
 
-```text
 User
-- _id (PK)
+
+- \_id (PK)
 - firstName, lastName, email (unique), phone, address
 - password (hashed, bcryptjs)
 - role (user/admin)
 - lastLogin, timestamps
 
 Pet
-- _id (PK)
+
+- \_id (PK)
 - name, age, breed, gender, color, description
 - image, additionalImages [ ]
 - traits [ ]
@@ -61,14 +60,16 @@ Pet
 - status (available, adopted, pending)
 
 Adoption
-- _id (PK)
+
+- \_id (PK)
 - pet_id (ref -> Pet)
 - user_id (ref -> User)
 - adoptionStatus (pending, approved, rejected)
 - message, timestamps
 
 Donation
-- _id (PK)
+
+- \_id (PK)
 - user_id (ref -> User)
 - email
 - amount, currency
@@ -77,6 +78,10 @@ Donation
 - timestamps
 
 Category
-- _id (PK)
+
+- \_id (PK)
 - name (Dog, Cat, Other)
+
+```
+
 ```
