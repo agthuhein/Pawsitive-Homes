@@ -9,11 +9,11 @@ This project is a **MERN stack (MongoDB, Express, React, Node.js)** application 
 - **User Management**
 
   - Register, log in, and manage profile
-  - Update password, view adoption requests, and donation history
+  - Update password, forgot password, view adoption requests, and donation history
 
 - **Pet Management**
 
-  - Browse pet gallery with filters (category, gender, status)
+  - Browse pet gallery with filters (category and gender)
   - View pet details and submit adoption requests
 
 - **Adoption Management**
@@ -35,49 +35,56 @@ This project is a **MERN stack (MongoDB, Express, React, Node.js)** application 
 
 ## 🗄️ Database Design
 
-The system uses a hybrid database design:
+The system uses **MongoDB** (via **Mongoose**) as its primary database.  
+Data is stored in **collections**, with references to maintain relationships.
 
-- **MongoDB (via Mongoose)**
-  - Users, Pets, Adoptions, Donations, Categories
+### Collections
 
-### MongoDB Schema (Entity-style)
+- **Users**
 
-```text
-User
-- _id (PK)
-- firstName, lastName, email (unique), phone, address
-- password (hashed, bcryptjs)
-- role (user/admin)
-- lastLogin, timestamps
+  - Stores authentication & profile details.
+  - Fields: `firstName`, `lastName`, `email`, `password (hashed)`, `role`, `resetPasswordToken`, `resetPasswordExpires`.
+  - Relationships: Linked to **Adoptions** and **Donations**.
 
-Pet
-- _id (PK)
-- name, age, breed, gender, color, description
-- image, additionalImages [ ]
-- traits [ ]
-- category_id (ref -> Category)
-- status (available, adopted, pending)
+- **Pets**
 
-Adoption
-- _id (PK)
-- pet_id (ref -> Pet)
-- user_id (ref -> User)
-- adoptionStatus (pending, approved, rejected)
-- message, timestamps
+  - Stores pet profiles available for adoption.
+  - Fields: `name`, `age`, `breed`, `gender`, `color`, `description`, `traits`, `image(s)`, `status`, `category (ref)`.
+  - Relationships: Linked to **Adoptions** and **Categories**.
 
-Donation
-- _id (PK)
-- user_id (ref -> User)
-- email
-- amount, currency
-- paypalOrderId
-- status (completed/failed)
-- timestamps
+- **Categories**
 
-Category
-- _id (PK)
-- name (Dog, Cat, Other)
-```
+  - Groups pets (e.g., Dog, Cat).
+  - Fields: `name`.
+  - Relationships: Linked to **Pets**.
+
+- **Adoptions**
+
+  - Tracks adoption requests.
+  - Fields: `user (ref)`, `pet (ref)`, `status`, `message`.
+  - Rules: One active request per pet (first-come, first-served).
+
+- **Donations**
+  - Tracks user donations.
+  - Fields: `user (ref)`, `email`, `amount`, `currency`, `paypalOrderId`, `status`.
+
+---
+
+## 📊 MongoDB Schema (Collection Relationship Diagram)
+
+````text
+   +--------+       +---------+        +-----------+
+   |  User  |------>|Adoption |<-------|   Pet     |
+   +--------+       +---------+        +-----------+
+       |                ^                  |
+       |                |                  v
+       |                |             +-----------+
+       |                |             | Category  |
+       |                |             +-----------+
+       v
+   +-----------+
+   | Donation  |
+   +-----------+
 
 ---
 
@@ -109,7 +116,7 @@ Category
    ```bash
    git clone https://github.com/agthuhein/Pawsitive-Homes.git
    cd Pawsitive-Homes
-   ```
+````
 
 2. **Configure environment variables**  
    Create a `.env` file inside `server/` with:
