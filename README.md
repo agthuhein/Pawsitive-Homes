@@ -127,13 +127,20 @@ cd Pawsitive-Homes
 # Create server/.env and client/.env (see .env.example below)
 
 # 3. Install dependencies
+
+# Backend
 cd server
 npm install
+
+# Frontend
 cd ../client
 npm install
-cd ..
 
-# 4. (Optional) Seed initial data
+# Root
+cd ..
+npm install
+
+# 4. Seed initial data
 npm run seed
 
 # 5. Run the app (server + client concurrently)
@@ -177,6 +184,22 @@ REACT_APP_PAYPAL_CLIENT_ID=your_sandbox_client_id
 ```
 
 ---
+
+## 🧑‍💻 Accounts Login
+
+Once the application is running with `npm run dev`, you can log in using the following default credentials to test both **Admin** and **User** features:
+
+### Admin Account
+
+- **Email:** `tyler@pawsitive-home.com`
+- **Password:** `admin1234`
+
+### User Account
+
+- **Email:** `agthuhein.mm@gmail.com`
+- **Password:** `user1234`
+
+These pre-seeded accounts allow quick access to explore the system from both perspectives without creating new users manually.
 
 ## 📺 Demo & Resources
 
