@@ -9,33 +9,6 @@ const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 const router = express.Router();
 
-/*
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    if (!fs.existsSync('public')) {
-      fs.mkdirSync('public');
-    }
-    if (!fs.existsSync('public/images')) {
-      fs.mkdirSync('public/images');
-    }
-    cb(null, 'public/images');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + file.originalname);
-  },
-});
-const upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-
-    if (ext !== '.png' && ext !== '.jpeg' && ext !== '.jpg') {
-      return cb(new Error('Only videos are allowed!'));
-    }
-    cb(null, true);
-  },
-});
-*/
 // Ensure directories exist at startup
 const uploadDir = path.join(__dirname, '../public/images');
 if (!fs.existsSync(uploadDir)) {
