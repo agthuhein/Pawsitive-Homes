@@ -169,14 +169,6 @@ Category
 
 ---
 
-## 🧪 Testing the API
-
-- Open **Postman**
-- Import the provided collection `PawsitiveHome_API.postman_collection.json`
-- Test endpoints for authentication, pets, adoption, donations, etc.
-
----
-
 ## 📸 Screenshots
 
 Screenshots of both **User Interface** and **Admin Interface** are available in the documentation/report.
