@@ -119,12 +119,12 @@ Data is stored in **collections**, with references to maintain relationships.
 ### Steps
 
 ```bash
-# 1. Clone repository
+# 1. Clone the repository
 git clone https://github.com/agthuhein/Pawsitive-Homes.git
 cd Pawsitive-Homes
 
 # 2. Configure environment
-# Create server/.env and client/.env (see .env.example below)
+# Create `server/.env` and `client/.env` (see examples below in this README)
 
 # 3. Install dependencies
 
@@ -136,15 +136,16 @@ npm install
 cd ../client
 npm install
 
-# Root
+# Root (orchestration scripts & dev tools)
 cd ..
 npm install
 
-# 4. Seed initial data
+# 4. Seed initial data (creates default admin/user accounts, categories, pets, etc.)
 npm run seed
 
-# 5. Run the app (server + client concurrently)
+# 5. Start the application (runs backend + frontend concurrently)
 npm run dev
+
 ```
 
 App will run at:
