@@ -72,7 +72,7 @@ Data is stored in **collections**, with references to maintain relationships.
 
 ## 📊 MongoDB Schema (Collection Relationship Diagram)
 
-````text
+```text
    +--------+       +---------+        +-----------+
    |  User  |------>|Adoption |<-------|   Pet     |
    +--------+       +---------+        +-----------+
@@ -85,117 +85,109 @@ Data is stored in **collections**, with references to maintain relationships.
    +-----------+
    | Donation  |
    +-----------+
-
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Tech Stack
 
 - **Frontend:** React, React Router, Redux Toolkit, Axios, SweetAlert2, Recharts
-- **Backend:** Node.js, Express.js, Mongoose
-- **Database:** MongoDB
-- **Authentication & Security:** JWT (jsonwebtoken), bcryptjs, role-based access control
-- **Payments:** PayPal REST API integration
-- **Emails:** Gmail SMTP with Nodemailer
-- **Build & Dev Tools:** npm, concurrently, nodemon
+- **Backend:** Node.js, Express, Mongoose, Multer, Nodemailer, Morgan
+- **Database:** MongoDB (Mongoose ODM)
+- **Authentication:** JWT (jsonwebtoken, bcryptjs, crypto)
+- **Payments:** PayPal Sandbox API
+- **Email:** Gmail SMTP (via Nodemailer)
 
 ---
 
-## ⚡ Setup & Installation
+## ⚙️ Setup & Installation
 
 ### Prerequisites
 
 - Node.js (v18+ recommended)
-- MongoDB (local instance at `mongodb://localhost:27017/Pawsitive-Home`)
-- PayPal Developer account (Sandbox keys)
-- Gmail account (App password for SMTP)
+- MongoDB (running locally or Atlas)
+- PayPal Sandbox account
+- Gmail account with App Password enabled
 
-### Steps to Run
+### Steps
 
-1. **Clone the repository**
+```bash
+# 1. Clone repository
+git clone https://github.com/agthuhein/Pawsitive-Homes.git
+cd Pawsitive-Homes
 
-   ```bash
-   git clone https://github.com/agthuhein/Pawsitive-Homes.git
-   cd Pawsitive-Homes
-````
+# 2. Configure environment
+# Create server/.env and client/.env (see .env.example below)
 
-2. **Configure environment variables**  
-   Create a `.env` file inside `server/` with:
+# 3. Install dependencies
+cd server
+npm install
+cd ../client
+npm install
+cd ..
 
-   ```env
-   MONGODB_URI=mongodb://localhost:27017/Pawsitive-Home
+# 4. (Optional) Seed initial data
+npm run seed
 
-   # Gmail SMTP
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=465
-   SMTP_SECURE=true
-   SMTP_USER=your_gmail_account@gmail.com
-   SMTP_PASS=your_app_password
-   MAIL_FROM="Pawsitive Home <your_gmail_account@gmail.com>"
+# 5. Run the app (server + client concurrently)
+npm run dev
+```
 
-   # PayPal Sandbox
-   PAYPAL_CLIENT_ID=your_sandbox_client_id
-   PAYPAL_CLIENT_SECRET=your_sandbox_secret
-   PAYPAL_MODE=sandbox
+App will run at:
 
-   FRONTEND_URL=http://localhost:3000
-   ```
-
-   In `client/.env`:
-
-   ```env
-   REACT_APP_PAYPAL_CLIENT_ID=your_sandbox_client_id
-   ```
-
-3. **Install backend dependencies**
-
-   ```bash
-   cd server
-   npm install
-   ```
-
-4. **Install frontend dependencies**
-
-   ```bash
-   cd ../client
-   npm install
-   ```
-
-5. **Seed the database (optional)**
-
-   ```bash
-   cd ..
-   npm run seed
-   ```
-
-6. **Run the application**
-   ```bash
-   npm run dev
-   ```
-   - Backend runs on `http://localhost:4000`
-   - Frontend runs on `http://localhost:3000`
+- Backend → `http://localhost:4000`
+- Frontend → `http://localhost:3000`
 
 ---
 
-## 📸 Screenshots
+## 🔑 Environment Variables
 
-Screenshots of both **User Interface** and **Admin Interface** are available in the documentation/report.
+### server/.env
+
+```env
+MONGODB_URI=mongodb://localhost:27017/Pawsitive-Home
+
+# Gmail SMTP
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+MAIL_FROM="Pawsitive Home <your_email@gmail.com>"
+
+# PayPal Sandbox
+PAYPAL_CLIENT_ID=your_sandbox_client_id
+PAYPAL_CLIENT_SECRET=your_sandbox_secret
+PAYPAL_MODE=sandbox
+
+FRONTEND_URL=http://localhost:3000
+```
+
+### client/.env
+
+```env
+REACT_APP_PAYPAL_CLIENT_ID=your_sandbox_client_id
+```
 
 ---
 
-## 🚀 Future Improvements
+## 📺 Demo & Resources
 
-- Admin UI for category management
-- Additional payment methods (Stripe, credit card, etc.)
-- Expansion to multiple cities/countries with Google Maps API integration
-- User’s “Favorite Pets” feature
-- Native mobile app (React Native or Flutter)
-- Notification system (SMS, push notifications)
+- **GitHub Repo:** [Pawsitive Homes](https://github.com/agthuhein/Pawsitive-Homes.git)
+- **Demo Video (OneDrive):** [Watch Here](https://1drv.ms/v/c/acea0ced7b310c13/EV8Po_ppNbpLpEQwVV9wtWQBsFzUSYfF1Z3ic-oJUZJawA?e=YLGlnB)
 
 ---
 
-## 📂 Repository & Demo
+## ✅ Future Improvements
 
-- **GitHub Repository:** [Pawsitive Homes](https://github.com/agthuhein/Pawsitive-Homes.git)
-- **Demo Video:** [OneDrive Link](https://1drv.ms/v/c/acea0ced7b310c13/EV8Po_ppNbpLpEQwVV9wtWQBsFzUSYfF1Z3ic-oJUZJawA?e=YLGlnB)
+- Add Category management UI for Admin.
+- Support multiple payment methods (e.g., Stripe).
+- Expand to multiple cities/countries with Google Maps API integration.
+- Add “Favorite Pets” feature for users.
+- Mobile App version for Android/iOS.
+
+---
+
+## 📌 License
+
+Developed by **Aung Thu Hein**.
